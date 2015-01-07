@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.8'
 
+gem 'unicorn'
+
 gem 'rails-api'
 gem 'roar-rails', '~> 1.0.0'
 gem 'interactor-rails', '~> 2.0'
