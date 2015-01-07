@@ -4,6 +4,9 @@ sudo: false
 rvm:
   - 2.2
   - 2.1
+before_script:
+  - cp config/database.yml_travis config/database.yml
+  - rake db:create db:migrate
 addons:
   code_climate:
     repo_token: 32995bcb5d96dea952d8685dc9b68216105366a85d9d1d8f1416caeb259394b9
