@@ -15,4 +15,4 @@ group :test do
   gem "codeclimate-test-reporter", require: false
 end
 
-gem 'sqlite3'
+gem 'pg'

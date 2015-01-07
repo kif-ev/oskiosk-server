@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20141231173606) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "cart_items", force: true do |t|
     t.integer  "quantity",   default: 0
     t.integer  "cart_id"
@@ -35,7 +38,7 @@ ActiveRecord::Schema.define(version: 20141231173606) do
     t.datetime "updated_at"
   end
 
-  add_index "identifiers", ["identifiable_id", "identifiable_type"], name: "index_identifiers_on_identifiable_id_and_identifiable_type"
+  add_index "identifiers", ["identifiable_id", "identifiable_type"], name: "index_identifiers_on_identifiable_id_and_identifiable_type", using: :btree
 
   create_table "pricings", force: true do |t|
     t.integer  "price",      default: 0
@@ -45,7 +48,7 @@ ActiveRecord::Schema.define(version: 20141231173606) do
     t.datetime "updated_at"
   end
 
-  add_index "pricings", ["product_id"], name: "index_pricings_on_product_id"
+  add_index "pricings", ["product_id"], name: "index_pricings_on_product_id", using: :btree
 
   create_table "products", force: true do |t|
     t.string   "name"
@@ -61,7 +64,7 @@ ActiveRecord::Schema.define(version: 20141231173606) do
     t.datetime "updated_at"
   end
 
-  add_index "transactions", ["user_id"], name: "index_transactions_on_user_id"
+  add_index "transactions", ["user_id"], name: "index_transactions_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
