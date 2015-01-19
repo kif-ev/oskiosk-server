@@ -11,6 +11,18 @@ When(/^the code "(.*?)" is scanned$/) do |code|
         cart_id: @cart_id
       })
       post(transactions_path(format: :json), new_transaction, {'CONTENT_TYPE' => 'application/json'})
+    when 'product'
+      p_id = object['pricings'][0]['id']
+      cart = JSON.parse(get(cart_path(id: @cart_id, format: :json), {'CONTENT_TYPE' => 'application/json'}).body)
+      cart_items = cart['cart_items']
+      ci_index = cart_items.index {|ci| ci['pricing_id'] == p_id.to_i}
+      if ci_index
+        cart_items[ci_index]['quantity'] += 1
+      else
+        cart_items << {pricing_id: p_id, quantity: 1}
+      end
+      cart_update = JSON.generate({cart_items: cart_items})
+      cart = patch(cart_path(id: @cart_id, format: :json), cart_update, {'CONTENT_TYPE' => 'application/json'})
     end
   else
     case object['type']
