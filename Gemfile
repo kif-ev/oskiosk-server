@@ -8,6 +8,14 @@ gem 'rails-api'
 gem 'roar-rails', '~> 1.0.0'
 gem 'interactor-rails', '~> 2.0'
 
+group :development do
+  gem 'growl'
+  gem 'guard'
+  gem 'guard-bundler'
+  gem 'guard-rspec'
+  gem 'guard-cucumber'
+end
+
 group :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.0'
