@@ -25,7 +25,7 @@ class CartsController < ApplicationController
     consume!(cart)
 
     if cart.save
-      head :no_content
+      render json: cart, status: :ok, location: cart
     else
       render json: cart.errors, status: :unprocessable_entity
     end

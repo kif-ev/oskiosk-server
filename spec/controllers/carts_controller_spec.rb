@@ -43,19 +43,20 @@ RSpec.describe CartsController, type: :controller do
       cart = Cart.find_by_id(1) || create(:cart, id: 1)
       cart.update_attribute(:user_id, 2)
     end
+    before {request.env['CONTENT_TYPE'] = 'application/json'}
 
-    describe 'with valid parameters', type: :request do
+    describe 'with valid parameters' do
       it 'updates the Cart 1' do
         cart = Cart.find_by_id(1)
         expect {
-          put(cart_path(id: 1, format: :json), JSON.generate(valid_attributes), {'CONTENT_TYPE' => 'application/json'})
+          put :update, JSON.generate(valid_attributes), id: '1'
           cart.reload
         }.to change(cart, :user_id).from(2).to(1)
       end
 
       describe 'the request' do
-        before {put(cart_path(id: 1, format: :json), JSON.generate(valid_attributes), {'CONTENT_TYPE' => 'application/json'})}
-        its(:content_type) {is_expected.to eq nil}
+        before {put :update, JSON.generate(valid_attributes), id: '1'}
+        its(:content_type) {is_expected.to eq 'application/json'}
         it {is_expected.to have_http_status(:success)}
       end
     end
