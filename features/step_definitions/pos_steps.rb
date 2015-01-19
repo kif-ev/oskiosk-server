@@ -6,14 +6,14 @@ When(/^the code "(.*?)" is scanned$/) do |code|
       cart_update = JSON.generate({
         user_id: object['id']
       })
-      cart = put(cart_path(id: @cart_id, format: :json), cart_update, {'CONTENT_TYPE' => 'application/json'})
+      cart = put(cart_path(id: @cart_id, format: :json), cart_update)
       new_transaction = JSON.generate({
         cart_id: @cart_id
       })
-      post(transactions_path(format: :json), new_transaction, {'CONTENT_TYPE' => 'application/json'})
+      post(transactions_path(format: :json), new_transaction)
     when 'product'
       p_id = object['pricings'][0]['id']
-      cart = JSON.parse(get(cart_path(id: @cart_id, format: :json), {'CONTENT_TYPE' => 'application/json'}).body)
+      cart = JSON.parse(get(cart_path(id: @cart_id, format: :json)).body)
       cart_items = cart['cart_items']
       ci_index = cart_items.index {|ci| ci['pricing_id'] == p_id.to_i}
       if ci_index
@@ -22,7 +22,7 @@ When(/^the code "(.*?)" is scanned$/) do |code|
         cart_items << {pricing_id: p_id, quantity: 1}
       end
       cart_update = JSON.generate({cart_items: cart_items})
-      cart = patch(cart_path(id: @cart_id, format: :json), cart_update, {'CONTENT_TYPE' => 'application/json'})
+      cart = patch(cart_path(id: @cart_id, format: :json), cart_update)
     end
   else
     case object['type']
@@ -32,7 +32,7 @@ When(/^the code "(.*?)" is scanned$/) do |code|
           {quantity: 1, pricing_id: object['pricings'][0]['id']}
         ]
       })
-      cart = JSON.parse(post(carts_path(format: :json), new_cart, {"CONTENT_TYPE" => "application/json"}).body)
+      cart = JSON.parse(post(carts_path(format: :json), new_cart).body)
       @cart_id = cart['id']
     end
   end
@@ -41,5 +41,6 @@ end
 When(/^the POS is setup as anonymous$/) do
   @bearer_token = create(:oauth_token).token
   header 'Authorization', "Bearer #{@bearer_token}"
+  header 'Content-Type', 'application/json'
   @cart_id = nil
 end
