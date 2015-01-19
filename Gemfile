@@ -1,10 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.8'
+gem 'rails', '4.2.0'
 
 gem 'unicorn'
 
 gem 'rails-api'
+# Needed until (released) roar-rails requires it itself
+# see https://github.com/apotonick/roar-rails/issues/87
+gem 'responders', '~> 2.0.0'
 gem 'roar-rails', '~> 1.0.0'
 gem 'interactor-rails', '~> 2.0'
 
