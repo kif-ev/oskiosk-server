@@ -4,5 +4,5 @@ end
 
 Then(/^there should be only (\d+) "(.*?)" left$/) do |quantity, name|
   p = Product.find_by_name(name)
-  expect(p.quantity).to eq(9)
+  expect(p.quantity).to eq(quantity.to_i)
 end
