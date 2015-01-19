@@ -4,6 +4,8 @@ module ProductRepresenter
   property :type, getter: ->(a) {'product'}
   property :id
   property :name
+  property :quantity
+  property :available_quantity
 
   collection :pricings do
     property :id

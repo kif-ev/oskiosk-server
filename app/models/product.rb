@@ -5,4 +5,8 @@ class Product < ActiveRecord::Base
   def quantity
     pricings.sum :quantity
   end
+
+  def available_quantity
+    pricings.to_a.sum &:available_quantity
+  end
 end
