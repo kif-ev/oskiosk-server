@@ -8,6 +8,7 @@ module ProductRepresenter
   collection :pricings do
     property :id
     property :quantity
+    property :available_quantity
     property :price
   end
 
