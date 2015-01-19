@@ -39,5 +39,7 @@ When(/^the code "(.*?)" is scanned$/) do |code|
 end
 
 When(/^the POS is setup as anonymous$/) do
+  @bearer_token = create(:oauth_token).token
+  header 'Authorization', "Bearer #{@bearer_token}"
   @cart_id = nil
 end

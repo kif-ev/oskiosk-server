@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe CartsController, type: :controller do
   subject {response}
 
+  let(:token) {double acceptable?: true}
+  before {allow(controller).to receive(:doorkeeper_token) {token}}
+
   let(:valid_attributes) {
     {user_id: 1}
   }

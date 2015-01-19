@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe IdentifiersController, type: :controller do
   subject {response}
 
+  let(:token) {double acceptable?: true}
+  before {allow(controller).to receive(:doorkeeper_token) {token}}
+
   describe '#show' do
     context 'when the resource is a user' do
       before {get :show, id: 'U1'}

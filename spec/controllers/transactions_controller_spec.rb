@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe TransactionsController, type: :controller do
   subject {response}
 
+  let(:token) {double acceptable?: true}
+  before {allow(controller).to receive(:doorkeeper_token) {token}}
+
   describe '#create' do
     before do
       expect(PayCart).to receive(:call).once.with(cart_id: '1')

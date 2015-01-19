@@ -11,6 +11,8 @@ gem 'responders', '~> 2.0.0'
 gem 'roar-rails', '~> 1.0.0'
 gem 'interactor-rails', '~> 2.0'
 
+gem 'doorkeeper'
+
 group :development do
   gem 'growl'
   gem 'guard'

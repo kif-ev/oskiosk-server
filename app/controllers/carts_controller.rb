@@ -2,6 +2,8 @@ class CartsController < ApplicationController
   include Roar::Rails::ControllerAdditions
   include Roar::Rails::ControllerAdditions::Render
 
+  before_action :doorkeeper_authorize!
+
   def show
     cart = Cart.find(params[:id])
     render json: cart

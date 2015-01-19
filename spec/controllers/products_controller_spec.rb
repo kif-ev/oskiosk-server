@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe ProductsController, type: :controller do
   subject {response}
 
+  let(:token) {double acceptable?: true}
+  before {allow(controller).to receive(:doorkeeper_token) {token}}
+
   describe '#show' do
     before {get :show, id: '1'}
 
