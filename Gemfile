@@ -17,6 +17,8 @@ gem 'swagger-docs'
 
 gem 'rack-cors'
 
+gem 'skylight'
+
 group :development do
   gem 'growl'
   gem 'guard'
