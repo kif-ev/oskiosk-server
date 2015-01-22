@@ -19,6 +19,8 @@ gem 'rack-cors'
 
 gem 'skylight'
 
+gem 'bugsnag'
+
 group :development do
   gem 'growl'
   gem 'guard'
