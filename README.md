@@ -2,3 +2,5 @@
 [![Code Climate](https://img.shields.io/codeclimate/github/thegcat/oskiosk.svg?style=flat)](https://codeclimate.com/github/thegcat/oskiosk)
 [![Test Coverage](https://img.shields.io/codeclimate/coverage/github/thegcat/oskiosk.svg?style=flat)](https://codeclimate.com/github/thegcat/oskiosk)
 [![Dependency Status](https://img.shields.io/gemnasium/thegcat/oskiosk.svg?style=flat)](https://gemnasium.com/thegcat/oskiosk)
+
+[Live API Docs](http://thegcat.github.io/oskiosk/)
