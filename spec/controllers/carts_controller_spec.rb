@@ -33,7 +33,7 @@ RSpec.describe CartsController, type: :controller do
       describe 'the request' do
         before {post :create, JSON.generate(valid_attributes)}
         its(:content_type) {is_expected.to eq 'application/json'}
-        it {is_expected.to have_http_status(:ok)}
+        it {is_expected.to have_http_status(:created)}
       end
     end
   end
