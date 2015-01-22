@@ -15,6 +15,8 @@ gem 'doorkeeper'
 
 gem 'swagger-docs'
 
+gem 'rack-cors'
+
 group :development do
   gem 'growl'
   gem 'guard'
