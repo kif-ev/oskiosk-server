@@ -13,6 +13,8 @@ gem 'interactor-rails', '~> 2.0'
 
 gem 'doorkeeper'
 
+gem 'swagger-docs'
+
 group :development do
   gem 'growl'
   gem 'guard'

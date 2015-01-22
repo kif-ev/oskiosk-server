@@ -13,3 +13,6 @@
 
 # Ignore local database config
 config/database.yml
+
+# Ignore swagger artefacts
+/public/docs
