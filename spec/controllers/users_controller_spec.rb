@@ -7,10 +7,11 @@ RSpec.describe UsersController, type: :controller do
   before {allow(controller).to receive(:doorkeeper_token) {token}}
 
   describe '#show' do
-    before {get :show, id: '1'}
+    before {User.find_by_id(1) || create(:user, id: 1)}
+    before {get :show, id: user_id}
 
     context 'when the resource exists' do
-      before(:all) {User.find_by_id(1) || create(:user, id: 1)}
+      let(:user_id) {'1'}
       its(:content_type) {is_expected.to eq 'application/json'}
       it {is_expected.to have_http_status(:ok)}
     end

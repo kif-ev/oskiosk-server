@@ -7,10 +7,11 @@ RSpec.describe ProductsController, type: :controller do
   before {allow(controller).to receive(:doorkeeper_token) {token}}
 
   describe '#show' do
-    before {get :show, id: '1'}
+    before {Product.find_by_id(1) || create(:product, id: 1)}
+    before {get :show, id: product_id}
 
     context 'when the resource exists' do
-      before(:all) {Product.find_by_id(1) || create(:product, id: 1)}
+      let(:product_id) {'1'}
       its(:content_type) {is_expected.to eq 'application/json'}
       it {is_expected.to have_http_status(:ok)}
     end
@@ -20,13 +21,12 @@ RSpec.describe ProductsController, type: :controller do
     before {get :index}
 
     context 'when there are products' do
-      before(:all) {(1..3).each {|y| Product.find_by_id(y) || create(:product, id: y)}}
+      before {(1..3).each {|y| Product.find_by_id(y) || create(:product, id: y)}}
       its(:content_type) {is_expected.to eq 'application/json'}
       it {is_expected.to have_http_status(:ok)}
     end
 
     context 'when there are no products' do
-      before(:all) {Product.destroy_all}
       its(:content_type) {is_expected.to eq 'application/json'}
       it {is_expected.to have_http_status(:ok)}
     end
