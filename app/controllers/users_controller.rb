@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 
   swagger_api :show do
     summary 'Fetch the user'
+    param :path, :id, :integer, :required, 'The user ID'
     response :not_found
   end
 
