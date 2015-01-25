@@ -16,6 +16,7 @@ RSpec.describe CartsController, type: :controller do
 
     context 'when the resource exists' do
       let(:cart_id) {'1'}
+
       its(:content_type) {is_expected.to eq 'application/json'}
       it {is_expected.to have_http_status(:ok)}
     end
@@ -33,6 +34,7 @@ RSpec.describe CartsController, type: :controller do
 
       describe 'the request' do
         before {post :create, JSON.generate(valid_attributes)}
+
         its(:content_type) {is_expected.to eq 'application/json'}
         it {is_expected.to have_http_status(:created)}
       end
@@ -57,6 +59,7 @@ RSpec.describe CartsController, type: :controller do
 
       describe 'the request' do
         before {put :update, JSON.generate(valid_attributes), id: '1'}
+
         its(:content_type) {is_expected.to eq 'application/json'}
         it {is_expected.to have_http_status(:success)}
       end

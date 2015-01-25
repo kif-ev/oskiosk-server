@@ -12,6 +12,7 @@ RSpec.describe ProductsController, type: :controller do
 
     context 'when the resource exists' do
       let(:product_id) {'1'}
+
       its(:content_type) {is_expected.to eq 'application/json'}
       it {is_expected.to have_http_status(:ok)}
     end
@@ -22,6 +23,7 @@ RSpec.describe ProductsController, type: :controller do
 
     context 'when there are products' do
       before {(1..3).each {|y| Product.find_by_id(y) || create(:product, id: y)}}
+
       its(:content_type) {is_expected.to eq 'application/json'}
       it {is_expected.to have_http_status(:ok)}
     end
