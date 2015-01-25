@@ -9,8 +9,8 @@ class ProductsController < ApplicationController
     notes <<-EON
       The prices are defined in the 'pricings' list, each 'pricing' holds the
       price and quantity available at that price
-   EON
-   param :path, :id, :integer, :required, 'The product ID'
+    EON
+    param :path, :id, :integer, :required, 'The product ID'
     response :not_found
   end
 
