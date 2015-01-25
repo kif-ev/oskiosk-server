@@ -16,5 +16,11 @@ RSpec.describe UsersController, type: :controller do
       its(:content_type) {is_expected.to eq 'application/json'}
       it {is_expected.to have_http_status(:ok)}
     end
+
+    context 'when the resource doesn\'t exist' do
+      let(:user_id) {'2'}
+
+      it {is_expected.to have_http_status(:not_found)}
+    end
   end
 end

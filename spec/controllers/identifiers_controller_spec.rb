@@ -33,5 +33,11 @@ RSpec.describe IdentifiersController, type: :controller do
         end
       end
     end
+
+    context 'when the resource doesn\'t exist' do
+      let(:code) {'K2000'}
+
+      it {is_expected.to have_http_status(:not_found)}
+    end
   end
 end

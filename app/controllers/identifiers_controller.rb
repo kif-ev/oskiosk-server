@@ -11,12 +11,18 @@ class IdentifiersController < ApplicationController
       The 'type' attribute can be used to determine what is returned.
     EON
     param :path, :id, :string, :required, "The Barcode value"
+    response :not_found
   end
 
   before_action :doorkeeper_authorize!
 
   def show
-    identifiable = Identifier.find_by_code(params[:id]).identifiable
-    render json: identifiable
+    identifiable = Identifier.find_by_code(params[:id]).try(:identifiable)
+
+    if identifiable.present?
+      render json: identifiable
+    else
+      render_not_found
+    end
   end
 end

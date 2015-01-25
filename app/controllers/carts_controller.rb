@@ -12,6 +12,7 @@ class CartsController < ApplicationController
       to a 'pricing' and a 'quantity' of products reserved at that price.
     EON
     param :path, :id, :integer, :required, 'The cart ID'
+    response :not_found
   end
 
   swagger_api :create do
@@ -35,8 +36,13 @@ class CartsController < ApplicationController
   before_action :doorkeeper_authorize!
 
   def show
-    cart = Cart.find(params[:id])
-    render json: cart
+    cart = Cart.find_by_id(params[:id])
+
+    if cart.present?
+      render json: cart
+    else
+      render_not_found
+    end
   end
 
   def create

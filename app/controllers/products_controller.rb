@@ -11,6 +11,7 @@ class ProductsController < ApplicationController
       price and quantity available at that price
    EON
    param :path, :id, :integer, :required, 'The product ID'
+    response :not_found
   end
 
   swagger_api :index do
@@ -20,8 +21,13 @@ class ProductsController < ApplicationController
   before_action :doorkeeper_authorize!
 
   def show
-    product = Product.find(params[:id])
-    render json: product
+    product = Product.find_by_id(params[:id])
+
+    if product.present?
+      render json: product
+    else
+      render_not_found
+    end
   end
 
   def index

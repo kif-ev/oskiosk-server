@@ -6,12 +6,18 @@ class UsersController < ApplicationController
 
   swagger_api :show do
     summary 'Fetch the user'
+    response :not_found
   end
 
   before_action :doorkeeper_authorize!
 
   def show
     user = User.find_by_id(params[:id])
-    render json: user
+
+    if user.present?
+      render json: user
+    else
+      render_not_found
+    end
   end
 end

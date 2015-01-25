@@ -20,6 +20,12 @@ RSpec.describe CartsController, type: :controller do
       its(:content_type) {is_expected.to eq 'application/json'}
       it {is_expected.to have_http_status(:ok)}
     end
+
+    context 'when the resource doesn\'t exist' do
+      let(:cart_id) {'2'}
+
+      it {is_expected.to have_http_status(:not_found)}
+    end
   end
 
   describe '#create via JSON' do
