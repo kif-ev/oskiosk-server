@@ -1,4 +1,24 @@
 require 'codeclimate-test-reporter'
+
+# do some magic to report skipped lines as not needing coverage
+# this will probably horribly break at some point in the future, soooo…
+module SimpleCov
+  class SourceFile
+    alias_method :lines_without_skipped_dont_need_coverage, :lines
+
+    def lines_with_skipped_dont_need_coverage
+      return @lines_with_skipped_dont_need_coverage if defined? @lines_with_skipped_dont_need_coverage
+      @lines_with_skipped_dont_need_coverage = lines_without_skipped_dont_need_coverage
+      @lines_with_skipped_dont_need_coverage.each_with_index do |l,i|
+        coverage[i] = nil if l.skipped?
+      end
+      @lines_with_skipped_dont_need_coverage
+    end
+
+    alias_method :lines, :lines_with_skipped_dont_need_coverage
+  end
+end
+
 CodeClimate::TestReporter.start
 
 require 'factory_girl'
