@@ -2,6 +2,7 @@ class CartsController < ApplicationController
   include Roar::Rails::ControllerAdditions
   include Roar::Rails::ControllerAdditions::Render
 
+  # :nocov:
   swagger_controller :carts, 'Create and update carts'
 
   swagger_api :show do
@@ -32,6 +33,7 @@ class CartsController < ApplicationController
     param :path, :id, :integer, :required, 'The cart ID'
     param :body, :cart, :string, :required, 'JSON representation of a cart'
   end
+  # :nocov:
 
   before_action :doorkeeper_authorize!
 

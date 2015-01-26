@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   include Roar::Rails::ControllerAdditions
   include Roar::Rails::ControllerAdditions::Render
 
+  # :nocov:
   swagger_controller :users, 'Manager users'
 
   swagger_api :show do
@@ -9,6 +10,7 @@ class UsersController < ApplicationController
     param :path, :id, :integer, :required, 'The user ID'
     response :not_found
   end
+  # :nocov:
 
   before_action :doorkeeper_authorize!
 

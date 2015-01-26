@@ -2,6 +2,7 @@ class TransactionsController < ApplicationController
   include Roar::Rails::ControllerAdditions
   include Roar::Rails::ControllerAdditions::Render
 
+  # :nocov:
   swagger_controller :transactions, 'Create transactions'
 
   swagger_api :create do
@@ -13,6 +14,7 @@ class TransactionsController < ApplicationController
     EON
     param :body, :transaction, :string, :required, 'JSON containing the `cart_id`'
   end
+  # :nocov:
 
   before_action :doorkeeper_authorize!
 

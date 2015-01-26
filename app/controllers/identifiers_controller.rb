@@ -2,6 +2,7 @@ class IdentifiersController < ApplicationController
   include Roar::Rails::ControllerAdditions
   include Roar::Rails::ControllerAdditions::Render
 
+  # :nocov:
   swagger_controller :identifiers, 'Manage barcodes (identifiers)'
 
   swagger_api :show do
@@ -13,6 +14,7 @@ class IdentifiersController < ApplicationController
     param :path, :id, :string, :required, "The Barcode value"
     response :not_found
   end
+  # :nocov:
 
   before_action :doorkeeper_authorize!
 

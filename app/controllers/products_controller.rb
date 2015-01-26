@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   include Roar::Rails::ControllerAdditions
   include Roar::Rails::ControllerAdditions::Render
 
+  # :nocov:
   swagger_controller :products, 'Manage products and their prices'
 
   swagger_api :show do
@@ -17,6 +18,7 @@ class ProductsController < ApplicationController
   swagger_api :index do
     summary 'Show all products'
   end
+  # :nocov:
 
   before_action :doorkeeper_authorize!
 
