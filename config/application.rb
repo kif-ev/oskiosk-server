@@ -19,7 +19,7 @@ module Oskiosk
       ::ActionDispatch::ParamsParser,
       {
         Mime::JSON => Proc.new {|data|
-          JSON.parse(data).with_indiferrent_access
+          JSON.parse(data).with_indifferent_access
         }
       }
   end
