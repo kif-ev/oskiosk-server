@@ -14,5 +14,13 @@ module Oskiosk
     config.generators do |g|
       g.test_framework :rspec
     end
+
+    config.middleware.swap ::ActionDispatch::ParamsParser,
+      ::ActionDispatch::ParamsParser,
+      {
+        Mime::JSON => Proc.new {|data|
+          JSON.parse(data).with_indiferrent_access
+        }
+      }
   end
 end
