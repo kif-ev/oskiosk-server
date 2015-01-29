@@ -1,10 +1,12 @@
 module CartRepresenter
   include Roar::JSON::HAL
 
-  property :id
+  property :type, getter: ->(a) {'cart'}, writeable: false
+  property :id, writeable: false
   property :user_id
 
   collection :cart_items, class: CartItem do
+    property :type, getter: ->(a) {'cart_item'}, writeable: false
     property :pricing_id
     property :quantity
     property :product_name, writeable: false
