@@ -4,5 +4,8 @@ AllCops:
 Style/SpaceInsideBlockBraces:
   EnforcedStyle: no_space
 
-StringLiterals:
+Style/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
+Style/StringLiterals:
   EnforcedStyle: single_quotes
