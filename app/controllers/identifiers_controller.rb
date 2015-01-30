@@ -6,12 +6,14 @@ class IdentifiersController < ApplicationController
   swagger_controller :identifiers, 'Manage barcodes (identifiers)'
 
   swagger_api :show do
-    summary 'Fetch the object associated with this barcode'
+    summary 'Fetch a User or Product associated with this Barcode'
     notes <<-EON
-      This will return a user or a product depending on the scanned barcode.
-      The 'type' attribute can be used to determine what is returned.
+      This will return a User or a Product depending on the scanned Barcode.
+      The `type` attribute can be used to determine what is returned.
     EON
-    param :path, :id, :string, :required, "The Barcode value"
+    param :path, :id, :string, :required, 'The Barcode value'
+    response :ok, 'Success', :readProduct
+    response :ok, 'Success', :readUser
     response :not_found
   end
   # :nocov:

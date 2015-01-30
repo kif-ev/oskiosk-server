@@ -1,9 +1,9 @@
 class Swagger::Docs::Config
   def self.transform_path(path, api_version)
     # Make a distinction between the APIs and API documentation paths.
-      "docs/#{path}"
-    end
+    "docs/#{path}"
   end
+end
 
 Swagger::Docs::Config.base_api_controller = ActionController::API
 

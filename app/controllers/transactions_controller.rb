@@ -6,13 +6,19 @@ class TransactionsController < ApplicationController
   swagger_controller :transactions, 'Create transactions'
 
   swagger_api :create do
-    summary 'Process a transaction'
+    summary 'Process a Transaction'
     notes <<-EON
       Create a transaction from a cart.
       The products in the corresponding cart will be removed and the
       value deduced from the user's balance
     EON
-    param :body, :transaction, :string, :required, 'JSON containing the `cart_id`'
+    param :body, :transaction, :writeTransaction, :required, 'Transaction'
+    response :ok, 'Success'
+    response :bad_request
+  end
+
+  swagger_model :writeTransaction do
+    property :cart_id, :integer, :required, 'Cart ID'
   end
   # :nocov:
 

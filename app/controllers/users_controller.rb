@@ -6,9 +6,15 @@ class UsersController < ApplicationController
   swagger_controller :users, 'Manager users'
 
   swagger_api :show do
-    summary 'Fetch the user'
-    param :path, :id, :integer, :required, 'The user ID'
+    summary 'Fetch a User'
+    param :path, :id, :integer, :required, 'User ID'
+    response :ok, 'Success', :readUser
     response :not_found
+  end
+
+  swagger_model :readUser do
+    property :id, :integer, :optional, 'User ID'
+    property :name, :string, :optional, 'User Name'
   end
   # :nocov:
 
