@@ -38,5 +38,14 @@ RSpec.describe PayCart do
     it 'debits the user correctly' do
       expect {interactor.call}.to change(user, :balance).from(1000).to(700)
     end
+
+    it 'deletes the cart' do
+      expect(cart).to receive(:destroy)
+      interactor.call
+    end
+
+    it 'creates a transaction' do
+      expect {interactor.call}.to change(Transaction, :count).by(1)
+    end
   end
 end
