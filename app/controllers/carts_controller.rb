@@ -86,7 +86,7 @@ class CartsController < ApplicationController
     if cart.save
       render json: cart, status: :created, location: cart
     else
-      render json: cart.errors, status: :unprocessable_entity
+      render json: cart, status: :conflict, location: cart
     end
   end
 
@@ -97,7 +97,7 @@ class CartsController < ApplicationController
     if cart.save
       render json: cart, status: :ok, location: cart
     else
-      render json: cart.errors, status: :unprocessable_entity
+      render json: cart, status: :conflict, location: cart
     end
   end
 end
