@@ -41,7 +41,7 @@ RSpec.describe CartItem, type: :model do
     end
 
     context 'when there is a product' do
-      let(:product) {create(:product, name: 'Turbriskafil')}
+      let(:product) {create(:product, name: 'Turbriskafil', quantity: 10)}
       let(:pricing) {product.pricings.first}
 
       it {is_expected.to eq 'Turbriskafil'}

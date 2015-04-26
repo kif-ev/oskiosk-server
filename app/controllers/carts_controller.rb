@@ -94,7 +94,9 @@ class CartsController < ApplicationController
     cart = Cart.find(params[:id])
     consume!(cart)
 
-    if cart.save
+    errors = ([cart] + cart.cart_items).map(&:errors)
+
+    if cart.save && !errors.detect(&:present?)
       render json: cart, status: :ok, location: cart
     else
       render json: cart, status: :conflict, location: cart

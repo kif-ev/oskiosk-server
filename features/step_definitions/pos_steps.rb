@@ -23,6 +23,7 @@ When(/^the code "(.*?)" is scanned$/) do |code|
       end
       cart_update = JSON.generate({cart_items: cart_items})
       cart = patch(cart_path(id: @cart_id, format: :json), cart_update)
+      @errors << cart.status unless cart.successful?
     end
   else
     case object['type']
@@ -38,9 +39,22 @@ When(/^the code "(.*?)" is scanned$/) do |code|
   end
 end
 
+Given(/^there is a POS$/) do
+  @bearer_token = create(:oauth_token).token
+  header 'Authorization', "Bearer #{@bearer_token}"
+  header 'Content-Type', 'application/json'
+  @cart_id = nil
+  @errors = []
+end
+
 When(/^the POS is setup as anonymous$/) do
   @bearer_token = create(:oauth_token).token
   header 'Authorization', "Bearer #{@bearer_token}"
   header 'Content-Type', 'application/json'
   @cart_id = nil
+  @errors = []
+end
+
+Then(/^there should be an error$/) do
+  expect(@errors).not_to be_empty
 end
