@@ -21,6 +21,7 @@ class CartsController < ApplicationController
     summary 'Create a new cart'
     param :body, :cart, :writeCart, :required, 'Cart'
     response :ok, 'Success', :readCart
+    response :conflict, 'Conflict', :readCart
     response :bad_request
   end
 
@@ -30,13 +31,19 @@ class CartsController < ApplicationController
       The API supports partial updates, i.e. if you do not want to update the
       attribute `user_id`, you can leave it out from your JSON and it will not
       be reset on the server.
-      The `cart_items` doesn't support partial updates yet though and must be
-      given in full for each update of `cart_items`.
+      Partial updates are also supported for `cart_items`, i.e. you can pass
+      only the `cart_items` that have changed. If there are more than one
+      `cart_item` with the same `pricing_id`, the last one in the list "wins".
+      If a `cart_item` references more than the number of reservable items,
+      the `cart_item.quantity` is corrected down accordingly, the HTTP
+      response is returned with an error, and the corrected cart is returned.
+      There is currently no error message to be able to identify where the
+      problem occured.
     EON
     param :path, :id, :integer, :required, 'Cart ID'
     param :body, :cart, :writeCart, :required, 'Cart'
     response :ok, 'Success', :readCart
-    response :bad_request
+    response :conflict, 'Conflict', :readCart
     response :not_found
   end
 
