@@ -2,8 +2,7 @@ language: ruby
 cache: bundler
 sudo: false
 rvm:
-  - 2.2
-  - 2.1
+  - 2.2.2
 before_script:
   - cp config/database.yml_travis config/database.yml
   - bundle exec rake db:create
