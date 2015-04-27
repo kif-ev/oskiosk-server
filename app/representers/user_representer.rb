@@ -6,6 +6,6 @@ module UserRepresenter
   property :name
 
   link :self do
-    user_path(self)
+    url_for self
   end
 end

@@ -19,6 +19,9 @@ module CartRepresenter
   )
 
   link :self do
-    cart_path(self)
+    url_for self
+  end
+  link :customer do
+    url_for user if user.present?
   end
 end

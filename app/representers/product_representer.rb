@@ -16,6 +16,6 @@ module ProductRepresenter
   end
 
   link :self do
-    product_path(self)
+    url_for self
   end
 end
