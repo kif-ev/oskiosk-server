@@ -15,6 +15,7 @@ class UsersController < ApplicationController
   swagger_model :readUser do
     property :id, :integer, :optional, 'User ID'
     property :name, :string, :optional, 'User Name'
+    property :balance, :integer, :optional, 'User\'s balance in € cent'
   end
   # :nocov:
 

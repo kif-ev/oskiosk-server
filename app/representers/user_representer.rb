@@ -4,6 +4,7 @@ module UserRepresenter
   property :type, getter: ->(_) {'user'}, writeable: false
   property :id, writeable: false
   property :name
+  property :balance, writeable: false
 
   link :self do
     url_for self
