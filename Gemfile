@@ -8,6 +8,7 @@ gem 'unicorn'
 
 gem 'rails-api'
 gem 'roar-rails', '~> 1.0.1'
+gem 'virtus'
 gem 'interactor-rails', '~> 2.0'
 
 gem 'doorkeeper'

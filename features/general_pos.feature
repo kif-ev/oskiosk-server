@@ -7,3 +7,9 @@ Feature: General POS
     And the code "123" is scanned
     And the code "123" is scanned
     Then there should be an error
+
+  Scenario: Deposit money to a user's account
+    Given there is a POS
+    And there is a user "Howard" with the code "007"
+    When the user "Howard" makes a "10,00"€ deposit
+    Then the account of user "Howard" should be credited with "10,00"€
