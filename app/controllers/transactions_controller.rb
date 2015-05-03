@@ -14,7 +14,8 @@ class TransactionsController < ApplicationController
     EON
     param :body, :transaction, :writeTransaction, :required, 'Transaction'
     response :ok, 'Success'
-    response :bad_request
+    response :not_found, 'No cart with that ID'
+    response :internal_server_error, 'Something went very wrong'
   end
 
   swagger_model :writeTransaction do
@@ -26,6 +27,15 @@ class TransactionsController < ApplicationController
 
   def create
     result = PayCart.call(cart_id: params[:cart_id])
-    head :no_content
+
+    if result.success?
+      head :ok
+    else
+      if result.message == 'pay_cart.not_found'
+        head :not_found
+      else
+        head :internal_server_error
+      end
+    end
   end
 end

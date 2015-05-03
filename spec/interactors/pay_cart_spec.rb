@@ -20,7 +20,7 @@ RSpec.describe PayCart do
     let(:cart) {create(:cart, user: user, cart_items: cart_items)}
 
     before do
-      allow(Cart).to receive(:find).with(1).and_return(cart)
+      allow(Cart).to receive(:find_by_id).with(1).and_return(cart)
     end
 
     context 'when everything is swell' do
@@ -53,6 +53,47 @@ RSpec.describe PayCart do
         expect {interactor.call}.to change(Transaction, :count).by(1)
       end
     end
+
+    context 'when there\'s no cart with that ID' do
+      before do
+        allow(Cart).to receive(:find_by_id).with(1).
+          and_raise(ActiveRecord::RecordNotFound)
+      end
+
+      it 'fails' do
+        interactor.call
+        expect(context).to_not be_a_success
+      end
+
+      it 'sets the correct error message' do
+        interactor.call
+        expect(context.message).to eq('pay_cart.not_found')
+      end
+    end
+
+    context 'when things go wrong' do
+      before do
+        allow(cart).to receive(:destroy!).
+          and_raise(ActiveRecord::ActiveRecordError)
+      end
+
+      it 'fails' do
+        interactor.call
+        expect(context).to_not be_a_success
+      end
+
+      it 'sets the correct error message' do
+        interactor.call
+        expect(context.message).to eq('pay_cart.write_failed')
+      end
+
+      it 'should not create a transaction' do
+        expect {interactor.call}.to_not change(Transaction, :count)
+      end
+
+      it 'should not delete the cart' do
+        expect {interactor.call}.to_not change(Cart, :count)
+      end
     end
   end
 end

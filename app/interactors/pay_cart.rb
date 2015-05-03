@@ -2,7 +2,13 @@ class PayCart
   include Interactor
 
   def call
-    cart = Cart.find(context.cart_id)
+    begin
+      cart = Cart.find_by_id(context.cart_id)
+    rescue ActiveRecord::RecordNotFound
+      context.fail!(message: 'pay_cart.not_found') rescue false
+      return
+    end
+
     user = cart.user
 
     transaction = Transaction.new
@@ -25,8 +31,15 @@ class PayCart
       )
     end
 
-    user.save
-    transaction.save
-    cart.destroy
+    begin
+      ActiveRecord::Base.transaction do
+        user.save!
+        transaction.save!
+        cart.destroy!
+      end
+    rescue
+      context.fail!(message: 'pay_cart.write_failed') rescue false
+      return
+    end
   end
 end
