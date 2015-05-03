@@ -21,5 +21,44 @@ RSpec.describe UserDeposit do
         expect {interactor.call}.to change(Transaction, :count).by(1)
       end
     end
+
+    context 'when there\'s no user with that ID' do
+      before do
+        allow(User).to receive(:find_by_id).
+          and_raise(ActiveRecord::RecordNotFound)
+      end
+
+      it 'fails' do
+        interactor.call
+        expect(context).to_not be_a_success
+      end
+
+      it 'sets the correct error message' do
+        interactor.call
+        expect(context.message).to eq('user_deposit.not_found')
+      end
+    end
+
+    context 'when things go wrong' do
+      before do
+        allow_any_instance_of(Transaction).to receive(:save!).
+          and_raise(ActiveRecord::ActiveRecordError)
+      end
+
+      it 'fails' do
+        interactor.call
+        expect(context).to_not be_a_success
+      end
+
+      it 'sets the correct error message' do
+        interactor.call
+        expect(context.message).to eq('user_deposit.write_failed')
+      end
+
+      it 'should not update the user\'s balance' do
+        expect {interactor.call && user.reload}.to_not change(user, :balance).
+          from(1000)
+      end
+    end
   end
 end
