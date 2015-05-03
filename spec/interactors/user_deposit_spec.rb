@@ -7,19 +7,19 @@ RSpec.describe UserDeposit do
     let(:context) {interactor.context}
 
     context 'when everything is swell' do
-    it 'succeeds' do
-      interactor.call
-      expect(context).to be_a_success
-    end
+      it 'succeeds' do
+        interactor.call
+        expect(context).to be_a_success
+      end
 
-    it 'updates the user\'s balance' do
-      expect {interactor.call && user.reload}.to change(user, :balance).
-        from(1000).to(2000)
-    end
+      it 'updates the user\'s balance' do
+        expect {interactor.call && user.reload}.to change(user, :balance).
+          from(1000).to(2000)
+      end
 
-    it 'creates a transaction' do
-      expect {interactor.call}.to change(Transaction, :count).by(1)
-    end
+      it 'creates a transaction' do
+        expect {interactor.call}.to change(Transaction, :count).by(1)
+      end
     end
   end
 end
