@@ -44,6 +44,10 @@ RSpec.describe PayCart do
       interactor.call
     end
 
+    it 'deletes the cart_items' do
+      expect {interactor.call}.to change(CartItem, :count).by(-2)
+    end
+
     it 'creates a transaction' do
       expect {interactor.call}.to change(Transaction, :count).by(1)
     end
