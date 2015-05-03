@@ -23,6 +23,7 @@ RSpec.describe PayCart do
       allow(Cart).to receive(:find).with(1).and_return(cart)
     end
 
+    context 'when everything is swell' do
     it 'succeeds' do
       interactor.call
       expect(context).to be_a_success
@@ -50,6 +51,7 @@ RSpec.describe PayCart do
 
     it 'creates a transaction' do
       expect {interactor.call}.to change(Transaction, :count).by(1)
+    end
     end
   end
 end
