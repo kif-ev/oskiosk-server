@@ -6,6 +6,7 @@ RSpec.describe UserDeposit do
     let(:interactor) {UserDeposit.new(user_id: user.id, amount: 1000)}
     let(:context) {interactor.context}
 
+    context 'when everything is swell' do
     it 'succeeds' do
       interactor.call
       expect(context).to be_a_success
@@ -18,6 +19,7 @@ RSpec.describe UserDeposit do
 
     it 'creates a transaction' do
       expect {interactor.call}.to change(Transaction, :count).by(1)
+    end
     end
   end
 end
