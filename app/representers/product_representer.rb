@@ -6,6 +6,7 @@ module ProductRepresenter
   property :name
   property :quantity, writeable: false, type: Integer
   property :available_quantity, writeable: false, type: Integer
+  collection :tag_list, as: :tags
 
   collection :pricings do
     property :type, getter: ->(_) {'pricing'}, writeable: false

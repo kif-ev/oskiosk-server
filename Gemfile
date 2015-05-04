@@ -13,6 +13,9 @@ gem 'interactor-rails', '~> 2.0'
 
 gem 'doorkeeper'
 
+# tags!
+gem 'acts-as-taggable-on'
+
 gem 'swagger-docs'
 
 gem 'rack-cors'

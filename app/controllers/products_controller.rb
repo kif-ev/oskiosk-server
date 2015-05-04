@@ -27,6 +27,8 @@ class ProductsController < ApplicationController
     property :name, :string, :optional, 'Product name'
     property :quantity, :integer, :optional, 'Total quantity'
     property :available_quantity, :integer, :optional, 'Available quantity'
+    property :tags, :array, :optional, 'Tags',
+      'items' => {'type' => 'string'}
     property :pricings, :array, :optional, 'Pricings',
       'items' => {'$ref' => 'readPricing'}
   end
