@@ -26,5 +26,7 @@ class UserDeposit
       context.fail!(message: 'user_deposit.write_failed') rescue false
       return
     end
+
+    context.transaction = transaction
   end
 end

@@ -9,7 +9,7 @@ class UserDepositsController < ApplicationController
     summary 'Make a deposit to a user\'s account'
     param :path, :user_id, :integer, :required, 'User ID'
     param :body, :deposit, :writeDeposit, :required, 'Deposit'
-    response :ok, 'Success'
+    response :ok, 'Success', :readTransaction
     response :not_found, 'No user with that ID'
     response :internal_server_error, 'Something went very wrong'
   end
@@ -28,7 +28,7 @@ class UserDepositsController < ApplicationController
     result = UserDeposit.call(user_id: params[:user_id], amount: deposit.amount)
 
     if result.success?
-      head :no_content
+      render json: result.transaction, status: :created
     else
       if result.message == 'user_deposit.not_found'
         head :not_found

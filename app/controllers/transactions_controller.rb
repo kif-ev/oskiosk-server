@@ -13,9 +13,29 @@ class TransactionsController < ApplicationController
       value deduced from the user's balance
     EON
     param :body, :transaction, :writeTransaction, :required, 'Transaction'
-    response :ok, 'Success'
+    response :ok, 'Success', :readTransaction
     response :not_found, 'No cart with that ID'
     response :internal_server_error, 'Something went very wrong'
+  end
+
+  swagger_model :readTransaction do
+    property :id, :integer, :optional, 'Transaction ID'
+    property :transaction_type, :string, :optional, 'Transaction type'
+    property :user_name, :string, :optional, 'Name of the User at creation time'
+    property :user_id, :integer, :optional, 'User ID'
+    property :amount, :integer, :optional, 'Transaction amount in €-cent'
+    property :created_at, :string, :optional, 'Transaction creation time'
+    property :transaction_items, :array, :optional, 'Transaction Items',
+      'items' => {'$ref' => 'readTransactionItem'}
+  end
+
+  swagger_model :readTransactionItem do
+    property :id, :integer, :optional, 'Transaction Item ID'
+    property :product_id, :integer, :optional, 'Product ID'
+    property :price, :integer, :optional,
+      'Price of the Product at creation time'
+    property :name, :integer, :optional, 'Name of the Product at creation time'
+    property :quantity, :integer, :optional, 'Quantity'
   end
 
   swagger_model :writeTransaction do
@@ -29,7 +49,7 @@ class TransactionsController < ApplicationController
     result = PayCart.call(cart_id: params[:cart_id])
 
     if result.success?
-      head :ok
+      render json: result.transaction, status: :created
     else
       if result.message == 'pay_cart.not_found'
         head :not_found

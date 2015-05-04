@@ -20,6 +20,11 @@ RSpec.describe UserDeposit do
       it 'creates a transaction' do
         expect {interactor.call}.to change(Transaction, :count).by(1)
       end
+
+      it 'assigns the transaction to the context' do
+        interactor.call
+        expect(context.transaction).to_not be_nil
+      end
     end
 
     context 'when there\'s no user with that ID' do

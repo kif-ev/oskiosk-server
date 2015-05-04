@@ -6,7 +6,8 @@ RSpec.describe UserDepositsController, type: :controller do
   let(:token) {double acceptable?: true}
   before {allow(controller).to receive(:doorkeeper_token) {token}}
 
-  let(:context) {double success?: true}
+  let(:transaction) {Transaction.new}
+  let(:context) {double success?: true, transaction: transaction}
 
   describe '#create' do
     before {request.env['CONTENT_TYPE'] = 'application/json'}

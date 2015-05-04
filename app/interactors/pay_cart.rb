@@ -41,5 +41,7 @@ class PayCart
       context.fail!(message: 'pay_cart.write_failed') rescue false
       return
     end
+
+    context.transaction = transaction
   end
 end
