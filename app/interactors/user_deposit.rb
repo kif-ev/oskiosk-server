@@ -10,10 +10,10 @@ class UserDeposit
     end
 
     transaction = Transaction.new
-    transaction.buyer_name = user.name
+    transaction.user_name = user.name
     transaction.user = user
-    transaction.type = 'user_deposit'
-    transaction.total_price = context.amount
+    transaction.transaction_type = 'user_deposit'
+    transaction.amount = context.amount
 
     user.balance += context.amount
 

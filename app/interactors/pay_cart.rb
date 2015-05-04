@@ -12,10 +12,10 @@ class PayCart
     user = cart.user
 
     transaction = Transaction.new
-    transaction.buyer_name = user.name
+    transaction.user_name = user.name
     transaction.user = user
-    transaction.type = 'cart_payment'
-    transaction.total_price = cart.cart_items.map(&:total_price).reduce(:+)
+    transaction.transaction_type = 'cart_payment'
+    transaction.amount = cart.cart_items.map(&:total_price).reduce(:+)
 
     cart.cart_items.each do |ci|
       ci.pricing.quantity -= ci.quantity

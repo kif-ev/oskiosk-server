@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150504112462) do
+ActiveRecord::Schema.define(version: 20150504134136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,12 +130,12 @@ ActiveRecord::Schema.define(version: 20150504112462) do
   add_index "transaction_items", ["transaction_id"], name: "index_transaction_items_on_transaction_id", using: :btree
 
   create_table "transactions", force: :cascade do |t|
-    t.integer  "total_price",             default: 0
-    t.string   "buyer_name",  limit: 255
+    t.integer  "amount",                       default: 0
+    t.string   "user_name",        limit: 255
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "type"
+    t.string   "transaction_type"
   end
 
   add_index "transactions", ["user_id"], name: "index_transactions_on_user_id", using: :btree
