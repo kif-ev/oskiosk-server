@@ -3,10 +3,16 @@ FactoryGirl.define do
     transient do
       sequence(:code) {|n| "P#{n}"}
       quantity 5
+      price 100
     end
     after(:create) do |product, evaluator|
-      create(:identifier, identifiable: product, code: evaluator.code)
-      create(:pricing, product: product, quantity: evaluator.quantity) if evaluator.quantity
+      create :identifier, identifiable: product, code: evaluator.code
+      if evaluator.quantity
+        create :pricing,
+               product: product,
+               quantity: evaluator.quantity,
+               price: evaluator.price
+      end
     end
   end
 
