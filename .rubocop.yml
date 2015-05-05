@@ -1,11 +1,5 @@
 AllCops:
   RunRailsCops: true
 
-Style/SpaceInsideBlockBraces:
-  EnforcedStyle: no_space
-
-Style/SpaceInsideHashLiteralBraces:
-  EnforcedStyle: no_space
-
 Style/StringLiterals:
   EnforcedStyle: single_quotes
