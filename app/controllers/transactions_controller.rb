@@ -18,6 +18,13 @@ class TransactionsController < ApplicationController
     response :internal_server_error, 'Something went very wrong'
   end
 
+  swagger_api :index do
+    summary 'Find and filter Transactions'
+    notes 'foobar'
+    param :body, :query, :writeTransaction, :required
+    response :ok, 'Success'
+  end
+
   swagger_model :readTransaction do
     property :id, :integer, :optional, 'Transaction ID'
     property :transaction_type, :string, :optional, 'Transaction type'
@@ -57,5 +64,12 @@ class TransactionsController < ApplicationController
         head :internal_server_error
       end
     end
+  end
+
+  def index
+    results = Transaction.where(transaction_type: 'cart_payment').
+              ransack(params[:q]).result
+
+    render json: results, status: :ok
   end
 end

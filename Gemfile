@@ -16,6 +16,9 @@ gem 'doorkeeper'
 # tags!
 gem 'acts-as-taggable-on'
 
+# search!
+gem 'ransack'
+
 gem 'swagger-docs'
 
 gem 'rack-cors'

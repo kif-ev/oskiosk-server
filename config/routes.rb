@@ -6,5 +6,9 @@ Rails.application.routes.draw do
   end
   resources :products, only: [:index, :show]
   resources :carts, only: [:create, :show, :update]
-  resources :transactions, only: [:create]
+  resources :transactions, only: [:create, :index] do
+    collection do
+      match 'search' => 'transactions#index', via: [:get, :post]
+    end
+  end
 end
