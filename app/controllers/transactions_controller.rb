@@ -20,8 +20,33 @@ class TransactionsController < ApplicationController
 
   swagger_api :index do
     summary 'Find and filter Transactions'
-    notes 'foobar'
-    param :body, :query, :writeTransaction, :required
+    notes <<-EON
+      Filters and returns a transaction list. Only payment transactions are
+      returned.
+      The proposed query params are only example, many more are possible. If
+      the query params string gets too big, please encode the query
+      as JSON and POST it to /transactions/search.json.
+    EON
+    param :query, :'q[user_name_eq]', :string, :optional, 'User name equals'
+    param :query, :'q[created_at_gteq]', :string, :optional,
+      'Created on or after (date or date and time)'
+    param :query, :'q[transaction_items_product_tags_name_eq]', :string,
+      :optional, 'One of the bought products\' tags equals'
+    response :ok, 'Success', :readTransaction
+  end
+
+  swagger_api :search do
+    summary 'Find and filter Transactions'
+    notes <<-EON
+      Filters and returns a transaction list. Only payment transactions are
+      returned.
+      The query should be a json object of the form
+      { "q": { "foo_eq": "abc", "bar_lteq": "12" } }
+      but I haven't yet found how to represent that in the current API
+      description. The same operators as in GET /transactions.json are
+      possible.
+    EON
+    param :body, :query, :query, :optional, 'Query'
     response :ok, 'Success'
   end
 
@@ -31,7 +56,7 @@ class TransactionsController < ApplicationController
     property :user_name, :string, :optional, 'Name of the User at creation time'
     property :user_id, :integer, :optional, 'User ID'
     property :amount, :integer, :optional, 'Transaction amount in €-cent'
-    property :created_at, :string, :optional, 'Transaction creation time'
+    property :created_at, :string, :optional, 'Transaction creation time', format: 'date-time'
     property :transaction_items, :array, :optional, 'Transaction Items',
       'items' => {'$ref' => 'readTransactionItem'}
   end
@@ -47,6 +72,10 @@ class TransactionsController < ApplicationController
 
   swagger_model :writeTransaction do
     property :cart_id, :integer, :required, 'Cart ID'
+  end
+
+  swagger_model :query do
+    property :q, :object, :optional, :query
   end
   # :nocov:
 
