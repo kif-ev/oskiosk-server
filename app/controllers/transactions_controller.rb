@@ -72,4 +72,6 @@ class TransactionsController < ApplicationController
 
     render json: results, status: :ok
   end
+
+  alias_method :search, :index
 end

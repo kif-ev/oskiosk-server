@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :carts, only: [:create, :show, :update]
   resources :transactions, only: [:create, :index] do
     collection do
-      match 'search' => 'transactions#index', via: [:get, :post]
+      match 'search', via: [:post]
     end
   end
 end

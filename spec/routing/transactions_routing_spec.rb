@@ -8,8 +8,10 @@ RSpec.describe TransactionsController, type: :routing do
 
     it 'routes to #index' do
       expect(get: '/transactions').to route_to('transactions#index')
-      expect(get: '/transactions/search').to route_to('transactions#index')
-      expect(post: '/transactions/search').to route_to('transactions#index')
+    end
+
+    it 'routes to #search' do
+      expect(post: '/transactions/search').to route_to('transactions#search')
     end
   end
 end
