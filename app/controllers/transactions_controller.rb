@@ -79,7 +79,8 @@ class TransactionsController < ApplicationController
   end
   # :nocov:
 
-  before_action :doorkeeper_authorize!
+  before_action :doorkeeper_authorize!, only: [:index, :search]
+  before_action -> { doorkeeper_authorize! :checkout }, only: :create
 
   def create
     result = PayCart.call cart_id: params[:cart_id],

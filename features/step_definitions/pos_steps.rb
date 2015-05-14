@@ -40,7 +40,7 @@ When(/^the code "(.*?)" is scanned$/) do |code|
 end
 
 Given(/^there is a POS$/) do
-  @bearer_token = create(:oauth_token).token
+  @bearer_token = create(:oauth_token, scopes: 'public checkout deposit').token
   header 'Authorization', "Bearer #{@bearer_token}"
   header 'Content-Type', 'application/json'
   @cart_id = nil
@@ -48,7 +48,7 @@ Given(/^there is a POS$/) do
 end
 
 When(/^the POS is setup as anonymous$/) do
-  @bearer_token = create(:oauth_token).token
+  @bearer_token = create(:oauth_token, scopes: 'public checkout deposit').token
   header 'Authorization', "Bearer #{@bearer_token}"
   header 'Content-Type', 'application/json'
   @cart_id = nil

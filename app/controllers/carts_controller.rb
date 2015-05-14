@@ -75,7 +75,7 @@ class CartsController < ApplicationController
   end
   # :nocov:
 
-  before_action :doorkeeper_authorize!
+  before_action -> { doorkeeper_authorize! :checkout }
 
   def show
     cart = Cart.find_by_id(params[:id])
