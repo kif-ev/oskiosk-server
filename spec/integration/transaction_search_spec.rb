@@ -24,6 +24,7 @@ RSpec.describe 'transaction search and filtering', type: :request do
                   tag_list: 'category:Getränk, producer:Brauerei Loscher'
 
     create :transaction,
+           transaction_type: 'cart_payment',
            items: [
              { pricing: p_sn.pricings.first, quantity: 5 },
              { pricing: p_cm.pricings.first, quantity: 3 }
@@ -32,6 +33,7 @@ RSpec.describe 'transaction search and filtering', type: :request do
            amount: 860,
            created_at: 2.days.ago
     create :transaction,
+           transaction_type: 'cart_payment',
            items: [
              { pricing: p_sn.pricings.first, quantity: 1 },
              { pricing: p_kk.pricings.first, quantity: 1 },
@@ -41,12 +43,14 @@ RSpec.describe 'transaction search and filtering', type: :request do
            amount: 540,
            created_at: 1.days.ago
     create :transaction,
+           transaction_type: 'cart_payment',
            items: [
              { pricing: p_sn.pricings.first, quantity: 5 }
            ],
            user: u_ls,
            amount: 500
     create :transaction,
+           transaction_type: 'cart_payment',
            items: [
              { pricing: p_sn.pricings.first, quantity: 5 },
              { pricing: p_cm.pricings.first, quantity: 3 }
@@ -54,6 +58,7 @@ RSpec.describe 'transaction search and filtering', type: :request do
            user: u_bf,
            amount: 860
     create :transaction,
+           transaction_type: 'cart_payment',
            items: [
              { pricing: p_sn.pricings.first, quantity: 5 },
              { pricing: p_cm.pricings.first, quantity: 3 }

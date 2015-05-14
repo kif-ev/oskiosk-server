@@ -1,4 +1,4 @@
 class Transaction < ActiveRecord::Base
   belongs_to :user
-  has_many :transaction_items
+  has_many :transaction_items, dependent: :destroy
 end

@@ -50,6 +50,7 @@ class CartsController < ApplicationController
   swagger_model :readCart do
     property :id, :integer, :optional, 'Cart ID'
     property :user_id, :integer, :optional, 'User ID'
+    property :total_price, :integer, :optional, 'Total Cart price'
     property :cart_items, :array, :optional, 'Cart Items',
       'items' => {'$ref' => 'readCartItem'}
   end

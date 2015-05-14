@@ -87,7 +87,7 @@ class TransactionsController < ApplicationController
     if result.success?
       render json: result.transaction, status: :created
     else
-      if result.message == 'pay_cart.not_found'
+      if result.message == 'generic.not_found'
         head :not_found
       else
         head :internal_server_error

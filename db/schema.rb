@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150504134136) do
+ActiveRecord::Schema.define(version: 20150514093020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,14 +31,15 @@ ActiveRecord::Schema.define(version: 20150504134136) do
   end
 
   create_table "identifiers", force: :cascade do |t|
-    t.string   "code",              limit: 255
+    t.string   "code"
     t.integer  "identifiable_id"
-    t.string   "identifiable_type", limit: 255
+    t.string   "identifiable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "identifiers", ["identifiable_id", "identifiable_type"], name: "index_identifiers_on_identifiable_id_and_identifiable_type", using: :btree
+  add_index "identifiers", ["code"], name: "index_identifiers_on_code", using: :btree
+  add_index "identifiers", ["identifiable_type", "identifiable_id"], name: "index_identifiers_on_identifiable_type_and_identifiable_id", using: :btree
 
   create_table "oauth_access_grants", force: :cascade do |t|
     t.integer  "resource_owner_id", null: false
@@ -91,7 +92,7 @@ ActiveRecord::Schema.define(version: 20150504134136) do
   add_index "pricings", ["product_id"], name: "index_pricings_on_product_id", using: :btree
 
   create_table "products", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -130,8 +131,8 @@ ActiveRecord::Schema.define(version: 20150504134136) do
   add_index "transaction_items", ["transaction_id"], name: "index_transaction_items_on_transaction_id", using: :btree
 
   create_table "transactions", force: :cascade do |t|
-    t.integer  "amount",                       default: 0
-    t.string   "user_name",        limit: 255
+    t.integer  "amount",           default: 0
+    t.string   "user_name"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -141,8 +142,8 @@ ActiveRecord::Schema.define(version: 20150504134136) do
   add_index "transactions", ["user_id"], name: "index_transactions_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.integer  "balance",                default: 0
+    t.string   "name"
+    t.integer  "balance",    default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
