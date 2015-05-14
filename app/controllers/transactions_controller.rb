@@ -82,7 +82,8 @@ class TransactionsController < ApplicationController
   before_action :doorkeeper_authorize!
 
   def create
-    result = PayCart.call(cart_id: params[:cart_id])
+    result = PayCart.call cart_id: params[:cart_id],
+                          requesting_application: doorkeeper_token.application
 
     if result.success?
       render json: result.transaction, status: :created

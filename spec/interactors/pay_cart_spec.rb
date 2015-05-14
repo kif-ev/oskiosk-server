@@ -2,9 +2,11 @@ require 'rails_helper'
 
 RSpec.describe PayCart do
   describe '#call' do
-    let(:interactor) {PayCart.new(cart_id: 1)}
-    let(:context) {interactor.context}
-    let(:user) {create(:user, balance: 1000)}
+    let(:interactor) do
+      PayCart.new(cart_id: 1, requesting_application: application)
+    end
+    let(:context) { interactor.context }
+    let(:user) { create :user, balance: 1000 }
     let(:pricings) do
       [
         create(:pricing, price: 50, quantity: 5),
@@ -17,7 +19,10 @@ RSpec.describe PayCart do
         create(:cart_item, quantity: 1, pricing: pricings[1])
       ]
     end
-    let(:cart) {create(:cart, user: user, cart_items: cart_items)}
+    let(:cart) { create :cart, user: user, cart_items: cart_items }
+    let(:application) do
+      build_stubbed :doorkeeper_application, name: 'Verkaufspunkt'
+    end
 
     before do
       allow(Cart).to receive(:find_by_id!).with(1).and_return(cart)

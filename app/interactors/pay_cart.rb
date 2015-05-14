@@ -3,6 +3,7 @@ class PayCart
 
   organize ResolveCartAndUser,
            InitializeTransaction,
+           LogRequestingClientInTransaction,
            PopulateCartPaymentTransaction,
            ApplyTransactionToUserBalance,
            CommitTransaction,

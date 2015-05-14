@@ -25,12 +25,16 @@ class UserDepositsController < ApplicationController
     deposit = Deposit.new
     consume!(deposit)
 
-    result = UserDeposit.call(user_id: params[:user_id], amount: deposit.amount)
+    result = UserDeposit.call(
+      user_id: params[:user_id],
+      amount: deposit.amount,
+      requesting_application: doorkeeper_token.application
+    )
 
     if result.success?
       render json: result.transaction, status: :created
     else
-      if result.message == 'user_deposit.not_found'
+      if result.message == 'generic.not_found'
         head :not_found
       else
         head :internal_server_error

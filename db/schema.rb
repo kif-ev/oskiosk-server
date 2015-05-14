@@ -137,6 +137,8 @@ ActiveRecord::Schema.define(version: 20150514093020) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "transaction_type"
+    t.string   "application_name"
+    t.integer  "application_id"
   end
 
   add_index "transactions", ["user_id"], name: "index_transactions_on_user_id", using: :btree

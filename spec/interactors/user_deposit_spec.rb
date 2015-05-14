@@ -2,9 +2,14 @@ require 'rails_helper'
 
 RSpec.describe UserDeposit do
   describe '#call' do
-    let(:user) {create(:user, balance: 1000)}
-    let(:interactor) {UserDeposit.new(user_id: user.id, amount: 1000)}
-    let(:context) {interactor.context}
+    let(:user) { create :user, balance: 1000 }
+    let(:application) { build_stubbed :doorkeeper_application }
+    let(:interactor) do
+      UserDeposit.new user_id: user.id,
+                      amount: 1000,
+                      requesting_application: application
+    end
+    let(:context) { interactor.context }
 
     context 'when everything is swell' do
       it 'succeeds' do
@@ -29,18 +34,18 @@ RSpec.describe UserDeposit do
 
     context 'when there\'s no user with that ID' do
       before do
-        allow(User).to receive(:find_by_id).
+        allow(User).to receive(:find_by_id!).
           and_raise(ActiveRecord::RecordNotFound)
       end
 
+      before { interactor.call rescue Interactor::Failure }
+
       it 'fails' do
-        interactor.call
         expect(context).to_not be_a_success
       end
 
       it 'sets the correct error message' do
-        interactor.call
-        expect(context.message).to eq('user_deposit.not_found')
+        expect(context.message).to eq('generic.not_found')
       end
     end
 
@@ -50,19 +55,20 @@ RSpec.describe UserDeposit do
           and_raise(ActiveRecord::ActiveRecordError)
       end
 
+      before { interactor.call rescue Interactor::Failure }
+
       it 'fails' do
-        interactor.call
         expect(context).to_not be_a_success
       end
 
       it 'sets the correct error message' do
-        interactor.call
-        expect(context.message).to eq('user_deposit.write_failed')
+        expect(context.message).to eq('generic.write_failed')
       end
 
       it 'should not update the user\'s balance' do
-        expect {interactor.call && user.reload}.to_not change(user, :balance).
-          from(1000)
+        # reload is needed as AR transaction rollbacks only affect
+        # the DB, not the corresponding AR object
+        expect(user.reload.balance).to eq(1000)
       end
     end
   end
