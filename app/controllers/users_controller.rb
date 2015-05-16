@@ -16,6 +16,8 @@ class UsersController < ApplicationController
     property :id, :integer, :optional, 'User ID'
     property :name, :string, :optional, 'User Name'
     property :balance, :integer, :optional, 'User\'s balance in € cent'
+    property :tags, :array, :optional, 'Tags',
+      'items' => {'type' => 'string'}
   end
   # :nocov:
 
