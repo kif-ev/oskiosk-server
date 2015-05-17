@@ -5,6 +5,7 @@ class PayCart
            InitializeTransaction,
            LogRequestingClientInTransaction,
            PopulateCartPaymentTransaction,
+           CheckUserBalance,
            ApplyTransactionToUserBalance,
            CommitTransaction,
            ApplyAndDestroyCart

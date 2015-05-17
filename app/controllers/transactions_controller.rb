@@ -15,6 +15,7 @@ class TransactionsController < ApplicationController
     param :body, :transaction, :writeTransaction, :required, 'Transaction'
     response :ok, 'Success', :readTransaction
     response :not_found, 'No cart with that ID'
+    response :conflict, 'The user\'s balance is too low'
     response :internal_server_error, 'Something went very wrong'
   end
 
@@ -91,6 +92,8 @@ class TransactionsController < ApplicationController
     else
       if result.message == 'generic.not_found'
         head :not_found
+      elsif result.message == 'user.balance_exceeded'
+        head :conflict
       else
         head :internal_server_error
       end

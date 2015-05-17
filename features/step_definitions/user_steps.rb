@@ -1,5 +1,5 @@
 Given(/^there is a user "(.*?)" with the code "(.*?)"$/) do |name, code|
-  create(:user, name: name, code: code)
+  create(:user, name: name, code: code, allow_negative_balance: true)
 end
 
 Then(/^the price of (\d+) "(.*?)" should be debited from the account of "(.*?)"$/) do |quantity, pname, uname|

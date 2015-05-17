@@ -12,7 +12,8 @@ module Oskiosk
           User.create!(
             name: row[0],
             identifiers: [identifier],
-            tag_list: "conference:#{row[2]}"
+            tag_list: "conference:#{row[2]}",
+            allow_negative_balance: false
           )
         end
       end

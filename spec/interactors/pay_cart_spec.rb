@@ -70,6 +70,36 @@ RSpec.describe PayCart do
       end
     end
 
+    context 'when the user doesn\'t have enough money' do
+      context 'when the user is allowed a negative balance' do
+        let(:user) { create :user, balance: 100, allow_negative_balance: true }
+
+        it 'lets the user pay for the cart' do
+          interactor.call
+          expect(context).to be_a_success
+        end
+
+        it 'debits the user correctly' do
+          expect { interactor.call }.to change(user, :balance).
+            from(100).to(-200)
+        end
+      end
+
+      context 'when the user is not allowed a negative balance' do
+        let(:user) { create :user, balance: 100 }
+
+        it 'doesn\'t let the user pay for the cart' do
+          interactor.call rescue Interactor::Failure
+          expect(context).to_not be_a_success
+        end
+
+        it 'doesn\'t debit the user' do
+          expect { interactor.call rescue Interactor::Failure }.
+            to_not change(user, :balance)
+        end
+      end
+    end
+
     context 'when there\'s no cart with that ID' do
       before do
         allow(Cart).to receive(:find_by_id!).with(1).
