@@ -7,10 +7,7 @@ When(/^the code "(.*?)" is scanned$/) do |code|
         user_id: object['id']
       })
       cart = put(cart_path(id: @cart_id, format: :json), cart_update)
-      new_transaction = JSON.generate({
-        cart_id: @cart_id
-      })
-      post(transactions_path(format: :json), new_transaction)
+      post(cart_cart_payment_path(cart_id: @cart_id, format: :json))
     when 'product'
       p_id = object['pricings'][0]['id']
       cart = JSON.parse(get(cart_path(id: @cart_id, format: :json)).body)
