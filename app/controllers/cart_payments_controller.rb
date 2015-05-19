@@ -12,6 +12,7 @@ class CartPaymentsController < ApplicationController
       The products in the corresponding cart will be removed and the
       value deduced from the user's balance
     EON
+    param :path, :cart_id, :integer, :required, 'Cart ID'
     response :ok, 'Success', :readTransaction
     response :not_found, 'No cart with that ID'
     response :conflict, 'The user\'s balance is too low'
