@@ -31,6 +31,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.1)
+    active_record_union (1.1.0)
+      activerecord (>= 4.0)
     activejob (4.2.1)
       activesupport (= 4.2.1)
       globalid (>= 0.3.0)
@@ -290,6 +292,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_record_union
   acts-as-taggable-on
   bugsnag
   codeclimate-test-reporter

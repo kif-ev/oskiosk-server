@@ -16,8 +16,9 @@ gem 'doorkeeper'
 # tags!
 gem 'acts-as-taggable-on'
 
-# search!
+# search and stats!
 gem 'ransack'
+gem 'active_record_union'
 
 gem 'swagger-docs'
 
