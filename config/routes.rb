@@ -13,4 +13,5 @@ Rails.application.routes.draw do
       match 'search', via: [:post]
     end
   end
+  resources :gecko, only: [:show]
 end
