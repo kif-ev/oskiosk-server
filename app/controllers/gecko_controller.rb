@@ -49,6 +49,7 @@ class GeckoController < ApplicationController
           'data': extract_data_points_for(data_points, 'KIF'),
           'incomplete_data_from': inc_from
         }
+      ]
     }
   end
 
