@@ -6,6 +6,10 @@ RSpec.describe TransactionsController, type: :routing do
       expect(post: '/transactions').to_not route_to('transactions#create')
     end
 
+    it 'routes to #show' do
+      expect(get: '/transactions/1').to route_to('transactions#show')
+    end
+
     it 'routes to #index' do
       expect(get: '/transactions').to route_to('transactions#index')
     end

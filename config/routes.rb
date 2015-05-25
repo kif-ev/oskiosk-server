@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :carts, only: [:create, :show, :update] do
     resource :cart_payment, only: [:create], path: 'pay'
   end
-  resources :transactions, only: [:index] do
+  resources :transactions, only: [:index, :show] do
     collection do
       match 'search', via: [:post]
     end

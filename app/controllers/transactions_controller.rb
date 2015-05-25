@@ -5,6 +5,13 @@ class TransactionsController < ApplicationController
   # :nocov:
   swagger_controller :transactions, 'Create transactions'
 
+  swagger_api :show do
+    summay 'Fetch the transaction'
+    param :path, :id, :integer, :required, 'Transaction ID'
+    response :ok, 'Success', :readTransaction
+    response :not_found
+  end
+
   swagger_api :index do
     summary 'Find and filter Transactions'
     notes <<-EON
@@ -63,6 +70,16 @@ class TransactionsController < ApplicationController
   # :nocov:
 
   before_action :doorkeeper_authorize!
+
+  def show
+    transaction = Transaction.find_by_id(params[:id])
+
+    if transaction.present?
+      renter json: transaction
+    else
+      render_not_found
+    end
+  end
 
   def index
     results = Transaction.where(transaction_type: 'cart_payment').
