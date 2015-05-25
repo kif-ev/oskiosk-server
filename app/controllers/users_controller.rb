@@ -12,6 +12,11 @@ class UsersController < ApplicationController
     response :not_found
   end
 
+  swagger_api :index do
+    summary 'Show all users'
+    response :ok, 'Success', :readUser
+  end
+
   swagger_model :readUser do
     property :id, :integer, :optional, 'User ID'
     property :name, :string, :optional, 'User Name'
@@ -21,7 +26,8 @@ class UsersController < ApplicationController
   end
   # :nocov:
 
-  before_action :doorkeeper_authorize!
+  before_action :doorkeeper_authorize!, only: [:show]
+  before_action -> { doorkeeper_authorize! :admin }, only: [:index]
 
   def show
     user = User.find_by_id(params[:id])
@@ -31,5 +37,11 @@ class UsersController < ApplicationController
     else
       render_not_found
     end
+  end
+
+  def index
+    users = User.all
+
+    render json: users
   end
 end
