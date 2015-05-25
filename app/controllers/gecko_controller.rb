@@ -25,6 +25,9 @@ class GeckoController < ApplicationController
               'type' => 0
             }]
         }
+      end,
+      'hourly_beer_by_conference' => lambda do
+        format_for_geckoboard_linechart(hourly_consumption)
       end
     }
 
