@@ -30,4 +30,7 @@ class GeckoController < ApplicationController
 
     @widgets_cache[name]
   end
+
+  def hourly_consumption(product_criteria: {})
+  end
 end
