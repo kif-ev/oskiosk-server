@@ -31,6 +31,45 @@ class GeckoController < ApplicationController
     @widgets_cache[name]
   end
 
+  def format_for_geckoboard_linechart(data_points)
+    return if data_points.blank?
+
+    inc_from = DateTime.current.at_beginning_of_hour.to_formatted_s(:iso8601)
+
+    {
+      'x_axis': {
+        'type': 'datetime'
+      },
+      'series': [
+        {
+          'name': 'KIF',
+          'data': extract_data_points_for(data_points, 'KIF'),
+          'incomplete_data_from': inc_from
+        }
+    }
+  end
+
+  def extract_data_points_for(data_points, conf)
+    data_points.select { |dp| dp[1] == conf }.
+      collect { |dp| [DateTime.parse(dp[0]).to_formatted_s(:iso8601), dp[2]] }
+  end
+
   def hourly_consumption(product_criteria: {})
+    ActiveRecord::Base.connection.execute(
+      TransactionItem.ransack(
+        money_transaction_transaction_type_eq: 'cart_payment',
+        product_tags_name_cont: 'Bier',
+        money_transaction_user_tags_name_start: 'conference:'
+      ).result
+      .select(
+        'date_trunc(\'hour\', "transaction_items"."created_at") AS "hour"',
+        'trim(leading \'conference:\' from "tags_users"."name") AS "conference"',
+        'SUM("transaction_items"."quantity") AS "quantity"'
+      ).group(
+        '"hour"',
+        '"conference"'
+      ).order('"hour"')
+      .to_sql
+    ).values
   end
 end
