@@ -13,7 +13,7 @@ module Oskiosk
             name: row[0],
             identifiers: [identifier],
             tag_list: "conference:#{row[2]}",
-            allow_negative_balance: false
+            allow_negative_balance: true
           )
         end
       end
@@ -32,10 +32,9 @@ module Oskiosk
 
           # the supplied tag list probably consists of the supplier, a category
           # and a subcategory
-          tags = row[4].split(',').map(&:strip)
-          tag_list = "supplier:#{tags[0]}"
-          tag_list << ",category:#{tags[1]}" if tags[1].present?
-          tag_list << ",subcategory:#{tags[2]}" if tags[2].present?
+          tag_list = "supplier:#{row[4]}"
+          tag_list << ",type:#{row[5]}" if row[5].present?
+          tag_list << ",other:#{row[6]}" if row[6].present?
 
           product = Product.create!(
             name: row[1],
