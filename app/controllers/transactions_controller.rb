@@ -6,7 +6,7 @@ class TransactionsController < ApplicationController
   swagger_controller :transactions, 'Create transactions'
 
   swagger_api :show do
-    summay 'Fetch the transaction'
+    summary 'Fetch the transaction'
     param :path, :id, :integer, :required, 'Transaction ID'
     response :ok, 'Success', :readTransaction
     response :not_found
