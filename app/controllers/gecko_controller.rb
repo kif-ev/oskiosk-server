@@ -51,7 +51,7 @@ class GeckoController < ApplicationController
           'data': conf_data_points,
           'incomplete_from': inc_from
         }
-      end
+      end.compact
     }
   end
 
