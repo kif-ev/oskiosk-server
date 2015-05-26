@@ -44,11 +44,14 @@ class GeckoController < ApplicationController
         'type': 'datetime'
       },
       'series': ['KIF', 'KoMa', 'ZaPF', 'Team'].collect do |conf|
+        conf_data_points = extract_data_points_for(data_points, conf)
+        next if conf_data_points.blank?
         {
           'name': conf,
-          'data': extract_data_points_for(data_points, conf),
+          'data': conf_data_points,
           'incomplete_from': inc_from
         }
+      end
     }
   end
 
