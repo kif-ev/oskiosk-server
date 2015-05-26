@@ -46,8 +46,23 @@ class GeckoController < ApplicationController
       'series': [
         {
           'name': 'KIF',
-          'data': extract_data_points_for(data_points, 'KIF'),
-          'incomplete_data_from': inc_from
+          'data': extract_data_points_for(data_points, 'KIF') + [inc_from, 0],
+          'incomplete_from': inc_from
+        },
+        {
+          'name': 'KoMa',
+          'data': extract_data_points_for(data_points, 'KoMa') + [inc_from, 0],
+          'incomplete_from': inc_from
+        },
+        {
+          'name': 'ZaPF',
+          'data': extract_data_points_for(data_points, 'ZaPF') + [inc_from, 0],
+          'incomplete_from': inc_from
+        },
+        {
+          'name': 'Team',
+          'data': extract_data_points_for(data_points, 'Team') + [inc_from, 0],
+          'incomplete_from': inc_from
         }
       ]
     }
@@ -55,7 +70,7 @@ class GeckoController < ApplicationController
 
   def extract_data_points_for(data_points, conf)
     data_points.select { |dp| dp[1] == conf }.
-      collect { |dp| [DateTime.parse(dp[0]).to_formatted_s(:iso8601), dp[2]] }
+      collect { |dp| [DateTime.parse(dp[0]).to_s(:iso8601), dp[2].to_i] }
   end
 
   def hourly_consumption(product_criteria: {})
