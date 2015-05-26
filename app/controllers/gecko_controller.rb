@@ -43,28 +43,12 @@ class GeckoController < ApplicationController
       'x_axis': {
         'type': 'datetime'
       },
-      'series': [
+      'series': ['KIF', 'KoMa', 'ZaPF', 'Team'].collect do |conf|
         {
-          'name': 'KIF',
-          'data': extract_data_points_for(data_points, 'KIF') + [[inc_from, 0]],
-          'incomplete_from': inc_from
-        },
-        {
-          'name': 'KoMa',
-          'data': extract_data_points_for(data_points, 'KoMa') + [[inc_from, 0]],
-          'incomplete_from': inc_from
-        },
-        {
-          'name': 'ZaPF',
-          'data': extract_data_points_for(data_points, 'ZaPF') + [[inc_from, 0]],
-          'incomplete_from': inc_from
-        },
-        {
-          'name': 'Team',
-          'data': extract_data_points_for(data_points, 'Team') + [[inc_from, 0]],
+          'name': conf,
+          'data': extract_data_points_for(data_points, conf),
           'incomplete_from': inc_from
         }
-      ]
     }
   end
 
