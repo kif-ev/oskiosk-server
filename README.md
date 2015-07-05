@@ -1,9 +1,9 @@
-[![Build Status](https://img.shields.io/travis/thegcat/oskiosk.svg?style=flat)](https://travis-ci.org/thegcat/oskiosk)
-[![Code Climate](https://img.shields.io/codeclimate/github/thegcat/oskiosk.svg?style=flat)](https://codeclimate.com/github/thegcat/oskiosk)
-[![Test Coverage](https://img.shields.io/codeclimate/coverage/github/thegcat/oskiosk.svg?style=flat)](https://codeclimate.com/github/thegcat/oskiosk)
-[![Dependency Status](https://img.shields.io/gemnasium/thegcat/oskiosk.svg?style=flat)](https://gemnasium.com/thegcat/oskiosk)
+[![Build Status](https://img.shields.io/travis/kif-ev/oskiosk-server.svg?style=flat)](https://travis-ci.org/kif-ev/oskiosk-server)
+[![Code Climate](https://img.shields.io/codeclimate/github/kif-ev/oskiosk-server.svg?style=flat)](https://codeclimate.com/github/kif-ev/oskiosk-server)
+[![Test Coverage](https://img.shields.io/codeclimate/coverage/github/kif-ev/oskiosk-server.svg?style=flat)](https://codeclimate.com/github/kif-ev/oskiosk-server)
+[![Dependency Status](https://img.shields.io/gemnasium/kif-ev/oskiosk-server.svg?style=flat)](https://gemnasium.com/kif-ev/oskiosk-server)
 
-[Live API Docs](http://thegcat.github.io/oskiosk/)
+[Live API Docs](http://kif-ev.github.io/oskiosk-server/)
 
 # License
 
