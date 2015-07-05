@@ -4,3 +4,9 @@
 [![Dependency Status](https://img.shields.io/gemnasium/thegcat/oskiosk.svg?style=flat)](https://gemnasium.com/thegcat/oskiosk)
 
 [Live API Docs](http://thegcat.github.io/oskiosk/)
+
+# License
+
+This software is distributed under the MIT license, see the included
+LICENSE.txt or [the OSI page about the MIT
+license](http://opensource.org/licenses/MIT) for more information.
