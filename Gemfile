@@ -1,13 +1,15 @@
 source 'https://rubygems.org'
 
-ruby '2.2.2'
+ruby '2.2.3'
 
-gem 'rails', '4.2.3'
+gem 'rails', '4.2.5'
 
 gem 'unicorn'
 
 gem 'rails-api'
 gem 'roar-rails', '~> 1.0.1'
+gem 'representable', '~> 2.2.3'
+gem 'roar', '= 1.0.1'
 gem 'virtus'
 gem 'interactor-rails', '~> 2.0'
 
