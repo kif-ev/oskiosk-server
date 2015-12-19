@@ -13,6 +13,9 @@ gem 'roar', '= 1.0.1'
 gem 'virtus'
 gem 'interactor-rails', '~> 2.0'
 
+# request nokogiri above 1.6.7.1 because of security advisories
+gem 'nokogiri', '>= 1.6.7.1'
+
 gem 'doorkeeper'
 
 # tags!
