@@ -203,14 +203,12 @@ GEM
     rb-fsevent (0.9.6)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
-    representable (2.2.3)
-      multi_json
-      nokogiri
+    representable (2.3.0)
       uber (~> 0.0.7)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
-    roar (1.0.1)
-      representable (>= 2.0.1, <= 3.0.0)
+    roar (1.0.4)
+      representable (>= 2.0.1, < 2.4.0)
     roar-rails (1.0.1)
       actionpack
       railties (>= 3.0.0)
@@ -298,16 +296,16 @@ DEPENDENCIES
   guard-cucumber
   guard-rspec
   interactor-rails (~> 2.0)
-  nokogiri (>= 1.6.7.1)
+  multi_json
   pg
   rack-cors
   rails (= 4.2.5)
   rails-api
   rails_12factor
   ransack
-  representable (~> 2.2.3)
-  roar (= 1.0.1)
-  roar-rails (~> 1.0.1)
+  representable
+  roar
+  roar-rails
   rspec-its
   rspec-rails (~> 3.0)
   skylight

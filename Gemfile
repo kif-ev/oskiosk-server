@@ -7,14 +7,12 @@ gem 'rails', '4.2.5'
 gem 'unicorn'
 
 gem 'rails-api'
-gem 'roar-rails', '~> 1.0.1'
-gem 'representable', '~> 2.2.3'
-gem 'roar', '= 1.0.1'
+gem 'roar-rails'
+gem 'representable'
+gem 'roar'
+gem 'multi_json'
 gem 'virtus'
 gem 'interactor-rails', '~> 2.0'
-
-# request nokogiri above 1.6.7.1 because of security advisories
-gem 'nokogiri', '>= 1.6.7.1'
 
 gem 'doorkeeper'
 
