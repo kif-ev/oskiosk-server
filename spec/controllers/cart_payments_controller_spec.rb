@@ -14,11 +14,15 @@ RSpec.describe CartPaymentsController, type: :controller do
     context 'with valid parameters' do
       before do
         expect(PayCart).to receive(:call).once.
-          with(cart_id: '1', requesting_application: application).
+          with(
+            cart_id: '1',
+            cart_version: '3',
+            requesting_application: application
+          ).
           and_return(context)
       end
 
-      before { post :create, cart_id: 1 }
+      before { post :create, cart_id: 1, lock_version: 3 }
 
       it('passes arguments correctly') {}
       it { is_expected.to have_http_status(:success) }
@@ -32,7 +36,7 @@ RSpec.describe CartPaymentsController, type: :controller do
           and_return(context)
       end
 
-      before { post :create, cart_id: 1 }
+      before { post :create, cart_id: 1, lock_version: 3 }
 
       it { is_expected.to have_http_status(:not_found) }
     end
@@ -45,7 +49,7 @@ RSpec.describe CartPaymentsController, type: :controller do
           and_return(context)
       end
 
-      before { post :create, cart_id: 1 }
+      before { post :create, cart_id: 1, lock_version: 3 }
 
       it { is_expected.to have_http_status(:error) }
     end

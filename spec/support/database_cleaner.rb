@@ -6,8 +6,9 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
   end
 
-  config.before(:each) do
-    DatabaseCleaner.strategy = :transaction
+  config.before(:each) do |example|
+    DatabaseCleaner.strategy =
+      example.metadata[:transactional] ? :truncation : :transaction
   end
 
   config.before(:each) do

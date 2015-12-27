@@ -3,7 +3,11 @@ require 'rails_helper'
 RSpec.describe PayCart do
   describe '#call' do
     let(:interactor) do
-      PayCart.new(cart_id: 1, requesting_application: application)
+      PayCart.new(
+        cart_id: 1,
+        cart_version: 3,
+        requesting_application: application
+      )
     end
     let(:context) { interactor.context }
     let(:user) { create :user, balance: 1000 }
@@ -19,7 +23,9 @@ RSpec.describe PayCart do
         create(:cart_item, quantity: 1, pricing: pricings[1])
       ]
     end
-    let(:cart) { create :cart, user: user, cart_items: cart_items }
+    let(:cart) do
+      create :cart, user: user, cart_items: cart_items, lock_version: 3
+    end
     let(:application) do
       build_stubbed :doorkeeper_application, name: 'Verkaufspunkt'
     end
@@ -152,6 +158,39 @@ RSpec.describe PayCart do
         expect { interactor.call rescue Interactor::Failure }.
           to_not change(user, :balance)
       end
+    end
+
+    context 'when things come in fast', :transactional do
+      it 'shouldn\'t do things twice' do
+        expect do
+          threaded(3) do
+            PayCart.new(
+              cart_id: 1,
+              cart_version: 3,
+              requesting_application: application
+            ).call rescue Interactor::Failure
+          end
+        end.to change(user, :balance).from(1000).to(700)
+      end
+    end
+  end
+
+  def threaded(count, &block)
+    threads = []
+    count.times do |i|
+      threads << Thread.new(i) do
+        ActiveRecord::Base.connection_pool.with_connection do
+          begin
+            yield
+          rescue Exception => e
+            Thread.current[:exception] = e.message
+          end
+        end
+      end
+    end
+    threads.each do |thread|
+      thread.join
+      assert_nil thread[:exception]
     end
   end
 end

@@ -3,11 +3,23 @@ When(/^the code "(.*?)" is scanned$/) do |code|
   if @cart_id
     case object['type']
     when 'user'
-      cart_update = JSON.generate({
-        user_id: object['id']
-      })
+      cart_update = JSON.generate(
+        {
+          user_id: object['id'],
+          lock_version: @cart_version
+        }
+      )
       cart = put(cart_path(id: @cart_id, format: :json), cart_update)
-      post(cart_cart_payment_path(cart_id: @cart_id, format: :json))
+      @cart_version = JSON.parse(cart.body)['lock_version']
+      cart_payment = JSON.generate(
+        {
+          lock_version: @cart_version
+        }
+      )
+      post(
+        cart_cart_payment_path(cart_id: @cart_id, format: :json),
+        cart_payment
+      )
     when 'product'
       p_id = object['pricings'][0]['id']
       cart = JSON.parse(get(cart_path(id: @cart_id, format: :json)).body)
@@ -18,8 +30,14 @@ When(/^the code "(.*?)" is scanned$/) do |code|
       else
         cart_items << {pricing_id: p_id, quantity: 1}
       end
-      cart_update = JSON.generate({cart_items: cart_items})
+      cart_update = JSON.generate(
+        {
+          cart_items: cart_items,
+          lock_version: @cart_version
+        }
+      )
       cart = patch(cart_path(id: @cart_id, format: :json), cart_update)
+      @cart_version = JSON.parse(cart.body)['lock_version']
       @errors << cart.status unless cart.successful?
     end
   else
@@ -32,6 +50,7 @@ When(/^the code "(.*?)" is scanned$/) do |code|
       })
       cart = JSON.parse(post(carts_path(format: :json), new_cart).body)
       @cart_id = cart['id']
+      @cart_version = cart['lock_version']
     end
   end
 end
@@ -41,6 +60,7 @@ Given(/^there is a POS$/) do
   header 'Authorization', "Bearer #{@bearer_token}"
   header 'Content-Type', 'application/json'
   @cart_id = nil
+  @cart_version = nil
   @errors = []
 end
 
@@ -49,6 +69,7 @@ When(/^the POS is setup as anonymous$/) do
   header 'Authorization', "Bearer #{@bearer_token}"
   header 'Content-Type', 'application/json'
   @cart_id = nil
+  @cart_version = nil
   @errors = []
 end
 
