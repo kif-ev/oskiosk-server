@@ -43,11 +43,13 @@ When(/^the code "(.*?)" is scanned$/) do |code|
   else
     case object['type']
     when 'product'
-      new_cart = JSON.generate({
-        cart_items: [
-          {quantity: 1, pricing_id: object['pricings'][0]['id']}
-        ]
-      })
+      new_cart = JSON.generate(
+        {
+          cart_items: [
+            { quantity: 1, pricing_id: object['pricings'][0]['id'] }
+          ]
+        }
+      )
       cart = JSON.parse(post(carts_path(format: :json), new_cart).body)
       @cart_id = cart['id']
       @cart_version = cart['lock_version']
