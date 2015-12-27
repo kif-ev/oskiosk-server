@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/cucumber/cucumber-rails.git
-  revision: ee968708cb32958b4d951835e3586f89faf645e3
+  revision: 57f244bba1b953f2125ba01a2a4afb5fe95ed39d
   specs:
     cucumber-rails (1.4.2)
       capybara (>= 1.1.2, < 3)
@@ -54,7 +54,7 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
-    bugsnag (2.8.13)
+    bugsnag (3.0.0)
       json (~> 1.7, >= 1.7.7)
     builder (3.2.2)
     capybara (2.5.0)
@@ -84,7 +84,7 @@ GEM
     diff-lcs (1.2.5)
     diffy (3.1.0)
     docile (1.1.5)
-    doorkeeper (3.0.1)
+    doorkeeper (3.1.0)
       railties (>= 3.2)
     equalizer (0.0.11)
     erubis (2.7.0)
@@ -205,8 +205,8 @@ GEM
       ffi (>= 0.5.0)
     representable (2.3.0)
       uber (~> 0.0.7)
-    responders (2.1.0)
-      railties (>= 4.2.0, < 5)
+    responders (2.1.1)
+      railties (>= 4.2.0, < 5.1)
     roar (1.0.4)
       representable (>= 2.0.1, < 2.4.0)
     roar-rails (1.0.1)
