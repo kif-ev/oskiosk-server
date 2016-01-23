@@ -78,6 +78,8 @@ GEM
       railties (>= 3, < 5)
     cucumber-wire (0.0.1)
     database_cleaner (1.5.1)
+    declarative (0.0.5)
+      uber (>= 0.0.15)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.2.5)
