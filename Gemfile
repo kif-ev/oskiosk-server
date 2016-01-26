@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.2.3'
 
-gem 'rails', '4.2.5'
+gem 'rails', '~> 4.2.5.1'
 
 gem 'unicorn'
 
@@ -50,3 +50,5 @@ end
 gem 'pg'
 
 gem 'rails_12factor', group: :production
+
+gem 'rails-html-sanitizer', '~> 1.0.3'
