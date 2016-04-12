@@ -19,7 +19,7 @@ class UserDepositsController < ApplicationController
   end
   # :nocov:
 
-  before_action -> { doorkeeper_authorize! :deposit }
+  before_action -> { doorkeeper_authorize! :deposit, :cash_desk }
 
   def create
     deposit = Deposit.new

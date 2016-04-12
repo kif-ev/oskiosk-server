@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   # :nocov:
 
   before_action :doorkeeper_authorize!, only: [:show]
-  before_action -> { doorkeeper_authorize! :admin }, only: [:index]
+  before_action -> { doorkeeper_authorize! :admin, :cash_desk }, only: [:index]
 
   def show
     user = User.find_by_id(params[:id])
