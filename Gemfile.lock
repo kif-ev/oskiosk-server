@@ -76,7 +76,7 @@ GEM
       nokogiri (~> 1.5)
       railties (>= 3, < 5)
     cucumber-wire (0.0.1)
-    database_cleaner (1.5.1)
+    database_cleaner (1.5.2)
     declarative (0.0.7)
       uber (>= 0.0.15)
     descendants_tracker (0.0.4)
