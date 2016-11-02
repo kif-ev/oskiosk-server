@@ -34,4 +34,36 @@ namespace :import do
       Oskiosk::Importer::Boon.import_products!(path)
     end
   end
+
+  namespace :ilmenau do
+    require 'oskiosk/importer/ilmenau'
+
+    desc 'Import kiffel in Ilmenau format'
+    task :users, [:path] => [:environment] do |t,args|
+      path = args[:path]
+      raise(ArgumentError, "no path given")  unless path.present?
+      Oskiosk::Importer::Ilmenau.import_kiffel!(path)
+    end
+
+    desc 'Import orga in Ilmenau format'
+    task :users, [:path] => [:environment] do |t,args|
+      path = args[:path]
+      raise(ArgumentError, "no path given")  unless path.present?
+      Oskiosk::Importer::Ilmenau.import_orga!(path)
+    end
+
+    desc 'Import anon in Ilmenau format'
+    task :users, [:path] => [:environment] do |t,args|
+      path = args[:path]
+      raise(ArgumentError, "no path given")  unless path.present?
+      Oskiosk::Importer::Ilmenau.import_anon!(path)
+    end
+
+    desc 'Import products in Ilmenau format'
+    task :products, [:path] => [:environment] do |t,args|
+      path = args[:path]
+      raise(ArgumentError, "no path given")  unless path.present?
+      Oskiosk::Importer::Ilmenau.import_products!(path)
+    end
+  end
 end
