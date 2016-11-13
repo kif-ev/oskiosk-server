@@ -1,4 +1,4 @@
-require 'codeclimate-test-reporter'
+require 'simplecov'
 
 # do some magic to report skipped lines as not needing coverage
 # this will probably horribly break at some point in the future, soooo…
@@ -19,7 +19,7 @@ module SimpleCov
   end
 end
 
-CodeClimate::TestReporter.start
+SimpleCov.start
 
 require 'factory_girl'
 
