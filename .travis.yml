@@ -6,6 +6,8 @@ rvm:
 before_script:
   - cp config/database.yml_travis config/database.yml
   - bundle exec rake db:create
+after_success:
+  - vendor/bin/codeclimate-test-reporter
 addons:
   code_climate:
     repo_token: 77087e4bd5341508f7b5fd16196425c54cb6fed60935c5a635b14bcff87757d5
