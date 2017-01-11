@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe UserDeposit do
   describe '#call' do
     let(:user) { create :user, balance: 1000 }
-    let(:application) { build_stubbed :doorkeeper_application }
+    let(:application) { create :doorkeeper_application }
     let(:interactor) do
       UserDeposit.new user_id: user.id,
                       amount: 1000,
