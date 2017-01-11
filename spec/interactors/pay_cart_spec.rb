@@ -27,7 +27,7 @@ RSpec.describe PayCart do
       create :cart, user: user, cart_items: cart_items, lock_version: 3
     end
     let(:application) do
-      build_stubbed :doorkeeper_application, name: 'Verkaufspunkt'
+      create :doorkeeper_application, name: 'Verkaufspunkt'
     end
 
     before do
