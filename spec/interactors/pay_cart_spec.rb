@@ -4,7 +4,7 @@ RSpec.describe PayCart do
   describe '#call' do
     let(:interactor) do
       PayCart.new(
-        cart_id: 1,
+        cart_id: cart.id,
         cart_version: 3,
         requesting_application: application
       )
@@ -31,7 +31,7 @@ RSpec.describe PayCart do
     end
 
     before do
-      allow(Cart).to receive(:find_by_id!).with(1).and_return(cart)
+      allow(Cart).to receive(:find_by_id!).with(cart.id).and_return(cart)
     end
 
     context 'when everything is swell' do
@@ -108,7 +108,7 @@ RSpec.describe PayCart do
 
     context 'when there\'s no cart with that ID' do
       before do
-        allow(Cart).to receive(:find_by_id!).with(1).
+        allow(Cart).to receive(:find_by_id!).with(cart.id).
           and_raise(ActiveRecord::RecordNotFound)
       end
 
@@ -125,7 +125,7 @@ RSpec.describe PayCart do
 
     context 'when things go wrong' do
       before do
-        allow(cart).to receive(:destroy!).
+        allow_any_instance_of(Cart).to receive(:destroy!).
           and_raise(ActiveRecord::ActiveRecordError)
       end
 
@@ -165,7 +165,7 @@ RSpec.describe PayCart do
         expect do
           threaded(3) do
             PayCart.new(
-              cart_id: 1,
+              cart_id: cart.id,
               cart_version: 3,
               requesting_application: application
             ).call rescue Interactor::Failure
