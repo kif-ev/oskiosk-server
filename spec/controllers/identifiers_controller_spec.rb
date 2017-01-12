@@ -11,7 +11,7 @@ RSpec.describe IdentifiersController, type: :controller do
     before {Identifier.find_by_code('U1').try(:identifiable) || create(:user, code: 'U1')}
     before {Identifier.find_by_code('P1').try(:identifiable) || create(:product, code: 'P1')}
 
-    before {get :show, id: code}
+    before { get :show, params: { id: code } }
 
     context 'when the resource exists' do
       its(:content_type) {is_expected.to eq 'application/json'}

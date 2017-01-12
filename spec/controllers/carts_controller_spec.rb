@@ -12,7 +12,7 @@ RSpec.describe CartsController, type: :controller do
 
   describe '#show' do
     before {Cart.find_by_id(1) || create(:cart, id: 1)}
-    before {get :show, id: cart_id}
+    before { get :show, params: { id: cart_id } }
 
     context 'when the resource exists' do
       let(:cart_id) {'1'}
@@ -34,12 +34,12 @@ RSpec.describe CartsController, type: :controller do
     describe 'with valid parameters' do
       it 'creates a new Cart' do
         expect {
-          post :create, JSON.generate(valid_attributes)
+          post :create, body: JSON.generate(valid_attributes)
         }.to change(Cart, :count).by(1)
       end
 
       describe 'the request' do
-        before {post :create, JSON.generate(valid_attributes)}
+        before { post :create, body: JSON.generate(valid_attributes) }
 
         its(:content_type) {is_expected.to eq 'application/json'}
         it {is_expected.to have_http_status(:created)}
@@ -58,13 +58,13 @@ RSpec.describe CartsController, type: :controller do
       it 'updates the Cart 1' do
         cart = Cart.find_by_id(1)
         expect {
-          put :update, JSON.generate(valid_attributes), id: '1'
+          put :update, body: JSON.generate(valid_attributes), params: { id: '1' }
           cart.reload
         }.to change(cart, :user_id).from(2).to(1)
       end
 
       describe 'the request' do
-        before {put :update, JSON.generate(valid_attributes), id: '1'}
+        before { put :update, body: JSON.generate(valid_attributes), params: { id: '1' } }
 
         its(:content_type) {is_expected.to eq 'application/json'}
         it {is_expected.to have_http_status(:success)}
