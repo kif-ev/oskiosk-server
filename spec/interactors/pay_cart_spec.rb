@@ -162,6 +162,8 @@ RSpec.describe PayCart do
 
     context 'when things come in fast', :transactional do
       it 'shouldn\'t do things twice' do
+        # Always returning the same cart object shares it between threads
+        allow(Cart).to receive(:find_by_id!).with(cart.id).and_call_original
         expect do
           threaded(3) do
             PayCart.new(
@@ -170,6 +172,8 @@ RSpec.describe PayCart do
               requesting_application: application
             ).call rescue Interactor::Failure
           end
+          # the let(:user) is not the one being mutated in the threads
+          user.reload
         end.to change(user, :balance).from(1000).to(700)
       end
     end
