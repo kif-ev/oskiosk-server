@@ -16,7 +16,7 @@ RSpec.describe UserDepositsController, type: :controller do
       expect(UserDeposit).to receive(:call).once.
         with(user_id: '1', amount: 1000, requesting_application: application).
         and_return(context)
-      post :create, JSON.generate(amount: 1000), user_id: '1'
+      post :create, body: JSON.generate(amount: 1000), params: { user_id: '1' }
     end
 
     context 'with valid parameters' do

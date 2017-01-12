@@ -8,7 +8,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe '#show' do
     before {User.find_by_id(1) || create(:user, id: 1)}
-    before {get :show, id: user_id}
+    before { get :show, params: { id: user_id } }
 
     context 'when the resource exists' do
       let(:user_id) {'1'}

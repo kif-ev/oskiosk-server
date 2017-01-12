@@ -22,7 +22,7 @@ RSpec.describe CartPaymentsController, type: :controller do
           and_return(context)
       end
 
-      before { post :create, cart_id: 1, lock_version: 3 }
+      before { post :create, params: { cart_id: 1, lock_version: 3 } }
 
       it('passes arguments correctly') {}
       it { is_expected.to have_http_status(:success) }
@@ -36,7 +36,7 @@ RSpec.describe CartPaymentsController, type: :controller do
           and_return(context)
       end
 
-      before { post :create, cart_id: 1, lock_version: 3 }
+      before { post :create, params: { cart_id: 1, lock_version: 3 } }
 
       it { is_expected.to have_http_status(:not_found) }
     end
@@ -49,7 +49,7 @@ RSpec.describe CartPaymentsController, type: :controller do
           and_return(context)
       end
 
-      before { post :create, cart_id: 1, lock_version: 3 }
+      before { post :create, params: { cart_id: 1, lock_version: 3 } }
 
       it { is_expected.to have_http_status(:error) }
     end

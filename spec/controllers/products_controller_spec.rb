@@ -8,7 +8,7 @@ RSpec.describe ProductsController, type: :controller do
 
   describe '#show' do
     before {Product.find_by_id(1) || create(:product, id: 1)}
-    before {get :show, id: product_id}
+    before { get :show, params: { id: product_id } }
 
     context 'when the resource exists' do
       let(:product_id) {'1'}

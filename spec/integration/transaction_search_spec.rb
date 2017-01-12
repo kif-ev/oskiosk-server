@@ -121,25 +121,25 @@ RSpec.describe 'transaction search and filtering', type: :request do
     end
 
     it 'should filter by amount' do
-      post '/transactions/search.json', q: { amount_gteq: 600 }
+      post '/transactions/search.json', params: { q: { amount_gteq: 600 } }
       expect(subject.size).to eq 3
     end
 
     it 'should filter by amount and user_name' do
       post '/transactions/search.json',
-           q: { amount_gteq: 600, user_name_cont: 'Boba' }
+           params: { q: { amount_gteq: 600, user_name_cont: 'Boba' } }
       expect(subject.size).to eq 2
     end
 
     it 'should filter by transaction_items.name' do
       post '/transactions/search.json',
-           q: { transaction_items_name_start: 'Club' }
+           params: { q: { transaction_items_name_start: 'Club' } }
       expect(subject.size).to eq 4
     end
 
     it 'should filter by transaction_items.product.tags' do
       post '/transactions/search.json',
-           q: { transaction_items_product_tags_name_cont: 'producer:Nestlé' }
+           params: { q: { transaction_items_product_tags_name_cont: 'producer:Nestlé' } }
       expect(subject.size).to eq 1
     end
   end
