@@ -35,6 +35,6 @@ class CatchJsonParseErrors
 end
 
 Rails.application.configure do
-  config.middleware.use 'CatchJsonParseErrors'
+  config.middleware.use CatchJsonParseErrors
 end
 
