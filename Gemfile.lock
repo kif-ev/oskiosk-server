@@ -270,7 +270,7 @@ GEM
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
     uber (0.0.15)
-    unicorn (5.2.0)
+    unicorn (5.3.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
     virtus (1.0.5)
