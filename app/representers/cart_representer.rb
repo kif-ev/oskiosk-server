@@ -1,5 +1,8 @@
-module CartRepresenter
+require 'roar/coercion'
+
+class CartRepresenter < Roar::Decorator
   include Roar::JSON::HAL
+  include Roar::Coercion
 
   property :type, getter: ->(_) {'cart'}, writeable: false
   property :id, writeable: false, type: Integer
@@ -9,9 +12,10 @@ module CartRepresenter
 
   collection(
     :cart_items,
-    extend: CartItemRepresenter,
+    decorator: CartItemRepresenter,
     class: CartItem,
-    parse_strategy: lambda do |fragment, _, _|
+    populator: lambda do |fragment, options|
+      cart_items = options[:represented].cart_items
       cart_item = cart_items.find { |ci| ci.pricing_id == fragment['pricing_id'] }
       cart_item ||= cart_items.build pricing_id: fragment['pricing_id']
       cart_item.quantity = fragment['quantity']
@@ -20,9 +24,9 @@ module CartRepresenter
   )
 
   link :self do
-    url_for self
+    url_for represented
   end
   link :customer do
-    url_for user if user.present?
+    url_for represented.user if represented.user.present?
   end
 end

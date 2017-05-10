@@ -1,7 +1,7 @@
 require 'roar/json/collection'
 
-module TransactionsRepresenter
+class TransactionsRepresenter < Roar::Decorator
   include Roar::JSON::Collection
 
-  items extend: TransactionRepresenter, class: Transaction
+  items decorator: TransactionRepresenter, class: Transaction
 end

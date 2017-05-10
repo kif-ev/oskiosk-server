@@ -1,8 +1,8 @@
 require 'roar/json/collection'
 
-module ProductsRepresenter
+class ProductsRepresenter < Roar::Decorator
   include Roar::JSON::Collection
 
-  items extend: ProductRepresenter, class: Product
+  items decorator: ProductRepresenter, class: Product
 end
 

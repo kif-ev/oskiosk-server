@@ -11,12 +11,12 @@ gem 'rails', '~> 5.0.1'
 gem 'unicorn'
 
 gem 'responders'
-gem 'roar-rails', '~> 1.0.1'
-gem 'representable', '~> 2.3.0'
-gem 'roar', '~> 1.0.4'
+gem 'roar-rails'
+gem 'representable'
+gem 'roar'
 gem 'multi_json'
 gem 'virtus'
-gem 'interactor-rails', '~> 2.0'
+gem 'interactor-rails'
 
 gem 'doorkeeper'
 

@@ -1,4 +1,4 @@
-module TransactionRepresenter
+class TransactionRepresenter < Roar::Decorator
   include Roar::JSON::HAL
 
   property :type, getter: ->(_) {'transaction'}, writeable: false
@@ -11,13 +11,13 @@ module TransactionRepresenter
   collection(
     :transaction_items,
     writeable: false,
-    extend: TransactionItemRepresenter
+    decorator: TransactionItemRepresenter
   )
 
-  #link :self do
-  #  url_for self
-  #end
+  link :self do
+    url_for represented
+  end
   link :user do
-    url_for user if user.present?
+    url_for represented.user if represented.user.present?
   end
 end

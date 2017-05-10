@@ -1,5 +1,8 @@
-module ProductRepresenter
+require 'roar/coercion'
+
+class ProductRepresenter < Roar::Decorator
   include Roar::JSON::HAL
+  include Roar::Coercion
 
   property :type, getter: ->(_) {'product'}, writeable: false
   property :id, writeable: false, type: Integer
@@ -10,9 +13,10 @@ module ProductRepresenter
 
   collection(
     :pricings,
-    extend: PricingRepresenter,
+    decorator: PricingRepresenter,
     class: Pricing,
-    parse_strategy: ->(fragment, _, _) do
+    populator: ->(fragment, options) do
+      pricings = options[:represented].pricings
       pricing = pricings.find { |p| p.id == fragment['id'] }
       pricing ||= pricings.build
       pricing.quantity = fragment['quantity'] || 0
@@ -23,9 +27,10 @@ module ProductRepresenter
 
   collection(
     :identifiers,
-    extend: IdentifierRepresenter,
+    decorator: IdentifierRepresenter,
     class: Identifier,
-    parse_strategy: ->(fragment, _, _) do
+    populator: ->(fragment, options) do
+      identifiers = options[:represented].identifiers
       identifier = identifiers.find { |i| i.code == fragment['code'] }
       identifier ||= identifiers.build code: fragment['code']
       identifier
@@ -33,6 +38,6 @@ module ProductRepresenter
   )
 
   link :self do
-    url_for self
+    url_for represented
   end
 end

@@ -1,4 +1,4 @@
-module TransactionItemRepresenter
+class TransactionItemRepresenter < Roar::Decorator
   include Roar::JSON::HAL
 
   property :type, getter: ->(_) {'transaction_item'}, writeable: false
@@ -9,6 +9,6 @@ module TransactionItemRepresenter
   property :quantity, writeable: false, type: Integer
 
   link :product do
-    url_for product if product.present?
+    url_for represented.product if represented.product.present?
   end
 end

@@ -1,8 +1,8 @@
-require 'representable/coercion'
+require 'roar/coercion'
 
-module DepositRepresenter
+class DepositRepresenter < Roar::Decorator
   include Roar::JSON::HAL
-  include Representable::Coercion
+  include Roar::Coercion
 
   property :amount, type: Integer, default: 0
 end
