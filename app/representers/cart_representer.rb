@@ -12,10 +12,9 @@ module CartRepresenter
     extend: CartItemRepresenter,
     class: CartItem,
     parse_strategy: lambda do |fragment, _, _|
-      cart_item = cart_items.where(pricing_id: fragment['pricing_id']).
-                  first_or_initialize
+      cart_item = cart_items.find { |ci| ci.pricing_id == fragment['pricing_id'] }
+      cart_item ||= cart_items.build pricing_id: fragment['pricing_id']
       cart_item.quantity = fragment['quantity']
-      cart_items << cart_item
       cart_item
     end
   )
