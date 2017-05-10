@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
   include Roar::Rails::ControllerAdditions::Render
 
   # :nocov:
-  swagger_controller :products, 'Manage products and their prices'
+  swagger_controller :products, 'Manage products, their prices and quantities'
 
   swagger_api :show do
     summary 'Fetch the product and its prices'

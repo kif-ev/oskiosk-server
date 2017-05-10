@@ -3,7 +3,7 @@ class TransactionsController < ApplicationController
   include Roar::Rails::ControllerAdditions::Render
 
   # :nocov:
-  swagger_controller :transactions, 'Create transactions'
+  swagger_controller :transactions, 'Fetch and filter transactions'
 
   swagger_api :show do
     summary 'Fetch the transaction'
