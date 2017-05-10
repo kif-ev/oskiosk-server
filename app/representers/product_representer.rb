@@ -8,13 +8,29 @@ module ProductRepresenter
   property :available_quantity, writeable: false, type: Integer
   collection :tag_list, as: :tags
 
-  collection :pricings do
-    property :type, getter: ->(_) {'pricing'}, writeable: false
-    property :id, type: Integer
-    property :quantity, type: Integer
-    property :available_quantity, writeable: false, type: Integer
-    property :price, type: Integer
-  end
+  collection(
+    :pricings,
+    extend: PricingRepresenter,
+    class: Pricing,
+    parse_strategy: ->(fragment, _, _) do
+      pricing = pricings.find { |p| p.id == fragment['id'] }
+      pricing ||= pricings.build
+      pricing.quantity = fragment['quantity'] || 0
+      pricing.price = fragment['price'] || 0
+      pricing
+    end
+  )
+
+  collection(
+    :identifiers,
+    extend: IdentifierRepresenter,
+    class: Identifier,
+    parse_strategy: ->(fragment, _, _) do
+      identifier = identifiers.find { |i| i.code == fragment['code'] }
+      identifier ||= identifiers.build code: fragment['code']
+      identifier
+    end
+  )
 
   link :self do
     url_for self

@@ -1,8 +1,8 @@
 class Product < ActiveRecord::Base
   acts_as_taggable
 
-  has_many :identifiers, as: :identifiable
-  has_many :pricings, dependent: :destroy
+  has_many :identifiers, as: :identifiable, autosave: true
+  has_many :pricings, dependent: :destroy, autosave: true
 
   def quantity
     pricings.sum :quantity

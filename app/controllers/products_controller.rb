@@ -21,6 +21,14 @@ class ProductsController < ApplicationController
     response :ok, 'Success', :readProduct
   end
 
+  swagger_api :create do
+    summary 'Create a new product'
+    param :body, :product, :writeProduct, :required, 'Product'
+    response :ok, 'Success', :readProduct
+    response :conflict, 'Conflict', :readProduct
+    response :bad_request
+  end
+
   swagger_model :readProduct do
     description 'A Product object'
     property :id, :integer, :optional, 'Product ID'
@@ -31,6 +39,8 @@ class ProductsController < ApplicationController
       'items' => {'type' => 'string'}
     property :pricings, :array, :optional, 'Pricings',
       'items' => {'$ref' => 'readPricing'}
+    property :identifiers, :array, :optional, 'Identifiers',
+      'items' => {'$ref' => 'readIdentifier'}
   end
 
   swagger_model :readPricing do
@@ -39,6 +49,30 @@ class ProductsController < ApplicationController
     property :quantity, :integer, :optional, 'Total quantity'
     property :available_quantity, :integer, :optional, 'Available quantity'
     property :price, :integer, :optional, 'Product price'
+  end
+
+  swagger_model :readIdentifier do
+    description 'A Product\'s or User\'s Identifier'
+    property :code, :string, :required, 'Identifying code'
+  end
+
+  swagger_model :writeProduct do
+    property :name, :string, :optional, 'Product name'
+    property :tags, :array, :optional, 'Tags',
+      'items' => { 'type' => 'string' }
+    property :pricings, :array, :optional, 'Pricings',
+      'items' => { '$ref' => 'writePricing' }
+    property :identifiers, :array, :optional, 'Identifiers',
+      'items' => { '$ref' => 'writeIdentifier' }
+  end
+
+  swagger_model :writePricing do
+    property :quantity, :integer, :required, 'Total quantity'
+    property :price, :integer, :optional, 'Product price'
+  end
+
+  swagger_model :writeIdentifier do
+    property :code, :string, :required, 'Identifying code'
   end
   # :nocov:
 
@@ -57,5 +91,16 @@ class ProductsController < ApplicationController
   def index
     products = Product.all
     render json: products
+  end
+
+  def create
+    product = Product.new
+    consume!(product)
+
+    if product.save
+      render json: product, status: :created, location: product
+    else
+      render json: product, status: :conflict, location: product
+    end
   end
 end
