@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 
 ruby '2.3.3'
 
+# explicit dependencies on stdlib stuff
+gem 'bigdecimal'
+gem 'json'
+
 gem 'rails', '~> 5.0.1'
 
 gem 'unicorn'
