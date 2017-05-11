@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   use_doorkeeper
+  get 'heartbeat' => 'heartbeat#check'
   resources :identifiers, only: [:show]
   resources :users, only: [:show, :index] do
     resource :user_deposit, only: [:create], path: 'deposit'
