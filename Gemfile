@@ -6,7 +6,7 @@ ruby '2.3.3'
 gem 'bigdecimal'
 gem 'json'
 
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.1.0'
 
 gem 'unicorn'
 
@@ -21,7 +21,7 @@ gem 'interactor-rails'
 gem 'doorkeeper'
 
 # tags!
-gem 'acts-as-taggable-on'
+gem 'acts-as-taggable-on', git: 'https://github.com/mbleigh/acts-as-taggable-on.git'
 
 # search!
 gem 'ransack'
@@ -46,7 +46,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.0'
   gem 'rspec-its'
-  gem 'cucumber-rails', require: false
+  gem 'cucumber-rails', require: false, git: 'https://github.com/cucumber/cucumber-rails.git'
   gem 'database_cleaner'
   gem "codeclimate-test-reporter", require: false
 end
