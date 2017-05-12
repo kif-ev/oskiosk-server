@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :index] do
     resource :user_deposit, only: [:create], path: 'deposit'
   end
-  resources :products, only: [:index, :show, :create]
+  resources :products, only: [:index, :show, :create, :update]
   resources :carts, only: [:create, :show, :update] do
     resource :cart_payment, only: [:create], path: 'pay'
   end

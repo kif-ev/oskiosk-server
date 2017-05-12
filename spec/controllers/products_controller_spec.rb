@@ -7,7 +7,7 @@ RSpec.describe ProductsController, type: :controller do
   before {allow(controller).to receive(:doorkeeper_token) {token}}
 
   let (:valid_attributes) {
-    { }
+    { name: 'Perriair' }
   }
 
   describe '#show' do
@@ -60,6 +60,31 @@ RSpec.describe ProductsController, type: :controller do
         its(:content_type) { is_expected.to eq 'application/json' }
         it { is_expected.to have_http_status(:created) }
       end
+    end
+  end
+
+  describe '#update via JSON' do
+    before do
+      product = Product.find_by_id(1) || create(:product, id: 1)
+      product.update_attribute(:name, 'Turbriskafil')
+    end
+    before { request.env['CONTENT_TYPE'] = 'application/json' }
+
+    describe 'with valid parameters' do
+      it 'updates the Product 1' do
+        product = Product.find_by_id(1)
+        expect {
+          put :update, body: JSON.generate(valid_attributes), params: { id: '1' }
+          product.reload
+        }.to change(product, :name).from('Turbriskafil').to('Perriair')
+      end
+    end
+
+    describe 'the request' do
+      before { put :update, body: JSON.generate(valid_attributes), params: { id: '1' } }
+
+      its(:content_type) {is_expected.to eq 'application/json'}
+      it {is_expected.to have_http_status(:success)}
     end
   end
 end

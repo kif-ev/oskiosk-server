@@ -29,6 +29,16 @@ class ProductsController < ApplicationController
     response :bad_request
   end
 
+  swagger_api :update do
+    summary 'Update a product'
+    notes 'Supports partial updates'
+    param :path, :id, :integer, :required, 'Product ID'
+    param :body, :product, :writeProduct, :required, 'Product'
+    response :ok, 'Success', :readProduct
+    response :conflict, 'Conflict', :readProduct
+    response :not_found
+  end
+
   swagger_model :readProduct do
     description 'A Product object'
     property :id, :integer, :optional, 'Product ID'
@@ -99,6 +109,17 @@ class ProductsController < ApplicationController
 
     if product.save
       render json: product, status: :created, location: product
+    else
+      render json: product, status: :conflict, location: product
+    end
+  end
+
+  def update
+    product = Product.find(params[:id])
+    consume!(product)
+
+    if product.save
+      render json: product, status: :ok, location: product
     else
       render json: product, status: :conflict, location: product
     end
