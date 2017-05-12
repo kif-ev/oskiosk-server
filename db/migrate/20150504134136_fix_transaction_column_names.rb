@@ -1,4 +1,4 @@
-class FixTransactionColumnNames < ActiveRecord::Migration
+class FixTransactionColumnNames < ActiveRecord::Migration[4.2]
   def change
     rename_column :transactions, :type, :transaction_type
     rename_column :transactions, :buyer_name, :user_name

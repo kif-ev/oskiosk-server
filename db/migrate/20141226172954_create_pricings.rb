@@ -1,4 +1,4 @@
-class CreatePricings < ActiveRecord::Migration
+class CreatePricings < ActiveRecord::Migration[4.2]
   def change
     create_table :pricings do |t|
       t.integer :price, default: 0
