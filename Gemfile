@@ -46,7 +46,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.0'
   gem 'rspec-its'
-  gem 'cucumber-rails', require: false, git: 'https://github.com/cucumber/cucumber-rails.git'
+  gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem "codeclimate-test-reporter", require: false
 end
