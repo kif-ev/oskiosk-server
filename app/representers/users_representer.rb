@@ -1,7 +1,3 @@
-require 'roar/json/collection'
-
-class UsersRepresenter < Roar::Decorator
-  include Roar::JSON::Collection
-
+class UsersRepresenter < CollectionDecorator
   items decorator: UserRepresenter, class: User
 end

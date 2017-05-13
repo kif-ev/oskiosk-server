@@ -1,9 +1,4 @@
-require 'roar/coercion'
-
-class PricingRepresenter < Roar::Decorator
-  include Roar::JSON::HAL
-  include Roar::Coercion
-
+class PricingRepresenter < ApplicationDecorator
   property :type, getter: ->(_) {'pricing'}, writeable: false
   property :id, writeable: false, type: Integer
   property :quantity, type: Integer

@@ -1,9 +1,4 @@
-require 'roar/coercion'
-
-class UserRepresenter < Roar::Decorator
-  include Roar::JSON::HAL
-  include Roar::Coercion
-
+class UserRepresenter < ApplicationDecorator
   property :type, getter: ->(_) {'user'}, writeable: false
   property :id, writeable: false, type: Integer
   property :name

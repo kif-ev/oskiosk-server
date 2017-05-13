@@ -1,9 +1,4 @@
-require 'roar/coercion'
-
-class ProductRepresenter < Roar::Decorator
-  include Roar::JSON::HAL
-  include Roar::Coercion
-
+class ProductRepresenter < ApplicationDecorator
   property :type, getter: ->(_) {'product'}, writeable: false
   property :id, writeable: false, type: Integer
   property :name

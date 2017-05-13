@@ -1,8 +1,3 @@
-require 'roar/coercion'
-
-class IdentifierRepresenter < Roar::Decorator
-  include Roar::JSON::HAL
-  include Roar::Coercion
-
+class IdentifierRepresenter < ApplicationDecorator
   property :code, type: String
 end

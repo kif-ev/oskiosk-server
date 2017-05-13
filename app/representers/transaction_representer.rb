@@ -1,6 +1,4 @@
-class TransactionRepresenter < Roar::Decorator
-  include Roar::JSON::HAL
-
+class TransactionRepresenter < ApplicationDecorator
   property :type, getter: ->(_) {'transaction'}, writeable: false
   property :transaction_type, writeable: false
   property :id, writeable: false, type: Integer

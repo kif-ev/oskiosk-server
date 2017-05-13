@@ -1,9 +1,4 @@
-require 'roar/coercion'
-
-class CartRepresenter < Roar::Decorator
-  include Roar::JSON::HAL
-  include Roar::Coercion
-
+class CartRepresenter < ApplicationDecorator
   property :type, getter: ->(_) {'cart'}, writeable: false
   property :id, writeable: false, type: Integer
   property :lock_version, type: Integer
