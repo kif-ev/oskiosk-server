@@ -83,7 +83,8 @@ class ProductsController < ApplicationController
   end
   # :nocov:
 
-  before_action :doorkeeper_authorize!
+  before_action :doorkeeper_authorize!, only: [:show, :index]
+  before_action -> { doorkeeper_authorize! :admin }, only: [:create, :update]
 
   def show
     product = Product.find_by_id(params[:id])
