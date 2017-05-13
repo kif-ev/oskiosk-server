@@ -47,6 +47,10 @@ class UsersController < ApplicationController
     property :identifiers, :array, :optional, 'Identifiers',
       'items' => { '$ref' => 'writeIdentifier' }
   end
+
+  swagger_model :writeIdentifier do
+    property :code, :string, :required, 'Identifying code'
+  end
   # :nocov:
 
   before_action :doorkeeper_authorize!, only: [:show]
