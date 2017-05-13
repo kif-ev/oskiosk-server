@@ -1,7 +1,4 @@
 class ProductsController < ApplicationController
-  include Roar::Rails::ControllerAdditions
-  include Roar::Rails::ControllerAdditions::Render
-
   # :nocov:
   swagger_controller :products, 'Manage products, their prices and quantities'
 

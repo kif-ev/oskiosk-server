@@ -1,7 +1,4 @@
 class UserDepositsController < ApplicationController
-  include Roar::Rails::ControllerAdditions
-  include Roar::Rails::ControllerAdditions::Render
-
   # :nocov:
   swagger_controller :user_deposits, 'Create deposits to user\'s accounts'
 

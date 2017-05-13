@@ -1,7 +1,4 @@
 class IdentifiersController < ApplicationController
-  include Roar::Rails::ControllerAdditions
-  include Roar::Rails::ControllerAdditions::Render
-
   # :nocov:
   swagger_controller :identifiers, 'Manage barcodes (identifiers)'
 

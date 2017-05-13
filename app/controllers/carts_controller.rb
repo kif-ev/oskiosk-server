@@ -1,7 +1,4 @@
 class CartsController < ApplicationController
-  include Roar::Rails::ControllerAdditions
-  include Roar::Rails::ControllerAdditions::Render
-
   # :nocov:
   swagger_controller :carts, 'Create and update carts'
 

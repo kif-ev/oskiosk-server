@@ -1,7 +1,4 @@
 class CartPaymentsController < ApplicationController
-  include Roar::Rails::ControllerAdditions
-  include Roar::Rails::ControllerAdditions::Render
-
   # :nocov:
   swagger_controller :cart_payments, 'Pay for a cart'
 
