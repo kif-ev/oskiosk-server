@@ -37,7 +37,14 @@ class UsersController < ApplicationController
     property :name, :string, :optional, 'User Name'
     property :balance, :integer, :optional, 'User\'s balance in € cent'
     property :tags, :array, :optional, 'Tags',
-      'items' => {'type' => 'string'}
+      'items' => { 'type' => 'string' }
+    property :identifiers, :array, :optional, 'Identifiers',
+      'items' => { '$ref' => 'readIdentifier' }
+  end
+
+  swagger_model :readIdentifier do
+    description 'A Product\'s or User\'s Identifier'
+    property :code, :string, :required, 'Identifying code'
   end
 
   swagger_model :writeUser do
