@@ -5,6 +5,18 @@ class UserRepresenter < ApplicationDecorator
   property :balance, writeable: false, type: Integer
   collection :tag_list, as: :tags
 
+  collection(
+    :identifiers,
+    decorator: IdentifierRepresenter,
+    class: Identifier,
+    populator: ->(fragment, options) do
+      identifiers = options[:represented].identifiers
+      identifier = identifiers.find { |i| i.code == fragment['code'] }
+      identifier ||= identifiers.build code: fragment['code']
+      identifier
+    end
+  )
+
   link :self do
     url_for represented
   end
