@@ -21,7 +21,7 @@ gem 'interactor-rails'
 gem 'doorkeeper'
 
 # tags!
-gem 'acts-as-taggable-on', git: 'https://github.com/mbleigh/acts-as-taggable-on.git'
+gem 'acts-as-taggable-on'
 
 # search!
 gem 'ransack'
