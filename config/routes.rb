@@ -14,4 +14,5 @@ Rails.application.routes.draw do
       match 'search', via: [:post]
     end
   end
+  get 'statistics/netdata' => 'statistics#netdata'
 end
