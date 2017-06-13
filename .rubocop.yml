@@ -3,3 +3,6 @@ Rails:
 
 Style/StringLiterals:
   EnforcedStyle: single_quotes
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
