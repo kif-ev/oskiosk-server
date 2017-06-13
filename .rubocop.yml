@@ -1,5 +1,5 @@
-AllCops:
-  RunRailsCops: true
+Rails:
+  Enabled: true
 
 Style/StringLiterals:
   EnforcedStyle: single_quotes
