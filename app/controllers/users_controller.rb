@@ -39,9 +39,9 @@ class UsersController < ApplicationController
     property :allow_negative_balance, :boolean, :optional,
              'Whether the user can have a negative balance (pre/postpaid)'
     property :tags, :array, :optional, 'Tags',
-      'items' => { 'type' => 'string' }
+             'items' => { 'type' => 'string' }
     property :identifiers, :array, :optional, 'Identifiers',
-      'items' => { '$ref' => 'readIdentifier' }
+             'items' => { '$ref' => 'readIdentifier' }
   end
 
   swagger_model :readIdentifier do
@@ -52,9 +52,9 @@ class UsersController < ApplicationController
   swagger_model :writeUser do
     property :name, :string, :optional, 'User name'
     property :tags, :array, :optional, 'Tags',
-      'items' => { 'type' => 'string' }
+             'items' => { 'type' => 'string' }
     property :identifiers, :array, :optional, 'Identifiers',
-      'items' => { '$ref' => 'writeIdentifier' }
+             'items' => { '$ref' => 'writeIdentifier' }
   end
 
   swagger_model :writeIdentifier do

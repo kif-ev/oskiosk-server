@@ -43,11 +43,11 @@ class ProductsController < ApplicationController
     property :quantity, :integer, :optional, 'Total quantity'
     property :available_quantity, :integer, :optional, 'Available quantity'
     property :tags, :array, :optional, 'Tags',
-      'items' => {'type' => 'string'}
+             'items' => { 'type' => 'string' }
     property :pricings, :array, :optional, 'Pricings',
-      'items' => {'$ref' => 'readPricing'}
+             'items' => { '$ref' => 'readPricing' }
     property :identifiers, :array, :optional, 'Identifiers',
-      'items' => {'$ref' => 'readIdentifier'}
+             'items' => { '$ref' => 'readIdentifier' }
   end
 
   swagger_model :readPricing do
@@ -66,11 +66,11 @@ class ProductsController < ApplicationController
   swagger_model :writeProduct do
     property :name, :string, :optional, 'Product name'
     property :tags, :array, :optional, 'Tags',
-      'items' => { 'type' => 'string' }
+             'items' => { 'type' => 'string' }
     property :pricings, :array, :optional, 'Pricings',
-      'items' => { '$ref' => 'writePricing' }
+             'items' => { '$ref' => 'writePricing' }
     property :identifiers, :array, :optional, 'Identifiers',
-      'items' => { '$ref' => 'writeIdentifier' }
+             'items' => { '$ref' => 'writeIdentifier' }
   end
 
   swagger_model :writePricing do
