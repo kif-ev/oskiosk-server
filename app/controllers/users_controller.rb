@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     property :allow_negative_balance, :boolean, :optional,
              'Whether the user can have a negative balance (pre/postpaid)'
     property :tags, :array, :optional, 'Tags',
-             'items' => { 'type' => 'string' }
+             'items' => { '$ref' => 'readTag' }
     property :identifiers, :array, :optional, 'Identifiers',
              'items' => { '$ref' => 'readIdentifier' }
   end
@@ -49,16 +49,27 @@ class UsersController < ApplicationController
     property :code, :string, :required, 'Identifying code'
   end
 
+  swagger_model :readTag do
+    description 'A Product\'s or User\'s Tag'
+    property :name, :string, :required, 'Tag name'
+    property :occurrences, :integer, :required,
+             'Number of objects with this tag'
+  end
+
   swagger_model :writeUser do
     property :name, :string, :optional, 'User name'
     property :tags, :array, :optional, 'Tags',
-             'items' => { 'type' => 'string' }
+             'items' => { '$ref' => 'writeTag' }
     property :identifiers, :array, :optional, 'Identifiers',
              'items' => { '$ref' => 'writeIdentifier' }
   end
 
   swagger_model :writeIdentifier do
     property :code, :string, :required, 'Identifying code'
+  end
+
+  swagger_model :writeTag do
+    property :name, :string, :required, 'Tag name'
   end
   # :nocov:
 

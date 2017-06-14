@@ -4,7 +4,16 @@ class ProductRepresenter < ApplicationDecorator
   property :name
   property :quantity, writeable: false, type: Integer
   property :available_quantity, writeable: false, type: Integer
-  collection :tag_list, as: :tags
+  collection(
+    :tags,
+    decorator: TagRepresenter,
+    skip_parse: lambda { |fragment:, **|
+      fragment['name'].blank?
+    },
+    instance: lambda { |fragment:, **|
+      ActsAsTaggableOn::Tag.find_or_create_with_like_by_name(fragment['name'])
+    }
+  )
 
   collection(
     :pricings,

@@ -4,7 +4,16 @@ class UserRepresenter < ApplicationDecorator
   property :name
   property :balance, writeable: false, type: Integer
   property :allow_negative_balance, type: Virtus::Attribute::Boolean
-  collection :tag_list, as: :tags
+  collection(
+    :tags,
+    decorator: TagRepresenter,
+    skip_parse: lambda { |fragment:, **|
+      fragment['name'].blank?
+    },
+    instance: lambda { |fragment:, **|
+      ActsAsTaggableOn::Tag.find_or_create_with_like_by_name(fragment['name'])
+    }
+  )
 
   collection(
     :identifiers,
