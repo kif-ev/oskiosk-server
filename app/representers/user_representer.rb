@@ -3,6 +3,7 @@ class UserRepresenter < ApplicationDecorator
   property :id, writeable: false, type: Integer
   property :name
   property :balance, writeable: false, type: Integer
+  property :allow_negative_balance, type: Virtus::Attribute::Boolean
   collection :tag_list, as: :tags
 
   collection(

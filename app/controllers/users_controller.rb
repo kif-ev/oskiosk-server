@@ -36,6 +36,8 @@ class UsersController < ApplicationController
     property :id, :integer, :optional, 'User ID'
     property :name, :string, :optional, 'User Name'
     property :balance, :integer, :optional, 'User\'s balance in € cent'
+    property :allow_negative_balance, :boolean, :optional,
+             'Whether the user can have a negative balance (pre/postpaid)'
     property :tags, :array, :optional, 'Tags',
       'items' => { 'type' => 'string' }
     property :identifiers, :array, :optional, 'Identifiers',
