@@ -18,13 +18,16 @@ class UserRepresenter < ApplicationDecorator
   collection(
     :identifiers,
     decorator: IdentifierRepresenter,
-    class: Identifier,
-    populator: ->(fragment, options) do
-      identifiers = options[:represented].identifiers
-      identifier = identifiers.find { |i| i.code == fragment['code'] }
-      identifier ||= identifiers.build code: fragment['code']
-      identifier
-    end
+    skip_parse: lambda { |fragment:, **|
+      fragment['code'].blank?
+    },
+    instance: lambda { |fragment:, represented:, **|
+      code = fragment['code']
+      if Identifier.where.not(identifiable: represented).exists?(code: code)
+        raise ApplicationController::UnprocessableRequest
+      end
+      represented.identifiers.find_or_initialize_by(code: code)
+    }
   )
 
   link :self do

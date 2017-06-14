@@ -19,6 +19,10 @@ class UsersController < ApplicationController
     param :body, :user, :writeUser, :required, 'User'
     response :ok, 'Success', :readUser
     response :conflict, 'Conflict', :readUser
+    response :unprocessable_entity,
+             'Unprocessable entity, for example because of an identifier '\
+             'code used elsewhere',
+             :readProduct
     response :bad_request
   end
 
@@ -29,6 +33,10 @@ class UsersController < ApplicationController
     param :body, :user, :writeUser, :required, 'User'
     response :ok, 'Success', :readUser
     response :conflict, 'Conflict', :readUser
+    response :unprocessable_entity,
+             'Unprocessable entity, for example because of an identifier '\
+             'code used elsewhere',
+             :readProduct
     response :not_found
   end
 
