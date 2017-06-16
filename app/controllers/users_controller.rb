@@ -78,7 +78,7 @@ class UsersController < ApplicationController
   before_action -> { doorkeeper_authorize! :admin }, only: [:create, :update]
 
   def show
-    user = User.find_by_id(params[:id])
+    user = User.find_by(id: params[:id])
 
     if user.present?
       render json: user

@@ -34,7 +34,7 @@ RSpec.describe UserDeposit do
 
     context 'when there\'s no user with that ID' do
       before do
-        allow(User).to receive(:find_by_id!).
+        allow(User).to receive(:find_by!).
           and_raise(ActiveRecord::RecordNotFound)
       end
 

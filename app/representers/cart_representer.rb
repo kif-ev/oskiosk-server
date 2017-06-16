@@ -4,6 +4,7 @@ class CartRepresenter < ApplicationDecorator
   property :lock_version, type: Integer
   property :user_id, type: Integer
   property :total_price, writeable: false, type: Integer
+  property :expires_at, writeable: false, type: Date
 
   collection(
     :cart_items,

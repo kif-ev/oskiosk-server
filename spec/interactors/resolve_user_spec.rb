@@ -8,7 +8,7 @@ RSpec.describe ResolveUser do
 
   context 'when the user exists' do
     before do
-      allow(User).to receive(:find_by_id!).with(1).and_return(user)
+      allow(User).to receive(:find_by!).with(id: 1).and_return(user)
     end
 
     before { interactor.call }
@@ -24,7 +24,7 @@ RSpec.describe ResolveUser do
 
   context 'when the user doesn\'t exist' do
     before do
-      allow(User).to receive(:find_by_id!).
+      allow(User).to receive(:find_by!).
         and_raise(ActiveRecord::RecordNotFound)
     end
 

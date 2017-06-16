@@ -12,7 +12,7 @@ class CartPaymentsController < ApplicationController
     param :path, :cart_id, :integer, :required, 'Cart ID'
     param :body, :cart, :versionCart, :required, 'Cart'
     response :ok, 'Success', :readTransaction
-    response :not_found, 'No cart with that ID'
+    response :not_found, 'No cart with that ID or it is expired'
     response :conflict, 'The user\'s balance is too low'
     response :precondition_required, 'The cart is stale'
     response :gone, 'The cart payment is already being processed'

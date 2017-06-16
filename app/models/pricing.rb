@@ -6,6 +6,6 @@ class Pricing < ActiveRecord::Base
   validates :price, numericality: { only_integer: true }
 
   def available_quantity
-    quantity - cart_items.sum(:quantity)
+    quantity - cart_items.unexpired.sum(:quantity)
   end
 end

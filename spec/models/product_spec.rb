@@ -28,8 +28,13 @@ RSpec.describe Product, type: :model do
 
       context 'the product is in some carts' do
         before do
-          create(:cart_item, pricing: product.pricings[0], quantity: 3)
-          create(:cart_item, pricing: product.pricings[1], quantity: 2)
+          cart = create(:cart)
+          create(
+            :cart_item, cart: cart, pricing: product.pricings[0], quantity: 3
+          )
+          create(
+            :cart_item, cart: cart, pricing: product.pricings[1], quantity: 2
+          )
         end
 
         it {is_expected.to eq 15}
