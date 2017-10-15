@@ -11,4 +11,9 @@ class Product < ActiveRecord::Base
   def available_quantity
     pricings.to_a.sum &:available_quantity
   end
+
+  def below_warning_threshold?
+    return false if warning_threshold.nil?
+    quantity <= warning_threshold
+  end
 end

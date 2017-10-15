@@ -9,5 +9,6 @@ class PayCart
            CheckUserBalance,
            ApplyTransactionToUserBalance,
            CommitTransaction,
-           ApplyAndDestroyCart
+           ApplyAndDestroyCart,
+           WarnIfProductQuantityBelowThreshold
 end

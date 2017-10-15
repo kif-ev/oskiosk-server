@@ -11,12 +11,13 @@ RSpec.describe PayCart do
     end
     let(:context) { interactor.context }
     let(:user) { create :user, balance: 1000 }
-    let(:pricings) do
+    let(:products) do
       [
-        create(:pricing, price: 50, quantity: 5),
-        create(:pricing, price: 200, quantity: 5)
+        create(:product, price: 50, quantity: 5),
+        create(:product, price: 200, quantity: 5)
       ]
     end
+    let(:pricings) { products.map { |p| p.pricings.first } }
     let(:cart_items) do
       [
         create(:cart_item, quantity: 2, pricing: pricings[0]),

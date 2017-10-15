@@ -4,6 +4,8 @@ class ProductRepresenter < ApplicationDecorator
   property :name
   property :quantity, writeable: false, type: Integer
   property :available_quantity, writeable: false, type: Integer
+  property :warning_threshold, type: Integer
+
   collection(
     :tags,
     decorator: TagRepresenter,

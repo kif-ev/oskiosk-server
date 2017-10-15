@@ -36,4 +36,34 @@ RSpec.describe Product, type: :model do
       end
     end
   end
+
+  describe '#below_warning_threshold?' do
+    subject { product.below_warning_threshold? }
+
+    context 'the warning_threshold is not set' do
+      before { product.warning_threshold = nil }
+
+      it { is_expected.to be false }
+    end
+
+    context 'a warning_threshold is set' do
+      context 'and it is less than the remaining items' do
+        before { product.warning_threshold = product.quantity - 1 }
+
+        it { is_expected.to be false }
+      end
+
+      context 'and it is the same as the remaining items' do
+        before { product.warning_threshold = product.quantity }
+
+        it { is_expected.to be true }
+      end
+
+      context 'and it is less than the remaining items' do
+        before { product.warning_threshold = product.quantity + 5 }
+
+        it { is_expected.to be true }
+      end
+    end
+  end
 end
