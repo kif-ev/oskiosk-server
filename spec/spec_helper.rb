@@ -21,7 +21,7 @@ end
 
 SimpleCov.start
 
-require 'factory_girl'
+require 'factory_bot'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
@@ -81,5 +81,5 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 end

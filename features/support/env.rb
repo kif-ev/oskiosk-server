@@ -28,4 +28,4 @@ ActionController::Base.allow_rescue = false
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
-World(FactoryGirl::Syntax::Methods)
+World(FactoryBot::Syntax::Methods)

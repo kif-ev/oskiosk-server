@@ -43,7 +43,7 @@ gem 'bugsnag'
 #end
 
 group :test do
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'rspec'
   gem 'rspec-rails', '~> 3.0'
   gem 'rspec-its'

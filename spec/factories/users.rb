@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
     transient do
       sequence(:code) {|n| "U#{n}"}
