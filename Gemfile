@@ -34,16 +34,17 @@ gem 'skylight'
 
 gem 'bugsnag'
 
-group :development do
-  gem 'growl'
-  gem 'guard'
-  gem 'guard-bundler'
-  gem 'guard-rspec'
-  gem 'guard-cucumber'
-end
+#group :development do
+#  gem 'growl'
+#  gem 'guard'
+#  gem 'guard-bundler'
+#  gem 'guard-rspec'
+#  gem 'guard-cucumber'
+#end
 
 group :test do
   gem 'factory_girl_rails'
+  gem 'rspec'
   gem 'rspec-rails', '~> 3.0'
   gem 'rspec-its'
   gem 'cucumber-rails', require: false
