@@ -19,4 +19,5 @@ Rails.application.routes.draw do
       match 'search', via: :post
     end
   end
+  resources 'metrics', only: :index
 end
