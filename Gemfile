@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-ruby '~> 2.4.2'
+ruby '~> 2.5.0'
 
 # explicit dependencies on stdlib stuff
 gem 'bigdecimal'
 gem 'json'
 
-gem 'rails', '~> 5.1.0'
+gem 'rails', '~> 5.1.4'
 
 gem 'unicorn'
 
@@ -52,7 +52,7 @@ group :test do
   gem "codeclimate-test-reporter", require: false
 end
 
-gem 'pg'
+gem 'pg', '~> 0.21'
 
 gem 'rails_12factor', group: :production
 
