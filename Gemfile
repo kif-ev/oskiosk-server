@@ -6,7 +6,7 @@ ruby '~> 2.5.0'
 gem 'bigdecimal'
 gem 'json'
 
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 5.1.5'
 
 gem 'unicorn'
 
@@ -52,7 +52,7 @@ group :test do
   gem "codeclimate-test-reporter", require: false
 end
 
-gem 'pg', '~> 0.21'
+gem 'pg'
 
 gem 'rails_12factor', group: :production
 
