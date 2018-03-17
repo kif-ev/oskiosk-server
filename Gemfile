@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '~> 2.5.0'
+ruby '~> 2.4'
 
 # explicit dependencies on stdlib stuff
 gem 'bigdecimal'
