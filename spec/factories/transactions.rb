@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :transaction do
     transient do
-      items []
+      items { [] }
     end
 
-    transaction_type 'some_type'
+    transaction_type { 'some_type' }
     user_name { user.name if user.present? }
     created_at { DateTime.now }
 
