@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170614124236) do
+ActiveRecord::Schema.define(version: 20181031174032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20170614124236) do
 
   create_table "identifiers", id: :serial, force: :cascade do |t|
     t.string "code"
-    t.integer "identifiable_id"
     t.string "identifiable_type"
+    t.integer "identifiable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["code"], name: "index_identifiers_on_code"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20170614124236) do
     t.string "scopes", default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean "confidential", default: true, null: false
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
@@ -84,7 +85,6 @@ ActiveRecord::Schema.define(version: 20170614124236) do
     t.integer "product_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "position"
     t.index ["product_id"], name: "index_pricings_on_product_id"
   end
 
@@ -96,10 +96,10 @@ ActiveRecord::Schema.define(version: 20170614124236) do
 
   create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id"
-    t.integer "taggable_id"
     t.string "taggable_type"
-    t.integer "tagger_id"
+    t.integer "taggable_id"
     t.string "tagger_type"
+    t.integer "tagger_id"
     t.string "context", limit: 128
     t.datetime "created_at"
     t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
