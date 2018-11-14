@@ -16,3 +16,6 @@ config/database.yml
 
 # Ignore swagger artefacts
 /public/docs
+
+# Ignore coverage data
+/coverage
