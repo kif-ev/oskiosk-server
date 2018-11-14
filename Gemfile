@@ -6,7 +6,7 @@ ruby '~> 2.4'
 gem 'bigdecimal'
 gem 'json'
 
-gem 'rails', '~> 5.1.5'
+gem 'rails', '~> 5.2.1'
 
 gem 'unicorn'
 
