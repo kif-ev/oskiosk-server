@@ -6,7 +6,7 @@ ruby '~> 2.4'
 gem 'bigdecimal'
 gem 'json'
 
-gem 'rails', '~> 5.2.1'
+gem 'rails', '>= 5.2.1.1'
 
 gem 'unicorn'
 
@@ -57,3 +57,4 @@ gem 'pg'
 gem 'rails_12factor', group: :production
 
 gem 'rails-html-sanitizer', '~> 1.0.3'
+gem 'activestorage', '>= 5.2.1.1'
