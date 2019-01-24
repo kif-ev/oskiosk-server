@@ -53,7 +53,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     backports (3.11.4)
     bigdecimal (1.4.3)
-    bugsnag (6.11.0)
+    bugsnag (6.11.1)
       concurrent-ruby (~> 1.0)
     builder (3.2.3)
     capybara (3.12.0)
