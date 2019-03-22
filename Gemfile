@@ -30,8 +30,6 @@ gem 'swagger-docs'
 
 gem 'rack-cors'
 
-gem 'skylight'
-
 gem 'bugsnag'
 
 #group :development do
