@@ -6,7 +6,7 @@ ActionDispatch::Request.parameter_parsers = ActionDispatch::Request.parameter_pa
           raise StandardError.new "Expecting a hash or array"
         end
       rescue
-        raise ActionDispatch::ParamsParser::ParseError
+        raise ActionDispatch::Http::Parameters::ParseError
       end
     end
   }
@@ -20,7 +20,7 @@ class CatchJsonParseErrors
   def call(env)
     begin
       @app.call(env)
-    rescue ActionDispatch::ParamsParser::ParseError => error
+    rescue ActionDispatch::Http::Parameters::ParseError => error
       if env['action_dispatch.request.content_type'] == Mime[:json]
         error_output = "There was a problem in the JSON you submitted: #{error}"
         return [

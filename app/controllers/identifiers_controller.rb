@@ -1,4 +1,4 @@
-class IdentifiersController < ApplicationController
+class IdentifiersController < APIController
   # :nocov:
   swagger_controller :identifiers, 'Manage barcodes (identifiers)'
 
@@ -15,7 +15,8 @@ class IdentifiersController < ApplicationController
   end
   # :nocov:
 
-  before_action :doorkeeper_authorize!
+  #before_action :doorkeeper_authorize!
+  before_action :authenticate_admin!
 
   def show
     identifiable = Identifier.find_by_code(params[:id]).try(:identifiable)

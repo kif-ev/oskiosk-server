@@ -1,4 +1,4 @@
-class UserDepositsController < ApplicationController
+class UserDepositsController < APIController
   # :nocov:
   swagger_controller :user_deposits, 'Create deposits to user\'s accounts'
 
@@ -16,7 +16,8 @@ class UserDepositsController < ApplicationController
   end
   # :nocov:
 
-  before_action -> { doorkeeper_authorize! :deposit, :cash_desk }
+  # before_action -> { doorkeeper_authorize! :deposit, :cash_desk }
+  before_action :authenticate_admin!
 
   def create
     deposit = Deposit.new
@@ -24,8 +25,8 @@ class UserDepositsController < ApplicationController
 
     result = UserDeposit.call(
       user_id: params[:user_id],
-      amount: deposit.amount,
-      requesting_application: doorkeeper_token.application
+      amount: deposit.amount
+      # requesting_application: doorkeeper_token.application
     )
 
     if result.success?

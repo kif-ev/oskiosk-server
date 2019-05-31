@@ -1,4 +1,4 @@
-class TransactionsController < ApplicationController
+class TransactionsController < APIController
   # :nocov:
   swagger_controller :transactions, 'Fetch and filter transactions'
 
@@ -66,7 +66,8 @@ class TransactionsController < ApplicationController
   end
   # :nocov:
 
-  before_action :doorkeeper_authorize!
+  # before_action :doorkeeper_authorize!
+  before_action :authenticate_admin!
 
   def show
     transaction = Transaction.find_by_id(params[:id])

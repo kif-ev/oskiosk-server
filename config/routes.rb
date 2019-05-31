@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  use_doorkeeper
+  root to: redirect('/ui')
+  get 'ui', to: 'frontend#index'
+  get 'ui/*path', to: 'frontend#index'
+  mount_devise_token_auth_for 'Admin', at: 'admin/auth'
   get 'heartbeat' => 'heartbeat#check'
   concern :taggable do
     resources :tag_autocompletes, only: :index

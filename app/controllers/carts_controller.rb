@@ -1,4 +1,4 @@
-class CartsController < ApplicationController
+class CartsController < APIController
   # :nocov:
   swagger_controller :carts, 'Create and update carts'
 
@@ -73,7 +73,8 @@ class CartsController < ApplicationController
   end
   # :nocov:
 
-  before_action -> { doorkeeper_authorize! :checkout }
+  # before_action -> { doorkeeper_authorize! :checkout }
+  before_action :authenticate_admin!
 
   def show
     cart = Cart.find_by_id(params[:id])

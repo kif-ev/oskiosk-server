@@ -18,7 +18,6 @@ gem 'multi_json'
 gem 'virtus'
 gem 'interactor-rails'
 
-gem 'doorkeeper'
 
 # tags!
 gem 'acts-as-taggable-on'
@@ -55,3 +54,7 @@ gem 'pg'
 gem 'rails_12factor', group: :production
 
 gem 'rails-html-sanitizer', '~> 1.0.3'
+
+gem "devise_token_auth", "~> 1.1"
+
+gem "webpacker", "~> 4.0"

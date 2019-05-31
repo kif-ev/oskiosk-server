@@ -1,0 +1,93 @@
+<navbar></navbar>
+
+<div class="container-fluid">
+    <h1 class="mt-2">Cash Point</h1>
+
+    <div class="row">
+        <div class="col-lg-4">
+
+            <div class="card" *ngIf="!user">
+                <div class="card-header">
+                    Barcode input
+                </div>
+                <div class="card-body">
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text text-primary"><i class="fa fa-barcode" aria-hidden="true"></i></span>
+                        </div>
+                        <input type="text" class="form-control form-control-lg" [value]="identifier_input" placeholder="Type identifier or use barcode scanner ..." readonly>
+                    </div>
+                    <button class="btn btn-secondary btn-lg btn-block mt-2" (click)="confirmInput()" [disabled]="identifier_input.length == 0">
+                        <i *ngIf="wait_identifier" class="fa fa-spinner fa-spin fa-fw"></i> Enter barcode
+                    </button>
+                </div>
+            </div>
+
+            <div class="card mt-2" *ngIf="user">
+                <div class="card-header">
+                    Customer
+                </div>
+                <div class="card-body">
+                    <h2 class="card-title"><i *ngIf="wait_checkout" class="fa fa-spinner fa-spin fa-fw"></i> {{ user.balance / 100 | currency:'EUR':true:'1.2-2' }}</h2>
+                    <h4 class="card-subtitle mb-4 text-muted">{{ user.name }}</h4>
+                    <button class="btn btn-warning btn-lg btn-block" (click)="abort()">Abort</button>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    Choose amount to deposit or withdraw
+                </div>
+                <div class="card-body text-center text-muted" *ngIf="!user">
+                    Please scan a customer code first.
+                </div>
+                <div class="card-body" *ngIf="user">
+                    <h4 class="card-subtitle">Deposit/Withdraw to set user balance to 0 €</h4>
+                    <div class="btn-group btn-group-lg mt-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Deposit/Withdraw funds</span>
+                        </div>
+                        <button class="btn btn-primary" (click)="deposit(-user.balance)">{{ -user.balance/100 | currency:'EUR':true:'1.2-2' }}</button>
+                    </div>
+                    <h4 class="card-subtitle mt-4">Pre-defined amounts</h4>
+                    <div class="btn-group btn-group-lg mt-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Deposit funds</span>
+                        </div>
+                        <button class="btn btn-secondary" (click)="deposit(500)">€5</button>
+                        <button class="btn btn-secondary" (click)="deposit(1000)">€10</button>
+                        <button class="btn btn-secondary" (click)="deposit(2000)">€20</button>
+                        <button class="btn btn-secondary" (click)="deposit(5000)">€50</button>
+                        <button class="btn btn-secondary" (click)="deposit(10000)">€100</button>
+                    </div>
+                    <div class="btn-group btn-group-lg mt-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Withdraw funds</span>
+                        </div>
+                        <button class="btn btn-secondary text-danger" (click)="deposit(-500)">-€5</button>
+                        <button class="btn btn-secondary text-danger" (click)="deposit(-1000)">-€10</button>
+                        <button class="btn btn-secondary text-danger" (click)="deposit(-2000)">-€20</button>
+                        <button class="btn btn-secondary text-danger" (click)="deposit(-5000)">-€50</button>
+                        <button class="btn btn-secondary text-danger" (click)="deposit(-10000)">-€100</button>
+                    </div>
+                    <h4 class="card-subtitle mt-4">Custom amounts</h4>
+                    <div class="input-group mt-2">
+                        <input type="number" min="0" step="0.01" class="form-control" placeholder="Enter deposit amount" [(ngModel)]="deposit_custom">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" (click)="deposit(deposit_custom * 100)">Deposit funds</button>
+                        </div>
+                    </div>
+                    <div class="input-group mt-2">
+                        <input type="number" min="0" step="0.01" class="form-control" placeholder="Enter withdraw amount" [(ngModel)]="withdraw_custom">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" (click)="deposit(-withdraw_custom * 100)">Withdraw funds</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

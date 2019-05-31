@@ -1,0 +1,67 @@
+<nav class="navbar fixed-bottom navbar-light bg-light">
+    <form class="form-inline">
+        <input type="text" class="form-control form-control-lg" [value]="identifier_input" placeholder="Barcode input" readonly>
+        <h4 class="ml-4">Scan code or type <kbd>0-9</kbd> + <kbd>Enter</kbd></h4>
+    </form>
+</nav>
+
+<div class="container-fluid mt-2" style="font-size: 20px;">
+    <div *ngIf="mode == 0">
+        <h1 class="display-2 text-center">Hello!</h1>
+        <h1 class="display-4 text-center mt-4">Please scan your <span class="text-primary"><i class="fa fa-id-card" aria-hidden="true"></i> ID card</span> to begin.</h1>
+    </div>
+    <div *ngIf="mode == 1 && cart.isEmpty()">
+        <h1 class="display-4 text-center">Welcome!</h1>
+        <div class="card col-lg-4 offset-lg-4">
+          <div class="card-body" style="overflow: hidden">
+            <h4 class="card-title">{{ user.name }}</h4>
+            <h4 class="card-subtitle text-muted">Your current balance: {{ user.balance / 100 | currency:'EUR':true:'1.2-2' }}</h4>
+          </div>
+        </div>
+        <h1 class="display-4 text-center mt-4">Now please scan <span class="text-primary"><i class="fa fa-coffee" aria-hidden="true"></i> the products</span> you want to buy.</h1>
+        <h1 class="display-4 text-center mt-4"><span class="text-danger">Abort by pressing the <kbd>&times;/*</kbd> key.</span></h1>
+    </div>
+    <div *ngIf="mode == 1 && !cart.isEmpty()">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-center w-25">Product name</th>
+                    <th class="text-center w-25">Unit price</th>
+                    <th class="text-center w-25">Quantity</th>
+                    <th class="text-center w-25">Total price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of cart.cart_items">
+                    <td>{{ item.product_name }}</td>
+                    <td class="text-right">{{ item.unit_price / 100 | currency:'EUR':true:'1.2-2' }}</td>
+                    <td class="text-right">{{item.quantity }}</td>
+                    <td class="text-right">{{ item.totalPrice() / 100 | currency:'EUR':true:'1.2-2' }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <h1 class="display-4 text-center">Total sum: {{ cart.totalSum() / 100 | currency:'EUR':true:'1.2-2' }}</h1>
+        <h1 class="display-4 text-center mt-4">Confirm your order <span class="text-primary">by pressing the <kbd>Enter</kbd> key</span>.</h1>
+        <h1 class="display-4 text-center mt-4"><span class="text-danger">Abort by pressing the <kbd>&times;/*</kbd> key.</span></h1>
+    </div>
+    <div *ngIf="mode == 2">
+        <h1 class="display-2 text-center">Thank you!</h1>
+        <h1 class="display-4 text-center">Your new balance: {{ user.balance / 100 | currency:'EUR':true:'1.2-2' }}</h1>
+    </div>
+</div>
+
+<div #modal class="modal fade" id="modal" style="font-size: 20px;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="alert alert-danger">
+                    <h4 class="alert-heading">{{ modal_heading }}</h4>
+                    <p class="mb-0">{{ modal_text }}</p>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" [ngClass]="modal_progress_class"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

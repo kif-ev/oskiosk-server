@@ -1,4 +1,4 @@
-class ProductsController < ApplicationController
+class ProductsController < APIController
   # :nocov:
   swagger_controller :products, 'Manage products, their prices and quantities'
 
@@ -94,8 +94,9 @@ class ProductsController < ApplicationController
   end
   # :nocov:
 
-  before_action :doorkeeper_authorize!, only: [:show, :index]
-  before_action -> { doorkeeper_authorize! :admin }, only: [:create, :update]
+  # before_action :doorkeeper_authorize!, only: [:show, :index]
+  # before_action -> { doorkeeper_authorize! :admin }, only: [:create, :update]
+  before_action :authenticate_admin!
 
   def show
     product = Product.find_by_id(params[:id])

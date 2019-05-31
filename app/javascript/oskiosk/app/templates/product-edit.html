@@ -1,0 +1,91 @@
+<navbar></navbar>
+
+<div class="container-fluid">
+    <h1 *ngIf="product.id" class="mt-2">Edit product</h1>
+    <h1 *ngIf="!product.id" class="mt-2">Create product</h1>
+
+    <div class="card mt-2">
+        <div class="card-body">
+            <h4>Product name</h4>
+            <div class="form-group row">
+                <div class="col-12">
+                    <input class="form-control" type="text" [(ngModel)]="product.name">
+                </div>
+            </div>
+
+            <div class="row" *ngIf="product">
+                <div class="col-lg-4 mt-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Tags</h4>
+                            <div *ngFor="let tag of product.tags" class="form-group row">
+                                <div class="col-12">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-tag" aria-hidden="true"></i></span>
+                                        </div>
+                                        <input class="form-control" type="text" [(ngModel)]="tag.name">
+                                        <div class="input-group-append">
+                                            <button (click)="deleteTag(tag)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button (click)="addTag()" class="btn btn-secondary"><i class="fa fa-plus" aria-hidden="true"></i> Add tag</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Barcodes</h4>
+                            <div *ngFor="let identifier of product.identifiers" class="form-group row">
+                                <div class="col-12">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-barcode" aria-hidden="true"></i></span>
+                                        </div>
+                                        <input class="form-control" type="text" [(ngModel)]="identifier.code">
+                                        <div class="input-group-append">
+                                            <button (click)="deleteIdentifier(identifier)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button (click)="addIdentifier()" class="btn btn-secondary"><i class="fa fa-plus" aria-hidden="true"></i> Add barcode</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Pricings</h4>
+                            <div class="card mt-2" *ngFor="let pricing of product.pricings; let i = index">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="quantity-{{ i }}">Quantity in stock</label>
+                                        <input id="quantity-{{ i }}" type="number" min="0" step="1" class="form-control" [(ngModel)]="pricing.quantity">
+                                        <label class="mt-2" for="price-{{ i }}">Unit price</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-euro-sign" aria-hidden="true"></i></span>
+                                            </div>
+                                            <input id="price-{{ i }}" type="number" min="0" step="0.01" class="form-control" [(ngModel)]="pricing.decimal_price">
+                                        </div>
+                                        <button (click)="deletePricing(pricing)" class="btn btn-danger mt-2"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button (click)="addPricing()" class="btn btn-secondary mt-2"><i class="fa fa-plus" aria-hidden="true"></i> Add pricing</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-success" (click)="save()"><i class="fa fa-check"></i> Save changes</button>
+            <a routerLink="/products" class="btn btn-warning"><i class="fa fa-undo"></i> Discard changes</a>
+        </div>
+    </div>
+</div>
+

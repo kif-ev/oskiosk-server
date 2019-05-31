@@ -1,0 +1,37 @@
+<navbar></navbar>
+
+<div class="container-fluid">
+    <h1 class="mt-2">Home</h1>
+
+    <div class="card mt-2">
+        <div class="card-body lead">
+            Hello and welcome to the Oskiosk web interface!
+            In the future we will show you information about recent customer activity here.
+            For now, we just include a short explanation about what to find on which page.
+        </div>
+    </div>
+
+    <h3 class="mt-4">Administrator views</h3>
+
+    <h4 class="mt-2"><a routerLink="/products">Products</a></h4>
+    Create or modify products. Manage prices, barcodes, etc.
+
+    <h4 class="mt-2"><a routerLink="/users">Users</a></h4>
+    Create or modify users. Manage names, ID badge barcodes, etc.
+
+    <h3 class="mt-4">Employee views</h3>
+
+    <h4 class="mt-2"><a routerLink="/sales-point">Sales Point</a></h4>
+    This view can be used by a kiosk employee to handle customer checkouts.
+    Should be used with a barcode scanner.
+
+    <h4 class="mt-2"><a routerLink="/cash-point">Cash Point</a></h4>
+    This view can be used by a kiosk employee to handle customer payments.
+    Should be used with a barcode scanner.
+
+    <h3 class="mt-4">Customer views</h3>
+
+    <h4 class="mt-2"><a routerLink="/self-service-point">Self-service Point</a></h4>
+    This view can be deployed to a kiosk terminal. Customers can checkout products on their own. Limited functionality and different UI.
+    Should be used with a barcode scanner.
+</div>

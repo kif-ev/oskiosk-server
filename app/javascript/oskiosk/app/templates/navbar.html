@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">OSKiosk</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/" routerLinkActive="active"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+        </li>
+        <li class="nav-item ml-2">
+          <a class="nav-link" routerLink="/products" routerLinkActive="active"><i class="fa fa-coffee" aria-hidden="true"></i> Products</a>
+        </li>
+        <li class="nav-item ml-2">
+          <a class="nav-link" routerLink="/users" routerLinkActive="active"><i class="fa fa-user" aria-hidden="true"></i> Users</a>
+        </li>
+        <li class="nav-item ml-2">
+          <a class="nav-link" routerLink="/sales-point" routerLinkActive="active"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Sales point</a>
+        </li>
+        <li class="nav-item ml-2">
+          <a class="nav-link" routerLink="/cash-point" routerLinkActive="active"><i class="fa fa-money" aria-hidden="true"></i> Cash point</a>
+        </li>
+        <li class="nav-item ml-2">
+          <a class="nav-link" routerLink="/self-service-point" routerLinkActive="active"><i class="fa fa-barcode" aria-hidden="true"></i> Self-service point</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/logout" routerLinkActive="active" *ngIf="this.tokenService.userSignedIn()"><i class="fa fa-sign-out-alt" aria-hidden="true"></i> Logout <span class="font-weight-light">({{ this.tokenService.currentUserData.email }})</span></a>
+              <a class="nav-link" routerLink="/login" routerLinkActive="active" *ngIf="!this.tokenService.userSignedIn()"><i class="fa fa-sign-in-alt" aria-hidden="true"></i> Login</a>
+          </li>
+      </ul>
+    </div>
+  </nav>
+
+

@@ -1,4 +1,4 @@
-class CartPaymentsController < ApplicationController
+class CartPaymentsController < APIController
   # :nocov:
   swagger_controller :cart_payments, 'Pay for a cart'
 
@@ -24,12 +24,13 @@ class CartPaymentsController < ApplicationController
   end
   # :nocov:
 
-  before_action -> { doorkeeper_authorize! :checkout }
+  # before_action -> { doorkeeper_authorize! :checkout }
+  before_action :authenticate_admin!
 
   def create
     result = PayCart.call cart_id: params[:cart_id],
-                          cart_version: params[:lock_version],
-                          requesting_application: doorkeeper_token.application
+                          cart_version: params[:lock_version]
+                          # requesting_application: doorkeeper_token.application
 
     if result.success?
       render json: result.transaction, status: :created

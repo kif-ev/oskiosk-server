@@ -1,0 +1,86 @@
+<navbar></navbar>
+
+<div class="container-fluid">
+    <h1 class="mt-2">Sales Point</h1>
+
+    <div class="row">
+        <div class="col-lg-3">
+
+            <div class="card">
+                <div class="card-header">
+                    Barcode input
+                </div>
+                <div class="card-body">
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text text-primary"><i class="fa fa-barcode" aria-hidden="true"></i></span>
+                        </div>
+                        <input type="text" class="form-control form-control-lg" [value]="identifier_input" placeholder="Type identifier or use barcode scanner ..." readonly>
+                    </div>
+                    <button class="btn btn-secondary btn-lg btn-block mt-2" (click)="confirmInput()" [disabled]="identifier_input.length == 0">
+                        <i *ngIf="wait_identifier" class="fa fa-spinner fa-spin fa-fw"></i> Enter barcode
+                    </button>
+                </div>
+            </div>
+
+            <div class="card mt-2">
+                <div class="card-header">
+                    Total sum
+                </div>
+                <div class="card-body">
+                    <h2 class="display-2">{{ cart.totalSum() / 100 | currency:'EUR':true:'1.2-2' }}</h2>
+                </div>
+            </div>
+
+            <div class="card mt-2">
+                <div class="card-header">
+                    Customer and Checkout
+                </div>
+                <div class="card-body">
+                    <p *ngIf="!user" class="card-text text-center text-muted">Please scan a customer code to enable checkout.</p>
+                    <h2 *ngIf="user" class="card-title">{{ user.name }}</h2>
+                    <h4 *ngIf="user" class="card-subtitle mb-4 text-muted">{{ user.balance / 100 | currency:'EUR':true:'1.2-2' }}</h4>
+                    <button class="btn btn-primary btn-lg btn-block" (click)="payCart()" [disabled]="identifier_input.length > 0 || !user || cart.isEmpty()">
+                        <i *ngIf="wait_checkout" class="fa fa-spinner fa-spin fa-fw"></i>  CHECKOUT
+                    </button>
+                    <button class="btn btn-warning btn-lg btn-block" (click)="abort()" [disabled]="cart.isEmpty() && !user">Abort</button>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center w-25">Product name</th>
+                        <th class="text-center w-25">Unit price</th>
+                        <th class="text-center w-25">Quantity</th>
+                        <th class="text-center w-25">Total price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of cart.cart_items">
+                        <td>{{ item.product_name }}</td>
+                        <td class="text-right">{{ item.unit_price / 100 | currency:'EUR':true:'1.2-2' }}</td>
+                        <td class="text-right">
+                            <div class="input-group">
+                                <input type="text" class="form-control" [value]="item.quantity" readonly>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-secondary" (click)="increaseQuantity(item.pricing_id)">+</button>
+                                </span>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-secondary" (click)="decreaseQuantity(item.pricing_id)">-</button>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="text-right">{{ item.totalPrice() / 100 | currency:'EUR':true:'1.2-2' }}</td>
+                    </tr>
+                    <tr *ngIf="cart.isEmpty()">
+                        <td colspan="4" class="text-muted text-center">Cart is empty.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

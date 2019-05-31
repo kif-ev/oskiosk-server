@@ -1,0 +1,21 @@
+<navbar></navbar>
+
+<div class="container-fluid">
+    <h1 class="mt-2">Login</h1>
+
+    <h4>Email address</h4>
+    <div class="form-group row">
+        <div class="col-12">
+            <input type="email" class="form-control" placeholder="Enter email" [(ngModel)]="user">
+        </div>
+    </div>
+
+    <h4>Password</h4>
+    <div class="form-group row">
+        <div class="col-12">
+            <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password">
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success" (click)="loginUser()">Login</button>
+</div>
