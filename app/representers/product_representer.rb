@@ -18,27 +18,29 @@ class ProductRepresenter < ApplicationDecorator
   collection(
     :pricings,
     decorator: PricingRepresenter,
-    class: Pricing,
-    populator: ->(fragment, options) do
-      pricings = options[:represented].pricings
-      pricing = pricings.find { |p| p.id == fragment['id'] }
-      pricing ||= pricings.build
-      pricing.quantity = fragment['quantity'] || 0
-      pricing.price = fragment['price'] || 0
-      pricing
-    end
+    instance: lambda { |fragment:, represented:, **|
+      if (id = fragment['id'].try(:to_i)).present?
+        represented.pricings.find_by(id: id) ||
+          raise(ApplicationController::UnprocessableRequest)
+      else
+        represented.pricings.new
+      end
+    }
   )
 
   collection(
     :identifiers,
     decorator: IdentifierRepresenter,
-    class: Identifier,
-    populator: ->(fragment, options) do
-      identifiers = options[:represented].identifiers
-      identifier = identifiers.find { |i| i.code == fragment['code'] }
-      identifier ||= identifiers.build code: fragment['code']
-      identifier
-    end
+    skip_parse: lambda { |fragment:, **|
+      fragment['code'].blank?
+    },
+    instance: lambda { |fragment:, represented:, **|
+      code = fragment['code']
+      if Identifier.where.not(identifiable: represented).exists?(code: code)
+        raise ApplicationController::UnprocessableRequest
+      end
+      represented.identifiers.find_or_initialize_by(code: code)
+    }
   )
 
   link :self do
