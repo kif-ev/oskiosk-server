@@ -18,7 +18,7 @@ export class SelfServicePointComponent extends GlobalInput implements OnInit, On
     user: User;
     wait_identifier: boolean = false;
     wait_checkout: boolean = false;
-    @ViewChild('modal') feedback_modal:ElementRef;
+    @ViewChild('modal', {static: false}) feedback_modal:ElementRef;
     modal_heading: string;
     modal_text: string;
     modal_progress_class: string = 'w-0';
