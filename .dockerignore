@@ -1,0 +1,22 @@
+# Ignore bundler config.
+.bundle
+
+# Ignore all logfiles and tempfiles.
+log/*.log
+tmp
+
+# Ignore local database config
+config/database.yml
+
+# Ignore swagger artefacts
+public/docs
+
+# Ignore coverage data
+coverage
+
+public/packs
+public/packs-test
+node_modules
+yarn-error.log
+yarn-debug.log*
+.yarn-integrity
