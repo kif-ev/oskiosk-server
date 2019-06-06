@@ -19,3 +19,6 @@ config/database.yml
 
 # Ignore coverage data
 /coverage
+
+# Ignore local .ruby-version
+/.ruby-version
