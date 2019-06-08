@@ -37,6 +37,7 @@ export class ProductImportComponent implements OnInit{
 
     onFileRead(){
         this.fileParser.write(this.fileReader.result);
+        this.fileParser.end();
     }
 
     onFileReadable(){

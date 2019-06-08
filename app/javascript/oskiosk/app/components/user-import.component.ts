@@ -37,11 +37,13 @@ export class UserImportComponent implements OnInit{
 
     onFileRead(){
         this.fileParser.write(this.fileReader.result);
+        this.fileParser.end();
     }
 
     onFileReadable(){
         let record:String[];
         while(record = this.fileParser.read()){
+            console.log('Parsing: ' + record);
             let user:User = new User(
                 null,
                 <string> record[0],
