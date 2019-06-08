@@ -142,4 +142,15 @@ class ProductsController < APIController
       render json: product, status: :conflict, location: product
     end
   end
+
+  def destroy
+    product = Product.find_by_id(params[:id])
+
+    if product.present?
+      product.destroy
+      render_no_content
+    else
+      render_not_found
+    end
+  end
 end

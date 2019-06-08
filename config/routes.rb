@@ -8,11 +8,11 @@ Rails.application.routes.draw do
     resources :tag_autocompletes, only: :index
   end
   resources :identifiers, only: :show
-  resources :users, only: %i(show index create update),
+  resources :users, only: %i(show index create update destroy),
             concerns: :taggable do
     resource :user_deposit, only: :create, path: 'deposit'
   end
-  resources :products, only: %i(index show create update),
+  resources :products, only: %i(index show create update destroy),
             concerns: :taggable
   resources :carts, only: %i(create show update) do
     resource :cart_payment, only: :create, path: 'pay'

@@ -25,6 +25,7 @@
             <tr *ngFor="let item of filteredProducts">
                 <td>
                     <a routerLink="/product/{{ item.id }}" class="btn btn-sm btn-outline-primary mr-2"><i class="fa fa-edit"></i></a>
+                    <button (click)="deleteProduct(item)" class="btn btn-sm btn-outline-danger mr-2"><i class="fa fa-trash"></i></button>
                     {{ item.name }}
                     <span *ngFor="let tag of item.tags" class="badge badge-secondary ml-1">{{ tag.name }}</span>
                 <td class="text-right">

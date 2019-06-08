@@ -69,6 +69,14 @@ export class BackendService{
             );
     }
 
+    private httpDelete(url: string): Observable<Object> {
+        this.onRequestStart();
+        return this.http.delete(url, {responseType: "json", headers: new HttpHeaders({ 'Content-Type': 'application/json' })})
+            .pipe(
+                finalize(() => this.onRequestEnd())
+            );
+    }
+
     private handleError (error: Response | any) {
         console.log(error);
         return Observable.throw('Error!');
@@ -135,6 +143,10 @@ export class BackendService{
         );
     }
 
+    deleteProduct(product: Product): Observable<Object> {
+        return this.httpDelete('/products/' + product.id + '.json');
+    }
+
     private patchProduct(product: Product): Observable<Object> {
         return this.httpPatch('/products/' + product.id + '.json', classToPlain(product));
     }
@@ -156,6 +168,10 @@ export class BackendService{
             map((product: Object) => { return plainToClass(Product, product); }),
             catchError(this.handleError)
         );
+    }
+
+    deleteUser(user: User): Observable<Object> {
+        return this.httpDelete('/users/' + user.id + '.json');
     }
 
     private patchUser(user: User): Observable<Object> {

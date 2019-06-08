@@ -7,7 +7,9 @@
         <a routerLink="/user/new" class="btn btn-success mr-2"><i class="fa fa-plus"></i> New user</a>
         <a routerLink="/user/import" class="btn btn-success mr-2"><i class="fa fa-upload"></i> Import users</a>
         <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-search"></i></span>
+            </div>
             <input class="form-control" type="text" placeholder="Filter users" [(ngModel)]="filter">
         </div>
     </div>
@@ -23,6 +25,7 @@
             <tr *ngFor="let item of filteredUsers">
                 <td>
                     <a routerLink="/user/{{ item.id }}" class="btn btn-sm btn-outline-primary mr-2"><i class="fa fa-edit"></i></a>
+                    <button (click)="deleteUser(item)" class="btn btn-sm btn-outline-danger mr-2"><i class="fa fa-trash"></i></button>
                     {{ item.name }}
                     <span *ngFor="let tag of item.tags" class="badge badge-secondary ml-1">{{ tag.name }}</span>
                 <td class="text-center">

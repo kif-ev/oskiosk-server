@@ -8,6 +8,10 @@ class APIController < ApplicationController
 
   rescue_from UnprocessableRequest, with: :render_unprocessable
 
+  def render_no_content
+    head :no_content
+  end
+
   def render_not_found
     render json: {message: 'Resource not found'}, status: :not_found
   end
