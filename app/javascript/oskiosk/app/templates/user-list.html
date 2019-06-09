@@ -28,6 +28,7 @@
                     <button (click)="deleteUser(item)" class="btn btn-sm btn-outline-danger mr-2"><i class="fa fa-trash"></i></button>
                     {{ item.name }}
                     <span *ngFor="let tag of item.tags" class="badge badge-secondary ml-1">{{ tag.name }}</span>
+                </td>
                 <td class="text-center">
                     <i *ngIf="item.allow_negative_balance" class="fa fa-check"></i>
                     <i *ngIf="!item.allow_negative_balance" class="fa fa-ban"></i>
