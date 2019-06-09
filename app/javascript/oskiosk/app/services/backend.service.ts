@@ -7,7 +7,7 @@ import { map, finalize, catchError } from "rxjs/operators";
 
 import { AngularTokenService } from "angular-token";
 
-import { Product, User, Identifiable, Cart, PaymentTransaction, Transaction } from "../models";
+import { Product, User, Identifiable, Cart, PaymentTransaction, Transaction, Admin } from "../models";
 
 
 @Injectable()
@@ -26,7 +26,6 @@ export class BackendService{
     private onRequestStart() {
         this.activeRequestCount++;
         this.requestActive.next(true);
-        console.log(this.activeRequestCount)
     }
 
     private onRequestEnd() {
@@ -34,16 +33,7 @@ export class BackendService{
         if(this.activeRequestCount == 0) {
             this.requestActive.next(false);
         }
-        console.log(this.activeRequestCount)
     }
-    
-    // private getDefaultRequestOptions(): RequestOptions {
-    //     let headers = new Headers({
-    //         'Authorization': 'Bearer ' + this.api_token,
-    //         'Content-Type': 'application/json'
-    //     });
-    //     return new RequestOptions({ headers: headers });
-    // }
 
     private httpGet(url: string): Observable<Object> {
         this.onRequestStart();
@@ -82,18 +72,14 @@ export class BackendService{
         return Observable.throw('Error!');
     }
 
-    private handleIdentifierResponse(res: Object) {
-        if(res['type'] == 'user'){
-            return plainToClass(User, res);
-        }
-        else if(res['type'] == 'product'){
-            return plainToClass(Product, res);
-        }
-    }
-
     getRequestActive(): BehaviorSubject<boolean> {
         return this.requestActive;
     }
+
+    
+    /************************************************************
+     *  Products
+     ***********************************************************/
 
     getProducts(): Observable<Product[]> {
         return this.httpGet('/products.json')
@@ -107,38 +93,6 @@ export class BackendService{
         return this.httpGet('/products/' + id + '.json')
         .pipe(
             map((product: Object) => { return plainToClass(Product, product); }),
-            catchError(this.handleError)
-        );
-    }
-    
-    getUsers(): Observable<User[]> {
-        return this.httpGet('/users.json')
-        .pipe(
-            map((users: Object[]) => { return plainToClass(User, users); }),
-            catchError(this.handleError)
-        );
-    }
-    
-    getUser(id: number): Observable<User> {
-        return this.httpGet('/users/' + id + '.json')
-        .pipe(
-            map((user: Object) => { return plainToClass(User, user); }),
-            catchError(this.handleError)
-        );
-    }
-    
-    getItemByIdentifier(identifier: string): Observable<Identifiable> {
-        return this.httpGet('/identifiers/' + identifier + '.json')
-        .pipe(
-            map(this.handleIdentifierResponse),
-            catchError(this.handleError)
-        );
-    }
-    
-    payCart(cart: Cart): Observable<PaymentTransaction> {
-        return this.httpPost('/carts/' + cart.id + '/pay.json', {'lock_version': cart.lock_version})
-        .pipe(
-            map((paymentTransaction: Object) => { return plainToClass(PaymentTransaction, paymentTransaction); }),
             catchError(this.handleError)
         );
     }
@@ -170,6 +124,26 @@ export class BackendService{
         );
     }
 
+    /************************************************************
+     *  Users
+     ***********************************************************/
+    
+    getUsers(): Observable<User[]> {
+        return this.httpGet('/users.json')
+        .pipe(
+            map((users: Object[]) => { return plainToClass(User, users); }),
+            catchError(this.handleError)
+        );
+    }
+    
+    getUser(id: number): Observable<User> {
+        return this.httpGet('/users/' + id + '.json')
+        .pipe(
+            map((user: Object) => { return plainToClass(User, user); }),
+            catchError(this.handleError)
+        );
+    }
+
     deleteUser(user: User): Observable<Object> {
         return this.httpDelete('/users/' + user.id + '.json');
     }
@@ -193,6 +167,86 @@ export class BackendService{
         return observable
         .pipe(
             map((user: Object) => { return plainToClass(User, user); }),
+            catchError(this.handleError)
+        );
+    }
+
+    /************************************************************
+     *  Admins
+     ***********************************************************/
+    
+    getAdmins(): Observable<Admin[]> {
+        return this.httpGet('/admins.json')
+        .pipe(
+            map((admins: Object[]) => { return plainToClass(Admin, admins); }),
+            catchError(this.handleError)
+        );
+    }
+    
+    getAdmin(id: number): Observable<Admin> {
+        return this.httpGet('/admins/' + id + '.json')
+        .pipe(
+            map((admin: Object) => { return plainToClass(Admin, admin); }),
+            catchError(this.handleError)
+        );
+    }
+
+    deleteAdmin(admin: Admin): Observable<Object> {
+        return this.httpDelete('/admins/' + admin.id + '.json');
+    }
+
+    private patchAdmin(admin: Admin): Observable<Object> {
+        return this.httpPatch('/admins/' + admin.id + '.json', classToPlain(admin));
+    }
+
+    private postAdmin(admin: Admin): Observable<Object> {
+        return this.httpPost('/admins', classToPlain(admin));
+    }
+
+    saveAdmin(admin: Admin): Observable<Admin> {
+        let observable: Observable<Object>;
+        if(admin.id){
+            observable = this.patchAdmin(admin);
+        }
+        else {
+            observable = this.postAdmin(admin);
+        }
+        return observable
+        .pipe(
+            map((admin: Object) => { return plainToClass(Admin, admin); }),
+            catchError(this.handleError)
+        );
+    }
+
+    /************************************************************
+     *  Identifiers
+     ***********************************************************/
+
+    private handleIdentifierResponse(res: Object) {
+        if(res['type'] == 'user'){
+            return plainToClass(User, res);
+        }
+        else if(res['type'] == 'product'){
+            return plainToClass(Product, res);
+        }
+    }
+    
+    getItemByIdentifier(identifier: string): Observable<Identifiable> {
+        return this.httpGet('/identifiers/' + identifier + '.json')
+        .pipe(
+            map(this.handleIdentifierResponse),
+            catchError(this.handleError)
+        );
+    }
+
+    /************************************************************
+     *  Carts and Transactions
+     ***********************************************************/
+    
+    payCart(cart: Cart): Observable<PaymentTransaction> {
+        return this.httpPost('/carts/' + cart.id + '/pay.json', {'lock_version': cart.lock_version})
+        .pipe(
+            map((paymentTransaction: Object) => { return plainToClass(PaymentTransaction, paymentTransaction); }),
             catchError(this.handleError)
         );
     }

@@ -1,3 +1,4 @@
+export { Admin } from "./admin"
 export { Cart } from "./cart"
 export { CartItem } from "./cart-item"
 export { Identifiable } from "./identifiable"

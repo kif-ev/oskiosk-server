@@ -1,0 +1,32 @@
+<navbar></navbar>
+
+<div class="container-fluid">
+    <h1 class="mt-2"> Admins</h1>
+
+    <div class="form-inline">
+        <a routerLink="/admin/new" class="btn btn-success mr-2"><i class="fa fa-plus"></i> New admin</a>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-search"></i></span>
+            </div>
+            <input class="form-control" type="text" placeholder="Filter admins" [(ngModel)]="filter">
+        </div>
+    </div>
+
+    <table class="table table-striped mt-2">
+        <thead>
+            <tr>
+                <th class="text-left w-100">Admin email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of filteredAdmins">
+                <td>
+                    <a routerLink="/admin/{{ item.id }}" class="btn btn-sm btn-outline-primary mr-2"><i class="fa fa-edit"></i></a>
+                    <button (click)="deleteAdmin(item)" class="btn btn-sm btn-outline-danger mr-2"><i class="fa fa-trash"></i></button>
+                    {{ item.email }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
