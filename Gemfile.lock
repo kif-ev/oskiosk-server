@@ -53,8 +53,6 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     backports (3.13.0)
     bigdecimal (1.4.4)
-    bugsnag (6.11.1)
-      concurrent-ruby (~> 1.0)
     builder (3.2.3)
     capybara (3.17.0)
       addressable
@@ -267,7 +265,6 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on
   bigdecimal
-  bugsnag
   codeclimate-test-reporter
   cucumber-rails
   database_cleaner
@@ -297,4 +294,4 @@ RUBY VERSION
    ruby 2.5.0p0
 
 BUNDLED WITH
-   2.0.1
+   2.0.2

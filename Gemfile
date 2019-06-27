@@ -30,8 +30,6 @@ gem 'swagger-docs'
 
 gem 'rack-cors'
 
-gem 'bugsnag'
-
 #group :development do
 #  gem 'growl'
 #  gem 'guard'
