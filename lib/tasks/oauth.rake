@@ -1,3 +1,7 @@
+# for some reason not everything we'd need gets autloded on itself
+# https://github.com/kif-ev/oskiosk-server/issues/141
+require 'active_record/base'
+
 namespace :oauth do
   desc 'Create a new application/oauth_token'
   task :create_app, [:name, :type] => [:environment] do |t,args|
