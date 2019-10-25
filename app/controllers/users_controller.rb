@@ -123,4 +123,15 @@ class UsersController < APIController
       render json: user, status: :conflict, location: user
     end
   end
+
+  def destroy
+    user = User.find_by_id(params[:id])
+
+    if user.present?
+      user.destroy
+      render_no_content
+    else
+      render_not_found
+    end
+  end
 end

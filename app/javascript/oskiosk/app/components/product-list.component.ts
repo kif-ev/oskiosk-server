@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 
-import { BackendService } from "../services";
+import { BackendService, FlashMessageService } from "../services";
 import { Product } from "../models";
 
 @Component({
@@ -39,7 +39,25 @@ export class ProductListComponent implements OnInit{
         }
     }
 
-    constructor(private backendService: BackendService) { }
+    constructor(
+        private backendService: BackendService,
+        private flashMessageService: FlashMessageService
+    ) { }
+
+    deleteProduct(product): void {
+        if(!confirm("Are you sure you want to delete product " + product.name + "? This can not be undone!"))
+            return;
+        this.backendService.deleteProduct(product)
+            .subscribe(
+                response => {
+                    this.flashMessageService.flash('Product deleted.', 'alert-success');
+                    this.getProducts();
+                },
+                error => {
+                    this.flashMessageService.flash('Failed to delete product!', 'alert-danger')
+                }
+            );
+    }
 
     getProducts(): void {
         this.backendService.getProducts().subscribe(products => {

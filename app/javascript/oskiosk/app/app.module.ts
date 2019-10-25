@@ -8,22 +8,24 @@ import { AngularTokenModule } from 'angular-token';
 
 import { AppComponent } from './app.component';
 
-import { 
-  ProductListComponent,
+import {
+  AdminEditComponent,
+  AdminListComponent,
+  CashPointComponent,
+  HomeComponent,
+  FlashMessageComponent,
+  LoginComponent,
+  LogoutComponent,
+  NavbarComponent,
   ProductEditComponent,
   ProductImportComponent,
-  UserListComponent,
+  ProductListComponent,
+  SalesPointComponent,
+  SelfServicePointComponent,
   UserEditComponent,
   UserImportComponent,
-  SalesPointComponent,
-  CashPointComponent,
-  SelfServicePointComponent,
-  NavbarComponent,
-  FlashMessageComponent,
-  WaitIndicatorComponent,
-  HomeComponent,
-  LoginComponent,
-  LogoutComponent
+  UserListComponent,
+  WaitIndicatorComponent
 } from "./components";
 import { FlashMessageService, BackendService } from "./services";
 
@@ -31,21 +33,23 @@ import { FlashMessageService, BackendService } from "./services";
 @NgModule({
   declarations: [
     AppComponent,
-    ProductEditComponent,
-    ProductListComponent,
-    ProductImportComponent,
-    UserEditComponent,
-    UserListComponent,
-    UserImportComponent,
-    SalesPointComponent,
+    AdminEditComponent,
+    AdminListComponent,
     CashPointComponent,
-    SelfServicePointComponent,
-    NavbarComponent,
     FlashMessageComponent,
-    WaitIndicatorComponent,
     HomeComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    NavbarComponent,
+    ProductEditComponent,
+    ProductImportComponent,
+    ProductListComponent,
+    SalesPointComponent,
+    SelfServicePointComponent,
+    UserEditComponent,
+    UserImportComponent,
+    UserListComponent,
+    WaitIndicatorComponent
   ],
   imports: [
     BrowserModule,
@@ -88,6 +92,18 @@ import { FlashMessageService, BackendService } from "./services";
       {
         path: 'user/:id',
         component: UserEditComponent
+      },
+      {
+        path: 'admins',
+        component: AdminListComponent
+      },
+      {
+        path: 'admin/new',
+        component: AdminEditComponent
+      },
+      {
+        path: 'admin/:id',
+        component: AdminEditComponent
       },
       {
         path: 'sales-point',

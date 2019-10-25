@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { User } from "../models";
-import { BackendService } from "../services/backend.service";
+import { BackendService, FlashMessageService } from "../services";
 
 @Component({
     selector: 'user-list',
@@ -21,7 +21,10 @@ export class UserListComponent implements OnInit{
         this.filterUsers();
     }
 
-    constructor(private backendService: BackendService) { }
+    constructor(
+        private backendService: BackendService,
+        private flashMessageService: FlashMessageService
+    ) { }
 
     filterUsers(): void {
         this.filteredUsers = [];
@@ -38,6 +41,21 @@ export class UserListComponent implements OnInit{
                 }
             }
         }
+    }
+
+    deleteUser(user): void {
+        if(!confirm("Are you sure you want to delete user " + user.name + "? This can not be undone!"))
+            return;
+        this.backendService.deleteUser(user)
+            .subscribe(
+                response => {
+                    this.flashMessageService.flash('User deleted.', 'alert-success');
+                    this.getUsers();
+                },
+                error => {
+                    this.flashMessageService.flash('Failed to delete user!', 'alert-danger')
+                }
+            );
     }
 
     getUsers(): void {
