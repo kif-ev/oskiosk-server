@@ -20,9 +20,13 @@ config/database.yml
 # Ignore coverage data
 /coverage
 
+# Ignore javascript foobar
 /public/packs
 /public/packs-test
 /node_modules
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# Ignore local .ruby-version
+/.ruby-version
