@@ -17,7 +17,7 @@ RSpec.describe ProductsController, type: :controller do
     context 'when the resource exists' do
       let(:product_id) {'1'}
 
-      its(:content_type) {is_expected.to eq 'application/json'}
+      its(:media_type) { is_expected.to eq 'application/json' }
       it {is_expected.to have_http_status(:ok)}
     end
 
@@ -34,12 +34,12 @@ RSpec.describe ProductsController, type: :controller do
     context 'when there are products' do
       before {(1..3).each {|y| Product.find_by_id(y) || create(:product, id: y)}}
 
-      its(:content_type) {is_expected.to eq 'application/json'}
+      its(:media_type) { is_expected.to eq 'application/json' }
       it {is_expected.to have_http_status(:ok)}
     end
 
     context 'when there are no products' do
-      its(:content_type) {is_expected.to eq 'application/json'}
+      its(:media_type) { is_expected.to eq 'application/json' }
       it {is_expected.to have_http_status(:ok)}
     end
   end
@@ -57,7 +57,7 @@ RSpec.describe ProductsController, type: :controller do
       describe 'the request' do
         before { post :create, body: JSON.generate(valid_attributes) }
 
-        its(:content_type) { is_expected.to eq 'application/json' }
+        its(:media_type) { is_expected.to eq 'application/json' }
         it { is_expected.to have_http_status(:created) }
       end
     end
@@ -83,7 +83,7 @@ RSpec.describe ProductsController, type: :controller do
     describe 'the request' do
       before { put :update, body: JSON.generate(valid_attributes), params: { id: '1' } }
 
-      its(:content_type) {is_expected.to eq 'application/json'}
+      its(:media_type) { is_expected.to eq 'application/json' }
       it {is_expected.to have_http_status(:success)}
     end
   end

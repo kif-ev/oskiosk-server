@@ -17,7 +17,7 @@ RSpec.describe UsersController, type: :controller do
     context 'when the resource exists' do
       let(:user_id) {'1'}
 
-      its(:content_type) {is_expected.to eq 'application/json'}
+      its(:media_type) { is_expected.to eq 'application/json' }
       it {is_expected.to have_http_status(:ok)}
     end
 
@@ -41,7 +41,7 @@ RSpec.describe UsersController, type: :controller do
       describe 'the request' do
         before { post :create, body: JSON.generate(valid_attributes) }
 
-        its(:content_type) { is_expected.to eq 'application/json' }
+        its(:media_type) { is_expected.to eq 'application/json' }
         it { is_expected.to have_http_status(:created) }
       end
     end
@@ -67,7 +67,7 @@ RSpec.describe UsersController, type: :controller do
     describe 'the request' do
       before { put :update, body: JSON.generate(valid_attributes), params: { id: '1' } }
 
-      its(:content_type) {is_expected.to eq 'application/json'}
+      its(:media_type) { is_expected.to eq 'application/json' }
       it {is_expected.to have_http_status(:success)}
     end
   end

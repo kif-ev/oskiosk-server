@@ -14,7 +14,7 @@ RSpec.describe IdentifiersController, type: :controller do
     before { get :show, params: { id: code } }
 
     context 'when the resource exists' do
-      its(:content_type) {is_expected.to eq 'application/json'}
+      its(:media_type) { is_expected.to eq 'application/json' }
       it {is_expected.to have_http_status(:ok)}
 
       describe 'the JSON response' do
