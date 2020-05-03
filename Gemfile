@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '~> 2.4'
+ruby '~> 2.5'
 
 # explicit dependencies on stdlib stuff
 gem 'bigdecimal'
@@ -41,7 +41,7 @@ gem 'rack-cors'
 group :test do
   gem 'factory_bot_rails'
   gem 'rspec'
-  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-rails'
   gem 'rspec-its'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
