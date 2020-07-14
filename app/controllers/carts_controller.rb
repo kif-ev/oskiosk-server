@@ -48,6 +48,9 @@ class CartsController < ApplicationController
     property :id, :integer, :optional, 'Cart ID'
     property :user_id, :integer, :optional, 'User ID'
     property :total_price, :integer, :optional, 'Total Cart price'
+    property :expires_at, :date_time, :optional,
+             'Date and time at which the cart expires, making it read-only, '\
+             'not payable for, and releasing product reservations'
     property :lock_version, :integer, :optional, 'Cart version'
     property :cart_items, :array, :optional, 'Cart Items',
       'items' => {'$ref' => 'readCartItem'}
@@ -76,7 +79,7 @@ class CartsController < ApplicationController
   before_action -> { doorkeeper_authorize! :checkout }
 
   def show
-    cart = Cart.find_by_id(params[:id])
+    cart = Cart.find_by(id: params[:id])
 
     if cart.present?
       render json: cart
@@ -103,6 +106,7 @@ class CartsController < ApplicationController
     if cart.save
       render json: cart, status: :ok, location: cart
     else
+      cart.reload
       render json: cart, status: :conflict, location: cart
     end
   end

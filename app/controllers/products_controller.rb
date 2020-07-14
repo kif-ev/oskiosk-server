@@ -106,7 +106,7 @@ class ProductsController < ApplicationController
   before_action -> { doorkeeper_authorize! :admin }, only: [:create, :update]
 
   def show
-    product = Product.find_by_id(params[:id])
+    product = Product.find_by(id: params[:id])
 
     if product.present?
       render json: product

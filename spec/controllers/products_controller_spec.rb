@@ -11,7 +11,7 @@ RSpec.describe ProductsController, type: :controller do
   }
 
   describe '#show' do
-    before {Product.find_by_id(1) || create(:product, id: 1)}
+    before { Product.find_by(id: 1) || create(:product, id: 1) }
     before { get :show, params: { id: product_id } }
 
     context 'when the resource exists' do
@@ -32,7 +32,9 @@ RSpec.describe ProductsController, type: :controller do
     before {get :index}
 
     context 'when there are products' do
-      before {(1..3).each {|y| Product.find_by_id(y) || create(:product, id: y)}}
+      before do
+        (1..3).each { |y| Product.find_by(id: y) || create(:product, id: y) }
+      end
 
       its(:media_type) { is_expected.to eq 'application/json' }
       it {is_expected.to have_http_status(:ok)}
@@ -65,14 +67,14 @@ RSpec.describe ProductsController, type: :controller do
 
   describe '#update via JSON' do
     before do
-      product = Product.find_by_id(1) || create(:product, id: 1)
+      product = Product.find_by(id: 1) || create(:product, id: 1)
       product.update_attribute(:name, 'Turbriskafil')
     end
     before { request.env['CONTENT_TYPE'] = 'application/json' }
 
     describe 'with valid parameters' do
       it 'updates the Product 1' do
-        product = Product.find_by_id(1)
+        product = Product.find_by(id: 1)
         expect {
           put :update, body: JSON.generate(valid_attributes), params: { id: '1' }
           product.reload

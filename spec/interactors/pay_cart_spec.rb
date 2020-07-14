@@ -31,7 +31,7 @@ RSpec.describe PayCart do
     end
 
     before do
-      allow(Cart).to receive(:find_by_id!).with(cart.id).and_return(cart)
+      allow(Cart).to receive(:find_by!).with(id: cart.id).and_return(cart)
     end
 
     context 'when everything is swell' do
@@ -108,7 +108,7 @@ RSpec.describe PayCart do
 
     context 'when there\'s no cart with that ID' do
       before do
-        allow(Cart).to receive(:find_by_id!).with(cart.id).
+        allow(Cart).to receive(:find_by!).with(id: cart.id).
           and_raise(ActiveRecord::RecordNotFound)
       end
 
@@ -162,8 +162,9 @@ RSpec.describe PayCart do
 
     context 'when things come in fast', :transactional do
       it 'shouldn\'t do things twice' do
-        # Always returning the same cart object shares it between threads
-        allow(Cart).to receive(:find_by_id!).with(cart.id).and_call_original
+        # Don't return the object in the cart variable, as this would share
+        # the same instance of the object between all threads
+        allow(Cart).to receive(:find_by!).with(id: cart.id).and_call_original
         expect do
           threaded(3) do
             PayCart.new(

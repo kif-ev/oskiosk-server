@@ -11,7 +11,7 @@ RSpec.describe UsersController, type: :controller do
   }
 
   describe '#show' do
-    before {User.find_by_id(1) || create(:user, id: 1)}
+    before { User.find_by(id: 1) || create(:user, id: 1) }
     before { get :show, params: { id: user_id } }
 
     context 'when the resource exists' do
@@ -49,14 +49,14 @@ RSpec.describe UsersController, type: :controller do
 
   describe '#update via JSON' do
     before do
-      user = User.find_by_id(1) || create(:user, id: 1)
+      user = User.find_by(id: 1) || create(:user, id: 1)
       user.update_attribute(:name, 'Sheldon')
     end
     before { request.env['CONTENT_TYPE'] = 'application/json' }
 
     describe 'with valid parameters' do
       it 'updates the User 1' do
-        user = User.find_by_id(1)
+        user = User.find_by(id: 1)
         expect {
           put :update, body: JSON.generate(valid_attributes), params: { id: '1' }
           user.reload

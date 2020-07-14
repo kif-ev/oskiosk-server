@@ -9,7 +9,7 @@ RSpec.describe ResolveCartAndUser do
     let(:cart) { double user: user }
 
     before do
-      allow(Cart).to receive(:find_by_id!).with(1).and_return(cart)
+      allow(Cart).to receive(:find_by!).with(id: 1).and_return(cart)
     end
 
     context 'when the cart exists' do
@@ -30,7 +30,7 @@ RSpec.describe ResolveCartAndUser do
 
     context 'when the cart doesn\'t exist' do
       before do
-        allow(Cart).to receive(:find_by_id!).with(1).
+        allow(Cart).to receive(:find_by!).with(id: 1).
           and_raise(ActiveRecord::RecordNotFound)
       end
       before { interactor.call rescue Interactor::Failure }

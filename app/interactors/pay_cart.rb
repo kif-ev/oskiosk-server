@@ -2,6 +2,7 @@ class PayCart
   include Interactor::Organizer
 
   organize ResolveCartAndUser,
+           AbortIfExpiredCart,
            MarkCartAsProcessing,
            InitializeTransaction,
            LogRequestingClientInTransaction,

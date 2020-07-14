@@ -69,7 +69,7 @@ class TransactionsController < ApplicationController
   before_action :doorkeeper_authorize!
 
   def show
-    transaction = Transaction.find_by_id(params[:id])
+    transaction = Transaction.find_by(id: params[:id])
 
     if transaction.present?
       renter json: transaction

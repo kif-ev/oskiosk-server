@@ -11,7 +11,7 @@ RSpec.describe CartsController, type: :controller do
   }
 
   describe '#show' do
-    before {Cart.find_by_id(1) || create(:cart, id: 1)}
+    before { Cart.find_by(id: 1) || create(:cart, id: 1) }
     before { get :show, params: { id: cart_id } }
 
     context 'when the resource exists' do
@@ -49,14 +49,14 @@ RSpec.describe CartsController, type: :controller do
 
   describe '#update via JSON' do
     before do
-      cart = Cart.find_by_id(1) || create(:cart, id: 1)
+      cart = Cart.find_by(id: 1) || create(:cart, id: 1)
       cart.update_attribute(:user_id, 2)
     end
     before {request.env['CONTENT_TYPE'] = 'application/json'}
 
     describe 'with valid parameters' do
       it 'updates the Cart 1' do
-        cart = Cart.find_by_id(1)
+        cart = Cart.find_by(id: 1)
         expect {
           put :update, body: JSON.generate(valid_attributes), params: { id: '1' }
           cart.reload

@@ -5,6 +5,8 @@ class CartItem < ActiveRecord::Base
 
   validate :enough_items_present_in_pricing
 
+  scope :unexpired, -> { joins(:cart).where(Cart.unexpired_condition) }
+
   def product_name
     product.try(:name) || ''
   end

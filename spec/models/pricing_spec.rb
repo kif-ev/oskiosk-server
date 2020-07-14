@@ -11,7 +11,10 @@ RSpec.describe Pricing, type: :model do
     end
 
     context 'there are currently blocked items' do
-      before {create_list(:cart_item, 2, pricing: pricing, quantity: 2)}
+      before do
+        cart = create(:cart)
+        create_list(:cart_item, 2, cart: cart, pricing: pricing, quantity: 2)
+      end
       it {is_expected.to eq 6}
     end
   end
