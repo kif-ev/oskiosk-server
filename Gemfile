@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-ruby '~> 2.5'
+ruby '~> 2.6'
 
 # explicit dependencies on stdlib stuff
 gem 'bigdecimal'
 gem 'json'
 
-gem 'rails', '~> 6.0.2'
+gem 'rails', '~> 6.1.1'
 
 gem 'unicorn'
 
