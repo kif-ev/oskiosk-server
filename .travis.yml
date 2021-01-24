@@ -4,8 +4,8 @@ sudo: false
 services:
   - postgresql
 rvm:
-  - 2.5
   - 2.6
+  - 2.7
 before_script:
   - cp config/database.yml_travis config/database.yml
   - bundle exec rake db:create
