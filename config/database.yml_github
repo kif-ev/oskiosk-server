@@ -4,5 +4,7 @@
 test:
   adapter: postgresql
   encoding: utf8
+  host: postgres
   database: oskiosk_test
   username: postgres
+  password: postgres
