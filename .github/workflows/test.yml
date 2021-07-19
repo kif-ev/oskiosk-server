@@ -31,7 +31,5 @@ jobs:
           bundler-cache: true
       - name: Copy database config
         run: cp config/database.yml_github config/database.yml
-      - name: Create test database
-        run: bundle exec rake db:create
       - name: Run tests
         run: bundle exec rake
