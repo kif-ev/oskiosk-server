@@ -136,7 +136,7 @@ GEM
     diff-lcs (1.4.4)
     diffy (3.4.0)
     docile (1.1.5)
-    doorkeeper (5.5.2)
+    doorkeeper (5.5.3)
       railties (>= 5)
     erubi (1.10.0)
     factory_bot (6.2.0)
