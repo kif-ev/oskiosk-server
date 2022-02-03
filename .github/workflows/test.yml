@@ -1,0 +1,35 @@
+name: OSKiosk tests
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    strategy:
+      matrix:
+        ruby-version: [ '2.6', '2.7' ]
+    env:
+      RAILS_ENV: test
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
+      - name: Copy database config
+        run: cp config/database.yml_github config/database.yml
+      - name: Run tests
+        run: bundle exec rake
