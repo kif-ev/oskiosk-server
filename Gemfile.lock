@@ -216,9 +216,9 @@ GEM
       thor (~> 1.0)
     raindrops (0.20.0)
     rake (13.0.6)
-    ransack (2.5.0)
-      activerecord (>= 5.2.4)
-      activesupport (>= 5.2.4)
+    ransack (2.6.0)
+      activerecord (>= 6.0.4)
+      activesupport (>= 6.0.4)
       i18n
     regexp_parser (2.2.1)
     representable (3.1.1)
