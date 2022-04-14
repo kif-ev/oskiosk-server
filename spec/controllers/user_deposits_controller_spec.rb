@@ -7,7 +7,7 @@ RSpec.describe UserDepositsController, type: :controller do
   let(:token) { double acceptable?: true, application: application }
   before { allow(controller).to receive(:doorkeeper_token).and_return(token) }
 
-  let(:transaction) { Transaction.new }
+  let(:transaction) { create :transaction }
   let(:context) { double success?: true, transaction: transaction }
 
   describe '#create' do
