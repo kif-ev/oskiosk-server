@@ -1,9 +1,9 @@
 class ProductRepresenter < ApplicationDecorator
   property :type, getter: ->(_) {'product'}, writeable: false
-  property :id, writeable: false, type: Integer
+  property :id, writeable: false, type: Representable::Coercion::Types::Params::Integer
   property :name
-  property :quantity, writeable: false, type: Integer
-  property :available_quantity, writeable: false, type: Integer
+  property :quantity, writeable: false, type: Representable::Coercion::Types::Params::Integer
+  property :available_quantity, writeable: false, type: Representable::Coercion::Types::Params::Integer
   collection(
     :tags,
     decorator: TagRepresenter,

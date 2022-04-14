@@ -16,6 +16,7 @@ gem 'representable'
 gem 'roar'
 gem 'multi_json'
 gem 'virtus'
+gem 'dry-types'
 gem 'interactor-rails'
 
 gem 'doorkeeper'

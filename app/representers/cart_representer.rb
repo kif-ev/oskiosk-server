@@ -1,9 +1,9 @@
 class CartRepresenter < ApplicationDecorator
   property :type, getter: ->(_) {'cart'}, writeable: false
-  property :id, writeable: false, type: Integer
-  property :lock_version, type: Integer
-  property :user_id, type: Integer
-  property :total_price, writeable: false, type: Integer
+  property :id, writeable: false, type: Representable::Coercion::Types::Params::Integer
+  property :lock_version, type: Representable::Coercion::Types::Params::Integer
+  property :user_id, type: Representable::Coercion::Types::Params::Integer.optional
+  property :total_price, writeable: false, type: Representable::Coercion::Types::Params::Integer
 
   collection(
     :cart_items,

@@ -1,3 +1,3 @@
 class DepositRepresenter < ApplicationDecorator
-  property :amount, type: Integer, default: 0
+  property :amount, type: Representable::Coercion::Types::Params::Integer, default: 0
 end

@@ -1,11 +1,11 @@
 class TransactionRepresenter < ApplicationDecorator
   property :type, getter: ->(_) {'transaction'}, writeable: false
   property :transaction_type, writeable: false
-  property :id, writeable: false, type: Integer
+  property :id, writeable: false, type: Representable::Coercion::Types::Params::Integer
   property :user_name, writeable: false
-  property :user_id, writeable: false, type: Integer
-  property :amount, writeable: false, type: Integer
-  property :created_at, writeable: false, type: DateTime
+  property :user_id, writeable: false, type: Representable::Coercion::Types::Params::Integer
+  property :amount, writeable: false, type: Representable::Coercion::Types::Params::Integer
+  property :created_at, writeable: false
   collection(
     :transaction_items,
     writeable: false,
