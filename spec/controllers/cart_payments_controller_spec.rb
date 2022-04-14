@@ -7,7 +7,7 @@ RSpec.describe CartPaymentsController, type: :controller do
   let(:application) { build :doorkeeper_application }
   before { allow(controller).to receive(:doorkeeper_token).and_return(token) }
 
-  let(:transaction) { build :transaction }
+  let(:transaction) { create :transaction }
   let(:context) { double success?: true, transaction: transaction }
 
   describe '#create' do

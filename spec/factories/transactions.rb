@@ -4,6 +4,7 @@ FactoryBot.define do
       items { [] }
     end
 
+    association :user
     transaction_type { 'some_type' }
     user_name { user.name if user.present? }
     created_at { DateTime.now }
