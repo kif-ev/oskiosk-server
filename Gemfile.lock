@@ -255,7 +255,7 @@ GEM
       zeitwerk (~> 2.5)
     raindrops (0.20.0)
     rake (13.0.6)
-    ransack (3.0.1)
+    ransack (3.1.0)
       activerecord (>= 6.0.4)
       activesupport (>= 6.0.4)
       i18n
